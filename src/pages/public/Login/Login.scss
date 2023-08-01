@@ -72,3 +72,15 @@
   margin-bottom: 2rem;
   border: 0;
 }
+
+.simpleText {
+  cursor: text;
+  border: 0;
+  text-align: left;
+  padding: 0 !important;
+  font-size: 16px;
+  // transition: none;
+  &:hover {
+    background-color: transparent;
+  }
+}

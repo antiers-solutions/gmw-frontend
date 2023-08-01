@@ -91,6 +91,10 @@ const Header = (props: {
       setSearch(value);
       props.getSearchData(value);
     }
+    if (!value) {
+      setSearch(value);
+      props.getSearchData(value);
+    }
   };
 
   return (

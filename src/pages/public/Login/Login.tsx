@@ -14,7 +14,7 @@ const Login = () => {
   const [loader, setLoader] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [token, setToken] = useState("");
-
+  const [error, setError] = useState("");
   const navigate = useNavigate(); // React Router hook for changing routes
   const { login } = api; // API endpoint URLs
 
@@ -44,13 +44,16 @@ const Login = () => {
           const gitCode = await axios.post(login(), {
             access_token: response?.code,
           });
+          console.log(gitCode?.data?.data);
           // Check if the server response contains a data
-          if (gitCode.data) {
+          if (gitCode?.data?.data?.gitId) {
             // Store the data in local storage
             localStorage.setItem("isLogged", JSON.stringify(gitCode.data.data));
             // Reload the window (this might not be necessary, depending on your use case)
             window.location.reload();
             // Redirect to the dashboard
+          } else {
+            setError("Please enter valid credentials");
           }
         } catch (e) {}
       }
@@ -89,7 +92,7 @@ const Login = () => {
             <div className="login-card-btns">
               <CommonButton
                 title="GitHub Access Token"
-                className="primary"
+                className={showInput ? "simpleText" : "primary"}
                 onClick={() => setShowInput(true)}
               />
 
@@ -99,10 +102,13 @@ const Login = () => {
                     <input
                       className="form-control"
                       type="password"
-                      onChange={(e) => setToken(e.target.value)}
+                      onChange={(e) => {
+                        setToken(e.target.value);
+                        setError("");
+                      }}
                       placeholder="Enter Token"
                     />
-
+                    <span className="text-danger">{error ? error : null}</span>
                     <CommonButton
                       className=" primary my-4 w-100"
                       title="Submit"

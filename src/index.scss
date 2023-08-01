@@ -188,3 +188,16 @@ input[type="number"] {
 .red {
   color: $red !important;
 }
+
+.width_td {
+  tr {
+    td {
+      &:nth-child(1) {
+        width: 300px;
+        max-width: 300px;
+        min-width: 300px;
+        white-space: normal;
+      }
+    }
+  }
+}

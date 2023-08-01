@@ -96,6 +96,9 @@ const TeamMergeModal = (props: any) => {
     if (alphaNumeric.test(value)) {
       name === "search" ? setSearch(value) : setTeamName(value);
     }
+    if (!value) {
+      name === "search" ? setSearch(value) : setTeamName(value);
+    }
   };
 
   return (

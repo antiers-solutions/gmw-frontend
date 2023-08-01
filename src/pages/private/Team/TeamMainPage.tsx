@@ -34,6 +34,7 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
   const { allTeam, teamByName } = api;
 
   const getTeamData: any = async (url: string) => {
+    setLoader(true);
     // Fetch team data using the provided API URL
     try {
       const team = await UseGetApi(url);
@@ -59,7 +60,7 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
     }
 
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [search, pageNo, pageLimit]);
 
   const [show, setShow] = useState(false);
 
@@ -83,12 +84,13 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
         {loader ? <Loader /> : null}
         <CustomTable
           fields={fields}
-          pagination={!search}
+          pagination={!search && teamDataCount > pageLimit}
           handleNextClick={() => pageNo >= 1 && setPageNo(pageNo + 1)}
           handlePrevClick={() => pageNo > 1 && setPageNo(pageNo - 1)}
           PageLimit={pageLimit}
           handlePageNumberClick={(value: number) => setPageNo(value)}
           totalCount={teamDataCount || 0}
+          pageNo={pageNo}
         >
           {teamDataArray.length
             ? teamDataArray?.map((item: any) => {

@@ -129,8 +129,9 @@ const Dashboard = ({ search }: { search: string }) => {
       </Row>
       <h6 className="title mb-4">Projects List</h6>
       <CustomTable
+        className="width_td"
         fields={fields}
-        pagination={!search}
+        pagination={!search && projectDataCount > pageLimit}
         handleNextClick={() => pageNo >= 1 && setPageNo(pageNo + 1)}
         handlePrevClick={() => pageNo > 1 && setPageNo(pageNo - 1)}
         handlePageNumberClick={(value: number) => setPageNo(value)}
@@ -149,7 +150,7 @@ const Dashboard = ({ search }: { search: string }) => {
                     navigate(`/auth/projects/${item.id}`);
                   }}
                 >
-                  <td className="fw600">
+                  <td className="fw600 setWidth">
                     {firstLetterCapitalize(item?.project_name) || "-"}
                   </td>
                   <td>{item.start_date || "-"}</td>
