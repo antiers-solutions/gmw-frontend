@@ -1,0 +1,53 @@
+@import "../../../../assets/theme/_var.scss";
+
+.common-modal {
+  .modal {
+    &-dialog {
+      padding: 0 1rem;
+    }
+    &-content {
+      border-radius: 1.6rem;
+      background-color: $white;
+      border: 0.1rem solid $borderClr;
+      color: $darkBlue;
+    }
+    &-header {
+      border: none;
+      padding: 0;
+      z-index: 1;
+      padding: 2.4rem 3rem;
+      border-bottom: 0.1rem solid 0;
+
+      .close_btn {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        position: absolute;
+        top: 2.4rem;
+        right: 2.8rem;
+        background-color: $white;
+        border: 1px solid rgba($color: $darkBlue, $alpha: 0.6);
+
+        svg {
+          flex-shrink: 0;
+          path {
+            fill: rgba($color: $darkBlue, $alpha: 0.6);
+          }
+        }
+      }
+    }
+
+    &-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: $darkBlue;
+    }
+
+    &-body {
+      padding: 1.6rem;
+    }
+  }
+}

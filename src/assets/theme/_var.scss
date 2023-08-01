@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+$baseFont: "Inter", sans-serif;
+
+$white: #ffffff;
+$lightWhite: #f0f5ff;
+$black: #000000;
+$skyBlue: #4f86ff;
+$darkBlue: #324168;
+$lightBlue: #a4b6e1;
+$lightBlue2: #99abd8;
+$gradient: linear-gradient(87.95deg, #005ffe -1.76%, #0096d5 103.74%);
+$borderClr: rgba(0, 0, 0, 0.1);
+
+$yellow: #ffb931;
+$green: #00ce90;
+$purple: #a431ff;
+$pink: #ff499c;
+$red: #ff2525;
+
+// extends
+%transition {
+  transition: 0.3s all ease-in-out;
+}
+
+// @extend %transition;

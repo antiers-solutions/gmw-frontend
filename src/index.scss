@@ -1,0 +1,190 @@
+@import "~bootstrap/scss/bootstrap";
+@import "./assets/theme/_var.scss";
+
+html {
+  font-size: 62.5%;
+  body {
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+    font-family: $baseFont;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $darkBlue;
+    letter-spacing: 0.03em;
+  }
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+      monospace;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  background-color: $white;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+span {
+  display: inline-block;
+}
+
+.row {
+  margin: 0 -10px;
+  > div {
+    padding: 0 10px;
+  }
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+ul,
+ol,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+  font-weight: 600;
+}
+h2,
+.h2 {
+  font-size: 3rem;
+  @media (max-width: 1439px) {
+    font-size: 2.6rem;
+  }
+  @media (max-width: 991px) {
+    font-size: 2.4rem;
+  }
+  @media (max-width: 575px) {
+    font-size: 2.2rem;
+  }
+}
+h3,
+.h3 {
+  font-size: 2.4rem;
+  @media (max-width: 1439px) {
+    font-size: 2.2rem;
+  }
+  @media (max-width: 991px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.8rem;
+  }
+}
+h4,
+.h4 {
+  font-size: 2.2rem;
+  @media (max-width: 1439px) {
+    font-size: 2rem;
+  }
+  @media (max-width: 991px) {
+    font-size: 1.8rem;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.6rem;
+  }
+}
+h5,
+.h5 {
+  font-size: 2rem;
+  @media (max-width: 1439px) {
+    font-size: 1.8rem;
+  }
+  @media (max-width: 991px) {
+    font-size: 1.6rem;
+  }
+  @media (max-width: 575px) {
+    font-size: 1.4rem;
+  }
+}
+
+h6,
+.h6 {
+  font-size: 1.8rem;
+  @media (max-width: 1439px) {
+    font-size: 1.6rem;
+  }
+}
+p,
+.p {
+  font-size: 1.4rem;
+
+  @media (max-width: 767px) {
+    font-size: 1.2rem;
+  }
+}
+
+small,
+.small {
+  font-size: 1.4rem;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.title {
+  color: $darkBlue;
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+  @media (max-width: 991px) {
+    margin-bottom: 1rem;
+  }
+}
+
+// utilities
+
+.inner-layout {
+  &__btns {
+    margin-bottom: 2rem;
+
+    button:first-child {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.yellow {
+  color: $yellow !important;
+}
+
+.green {
+  color: $green !important;
+}
+
+.red {
+  color: $red !important;
+}

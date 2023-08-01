@@ -1,0 +1,44 @@
+@import "../../../assets/theme/_var.scss";
+
+.btn-style {
+  font-weight: 500;
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  padding: 1.1rem 1.9rem;
+  text-transform: capitalize;
+  border-radius: 1rem;
+  border: 0.1rem solid $lightBlue;
+  background: transparent;
+  color: $darkBlue;
+  min-width: 9rem;
+  @extend %transition;
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background: rgba($lightBlue, 0.1);
+  }
+
+  &.active {
+    color: $white;
+    background: $gradient padding-box, $gradient border-box;
+    border: 0.1rem solid transparent;
+  }
+
+  &.primary {
+    background: $gradient padding-box, $gradient border-box;
+    border: 0.1rem solid transparent;
+    color: $white;
+
+    &:hover {
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+  }
+  &.btn-lg {
+    font-weight: 600;
+    padding: 1.8rem;
+  }
+}

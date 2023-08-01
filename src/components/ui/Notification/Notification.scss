@@ -1,0 +1,50 @@
+@import "../../../assets/theme/_var.scss";
+
+.notification {
+  &__item {
+    padding: 1.2rem 2.1rem;
+    display: flex;
+    @media (max-width: 767px) {
+      padding: 1rem 1.5rem;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid $borderClr;
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 1.4rem;
+    border-radius: 50%;
+    background-color: $lightBlue;
+    overflow: hidden;
+
+    @media (max-width: 767px) {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    margin-bottom: 0.6rem;
+
+    p {
+      font-size: 1.2rem;
+      color: $black;
+      margin-bottom: 0.7rem;
+    }
+    small {
+      color: $black;
+      font-size: 1rem;
+    }
+  }
+}

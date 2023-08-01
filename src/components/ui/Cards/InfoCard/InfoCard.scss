@@ -1,0 +1,103 @@
+@import "../../../../assets/theme/_var.scss";
+
+.info-card {
+  background: $white;
+  border-radius: 1.2rem;
+  padding: 2.7rem 2.5rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.03em;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 9.2rem;
+    height: 9.2rem;
+    right: -3.5rem;
+    bottom: -5rem;
+    background: $yellow;
+    opacity: 0.2;
+    filter: blur(50px);
+    border-radius: 10rem;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 4.6rem;
+    height: 4.6rem;
+    border-radius: 1rem;
+    // border-radius: 5rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+
+    svg {
+      width: 1.7rem;
+      height: 1.7rem;
+      path {
+        fill: $white;
+      }
+    }
+  }
+  .icon-bg {
+    background: $yellow;
+  }
+
+  &__content {
+    h6 {
+      margin-bottom: 0.7rem;
+      line-height: 1;
+      small {
+        font-weight: 600;
+        margin-left: 0.9rem;
+
+        &.positive {
+          color: #22dc4b;
+        }
+
+        &.negtive {
+          color: #ff2525;
+        }
+      }
+    }
+    p {
+      font-size: 1.4rem;
+      line-height: 1;
+      color: rgba($darkBlue, 0.5);
+    }
+  }
+
+  &.green {
+    &::before {
+      background: $green;
+    }
+
+    .icon-bg {
+      background: $green;
+    }
+  }
+
+  &.purple {
+    &::before {
+      background: $purple;
+    }
+
+    .icon-bg {
+      background: $purple;
+    }
+  }
+
+  &.pink {
+    &::before {
+      background: $pink;
+    }
+
+    .icon-bg {
+      background: $pink;
+    }
+  }
+}

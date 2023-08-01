@@ -1,0 +1,75 @@
+@import "../../../../assets/theme/_var.scss";
+
+.notification-dropdown {
+  margin-right: 1.5rem;
+
+  border-radius: 1rem;
+
+  @media (max-width: 767px) {
+    margin-right: 1rem;
+  }
+
+  .dropdown-menu {
+    width: 30rem;
+  }
+  &__head {
+    color: $darkBlue;
+    font-size: 1.3rem;
+    padding: 1.7rem 2.1rem 0.8rem;
+    border-bottom: 0.1rem solid $borderClr;
+
+    @media (max-width: 767px) {
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .checkboxStyle {
+      .form-check-input {
+        width: 1.44rem;
+        height: 1.44rem;
+        margin-top: 0;
+        background-size: cover;
+      }
+
+      .form-check-label {
+        font-size: 1rem;
+        margin-left: 0.6rem;
+        // color: $baseColor2;
+      }
+    }
+  }
+
+  &__body {
+    height: 23rem;
+    padding-bottom: 1rem;
+    @media (max-width: 767px) {
+      height: 21.4rem;
+    }
+  }
+  &__content {
+    // padding-bottom: 3rem;
+    // @media (max-width: 767px) {
+    //   padding-bottom: 1.5rem;
+    // }
+
+    .commonBtn {
+      height: 5rem;
+      font-size: 1.6rem;
+      margin: 0 2.1rem;
+      @media (max-width: 767px) {
+        height: 4rem;
+        font-size: 1.3rem;
+        margin: 0 1.5rem;
+      }
+    }
+
+    &::after {
+      // @media (max-width: 1679px) {
+      //   right: 11.775rem;
+      // }
+      // @media (max-width: 767px) {
+      //   right: 13.325rem;
+      // }
+    }
+  }
+}

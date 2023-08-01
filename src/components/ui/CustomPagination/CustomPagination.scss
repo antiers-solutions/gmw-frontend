@@ -1,0 +1,46 @@
+@import "../../../assets/theme/_var.scss";
+
+.custom-pagination {
+  &.pagination {
+    align-items: center;
+    .page-item {
+      .page-link {
+        background-color: transparent;
+        border: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+        padding: 0.4rem 0.5rem;
+        margin: 0 0.6rem;
+        color: rgba($darkBlue, 0.2);
+        box-shadow: unset;
+      }
+      &.active,
+      &:hover {
+        .page-link {
+          color: $darkBlue;
+        }
+      }
+      &.disabled {
+        .page-link {
+          opacity: 0.4;
+        }
+      }
+      &:first-child,
+      &:last-child {
+        .page-link {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          width: 3.5rem;
+          height: 3.5rem;
+          background: $gradient;
+          border-radius: 1rem;
+          span {
+            line-height: 0;
+          }
+        }
+      }
+    }
+  }
+}

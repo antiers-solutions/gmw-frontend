@@ -1,0 +1,111 @@
+@import "../../../assets/theme/_var.scss";
+
+.project {
+  &__overview {
+    padding: 1.8rem 3rem;
+    background-color: $white;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    min-height: 2.1;
+
+    @media (max-width: 767px) {
+      padding: 1.5rem 2rem;
+    }
+    strong {
+      margin-bottom: 1rem;
+    }
+    p {
+      color: $lightBlue2;
+    }
+  }
+}
+
+/* markdown-styles.css */
+
+/* Style for the container wrapping the rendered Markdown content */
+
+/* Header styles */
+.project_info {
+  padding: 1.8rem 3rem;
+  background-color: $white;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  min-height: 2.1;
+  color: black;
+  &_wrapper {
+    width: 80%;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* Paragraph styles */
+  p {
+    margin-bottom: 10px;
+    color: black;
+  }
+
+  /* Emphasis styles */
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  /* List styles */
+  ul,
+  ol {
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+
+  /* Blockquote styles */
+  blockquote {
+    margin: 0 0 10px;
+    padding: 10px;
+    border-left: 4px solid #ddd;
+  }
+
+  /* Code block styles */
+  pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  code {
+    font-family: monospace;
+    color: #333;
+  }
+
+  /* Image styles */
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  /* Link styles */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}

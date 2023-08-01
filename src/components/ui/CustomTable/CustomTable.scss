@@ -1,0 +1,117 @@
+@import "../../../assets/theme/_var.scss";
+
+.common_table {
+  &.table {
+    --bs-table-bg: $white;
+    background-color: $white;
+    border-radius: 1.2rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+
+    > thead {
+      background: linear-gradient(87.95deg, #005ffe -1.76%, #0096d5 103.74%);
+    }
+  }
+
+  tr {
+    th,
+    td {
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 1.8rem 3rem;
+      white-space: nowrap;
+      vertical-align: middle;
+
+      // @media (max-width: 1679px) {
+      //   padding: 1rem 1.5rem;
+      // }
+    }
+  }
+
+  thead {
+    border: none;
+
+    tr {
+      th {
+        font-weight: 600;
+        border: none;
+        color: $white;
+
+        // @media (max-width: 1679px) {
+        //   font-size: 1.6rem;
+        // }
+
+        // @media (max-width: 767px) {
+        //   font-size: 1.3rem;
+        // }
+
+        &:first-child {
+          border-top-left-radius: 1.2rem;
+        }
+
+        &:last-child {
+          border-top-right-radius: 1.2rem;
+        }
+      }
+    }
+  }
+
+  tbody {
+    td {
+      border-bottom: 0;
+      color: #4a577b;
+
+      // @media (max-width: 1679px) {
+      //   font-size: 1.4rem;
+      // }
+
+      // @media (max-width: 767px) {
+      //   font-size: 1.2rem;
+      // }
+
+      &.fw600 {
+        font-weight: 600;
+      }
+      &.fw700 {
+        font-weight: 700;
+      }
+    }
+
+    tr {
+      &:not(:last-child) {
+        td {
+          border-bottom: 0.1rem solid rgba($black, 0.1);
+        }
+      }
+      &.no_record {
+        td {
+          padding: 1.5rem 0;
+
+          .no_record_box {
+            border-radius: 1.5rem;
+            padding: 6rem 2rem;
+
+            svg {
+              opacity: 1;
+            }
+
+            h4 {
+              font-size: 1.6rem;
+              font-weight: 400;
+              margin-top: 1rem;
+              color: $darkBlue;
+
+              @media (max-width: 1679px) {
+                font-size: 1.4rem;
+              }
+            }
+
+            @media (max-width: 991px) {
+              padding: 4rem 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

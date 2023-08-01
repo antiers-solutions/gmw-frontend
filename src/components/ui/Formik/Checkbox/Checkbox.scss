@@ -1,0 +1,37 @@
+@import "../../../../assets/theme/_var.scss";
+
+.checkbox_input {
+  .form-check {
+    margin-bottom: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    &-input {
+      margin: 0;
+      box-shadow: none;
+      width: 1.7rem;
+      height: 1.7rem;
+      cursor: pointer;
+      border: 0.1rem solid $lightBlue;
+      border-radius: 2rem;
+      background-color: transparent;
+
+      &:checked {
+        background-color: $skyBlue;
+        border-color: $skyBlue;
+      }
+
+      &:focus {
+        box-shadow: none;
+        border-color: $lightBlue;
+      }
+    }
+
+    &-label {
+      line-height: 1;
+      margin-left: 1rem;
+      margin-bottom: 0;
+    }
+  }
+}

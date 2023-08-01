@@ -1,0 +1,19 @@
+@import "../../../assets/theme/_var.scss";
+
+.team-page {
+  &__right {
+    &__inner {
+      height: 100%;
+      padding-bottom: 5.5rem;
+
+      @media (max-width: 991px) {
+        padding-bottom: 0;
+      }
+
+      .row {
+        height: 100%;
+        gap: 2rem;
+      }
+    }
+  }
+}

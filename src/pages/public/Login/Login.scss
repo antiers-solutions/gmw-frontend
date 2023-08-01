@@ -1,0 +1,74 @@
+@import "../../../assets/theme/_var.scss";
+
+.login {
+  &-page {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    min-height: 100vh;
+
+    &-left,
+    &-right {
+      padding: 0 3rem !important;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-left {
+      background-color: $lightWhite;
+
+      &-img {
+        max-width: 85rem;
+        @media (max-width: 1679px) {
+          max-width: 75rem;
+        }
+
+        @media (max-width: 1439px) {
+          max-width: 65rem;
+        }
+      }
+    }
+  }
+
+  &-card {
+    // padding: 5.7rem 5rem 7rem;
+    // border-radius: 2.4rem;
+    // background-color: $lightWhite;
+    width: 100%;
+    max-width: 36rem;
+
+    h4 {
+      font-size: 1.8rem;
+      margin-bottom: 5.7rem;
+      font-weight: 400;
+      letter-spacing: 0.54px;
+      // text-align: center;
+
+      @media (max-width: 767px) {
+        font-size: 1.5rem;
+        margin-bottom: 3rem;
+      }
+    }
+
+    &-btns {
+      display: flex;
+      flex-direction: column;
+
+      .btn-style {
+        padding: 1.7rem;
+
+        &:first-child {
+          margin-bottom: 3rem;
+        }
+      }
+    }
+  }
+}
+
+.backButton {
+  background-color: transparent;
+  margin-bottom: 2rem;
+  border: 0;
+}
