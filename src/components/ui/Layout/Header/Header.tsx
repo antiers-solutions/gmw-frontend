@@ -55,7 +55,7 @@ const Header = (props: {
   const [search, setSearch] = useState<string>(""); // Show search bar
   const [level, setLevel] = useState<any>(LevelOptions[0]);
   const [status, setStatus] = useState<any>(StatusOptions[0]);
-
+  const [sticky, setSticky] = useState("");
   // React Router hook to access the current location
   const location = useLocation();
 
@@ -97,8 +97,23 @@ const Header = (props: {
     }
   };
 
+  // on render, set listener
+  useEffect(() => {
+    window.addEventListener("scroll", isSticky);
+    return () => {
+      window.removeEventListener("scroll", isSticky);
+    };
+  }, []);
+
+  const isSticky = () => {
+    const scrollTop = window.scrollY;
+    const stickyClass = scrollTop >= 1 ? "is-sticky" : "";
+    setSticky(stickyClass);
+  };
+
+  const classes = `header ${sticky}`;
   return (
-    <header className="header">
+    <header className={classes}>
       <Container fluid className="px-0">
         <Row className="align-items-center">
           <Col xs={1} className="d-xl-none">
