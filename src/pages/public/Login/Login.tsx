@@ -44,7 +44,6 @@ const Login = () => {
           const gitCode = await axios.post(login(), {
             access_token: response?.code,
           });
-          console.log(gitCode?.data?.data);
           // Check if the server response contains a data
           if (gitCode?.data?.data?.gitId) {
             // Store the data in local storage

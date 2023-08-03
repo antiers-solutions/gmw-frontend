@@ -1,11 +1,18 @@
 import { Col, Row } from "react-bootstrap";
-import { CommonButton, InfoCard, Loader } from "../../../components/ui";
+import {
+  CommonButton,
+  CustomSelect,
+  InfoCard,
+  Loader,
+} from "../../../components/ui";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
 import "./Projects.scss";
 import { useState } from "react";
 import MarkdownIt from "markdown-it";
 import markdownItEmoji from "markdown-it-emoji";
 import ProjectDetail from "./components/ProjectDetail";
+import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
+import { getStatusClass } from "../../../helper/getStatusClass";
 
 const Projects = () => {
   //state
@@ -29,6 +36,7 @@ const Projects = () => {
   const [loader, setLoader] = useState(false);
   // State variable to store the type of CommonButton (probably a CSS class name)
   const [commonButton, setCommonButton] = useState("info");
+  const [projectStatus, setProjectStatus] = useState("");
 
   // Function to render markdown content into HTML with emojis
   const renderMarkdown = (markdown: string) => {
@@ -41,7 +49,24 @@ const Projects = () => {
   const setactiveClass = (value: string) => {
     setCommonButton(value);
   };
-
+  console.log(projectStatus, "&&&&");
+  const StatusOptions = [
+    {
+      value: "active",
+      label: "Active",
+      // className:"greeenvalue",
+    },
+    {
+      value: "complete",
+      label: "Complete",
+      // className:"yellowvelue",
+    },
+    {
+      value: "hold",
+      label: "Hold",
+      // className:"redvalue",
+    },
+  ];
   return (
     <div className="project inner-layout">
       {loader ? <Loader /> : null}
@@ -59,6 +84,21 @@ const Projects = () => {
               </Col>
             ))
           : null}
+        <div className="col-md-3 offset-xxl-3 col-sm-1 dropdown_project">
+          <CustomSelect
+            className={`${getStatusClass(projectStatus)} `}
+            options={StatusOptions}
+            defaultValue={StatusOptions[0]}
+            value={{
+              value: projectStatus,
+              label: firstLetterCapitalize(projectStatus),
+            }}
+            label="Project Status"
+            onChange={(e: any) => {
+              setProjectStatus(e.value);
+            }}
+          />
+        </div>
       </Row>
       <div className="inner-layout__btns">
         <CommonButton
@@ -81,6 +121,8 @@ const Projects = () => {
           setCardData={(value: any) => {
             setCardData(value);
           }}
+          setProjectStatus={(value: string) => setProjectStatus(value)}
+          projectStatus={projectStatus}
         />
       ) : (
         <div className="project_info mb-5">

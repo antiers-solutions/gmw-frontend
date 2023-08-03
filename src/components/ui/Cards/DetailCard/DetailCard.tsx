@@ -1,6 +1,8 @@
 import { ReactNode, useEffect, useState } from "react";
 import "./DetailCard.scss";
 import { useNavigate } from "react-router-dom";
+import { splitText } from "../../../../helper/splitText";
+import { Copyicon } from "../../../../assets/svg/SvgIcon";
 
 const DetailCard = ({
   heading,
@@ -53,14 +55,23 @@ const DetailCard = ({
                 <li key={index}>
                   <strong>{item.name}</strong>
                   <span
-                    className={showCss ? "cursor-pointer" : ""}
+                    className={
+                      showCss && item.name !== "Team ID" ? "cursor-pointer" : ""
+                    }
                     onClick={() =>
                       showCss
                         ? navigate(`/auth/team/${contentLists[1].info}`)
                         : null
                     }
                   >
-                    {item.info}
+                    {item.name === "Team ID" ? (
+                      <>
+                        {" "}
+                        {splitText(item.info, 4)} <Copyicon />
+                      </>
+                    ) : (
+                      item.info
+                    )}
                   </span>
                 </li>
               ))

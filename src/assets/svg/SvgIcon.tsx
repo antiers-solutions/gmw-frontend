@@ -368,3 +368,35 @@ export const DiagonalArrow = () => (
     />
   </svg>
 );
+
+export const Copyicon = () => (
+  <svg
+    fill="#005ffe"
+    version="1.1"
+    id="Layer_1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 472 472"
+    width="800px"
+    height="800px"
+    stroke="#005ffe"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <g>
+        {" "}
+        <rect x="136" width="100" height="50" />{" "}
+        <polygon points="306,30 266,30 266,80 106,80 106,30 66,30 66,362 136,362 136,110 306,110 " />{" "}
+        <polygon points="321,155 321,225 391,225 " />{" "}
+        <polygon points="291,255 291,140 166,140 166,472 406,472 406,255 " />{" "}
+      </g>{" "}
+    </g>
+  </svg>
+);

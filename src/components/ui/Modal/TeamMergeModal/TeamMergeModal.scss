@@ -7,12 +7,14 @@
       padding-top: 0;
     }
   }
+
   .common_input {
     margin-bottom: 1.8rem;
   }
 
   ul {
     margin-right: -1rem;
+
     p {
       font-size: 16px;
       line-height: 1;
@@ -28,15 +30,18 @@
       align-items: center;
       justify-content: space-between;
     }
+
     .scrollbar-container {
       max-height: 27rem;
       padding-right: 1.2rem;
     }
   }
+
   .btn-style {
     margin-top: 1rem;
     min-width: 18rem;
   }
+
   .error-msg {
     padding: 1rem 0;
     font-size: 1.2rem;
@@ -56,13 +61,33 @@
   text-align: center;
   margin: 10px 0;
 }
+
 .loader {
   text-align: center;
   margin-top: 10px;
+
   li {
     text-align: left;
   }
 }
+
 .modal_btngroup {
   gap: 10px;
+}
+
+
+.team-modal {
+  .common_input {
+    input {
+      padding-left: 35px;
+
+    }
+
+    svg {
+      position: absolute;
+      top: 17px;
+      left: 42px;
+      user-select: none;
+    }
+  }
 }

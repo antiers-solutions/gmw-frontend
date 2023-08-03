@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import "./Select.scss";
 import Select from "react-select";
 
@@ -24,6 +24,10 @@ const CustomSelect = ({
   value,
   label,
 }: propsType) => {
+  useEffect(() => {
+    console.log(options, "options!!!!");
+  }, [options]);
+
   return (
     <>
       {label && <label className="form-label">{label}</label>}

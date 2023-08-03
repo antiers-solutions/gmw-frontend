@@ -8,6 +8,7 @@ import { api } from "../../../../api/api";
 import UseGetApi from "../../../../hooks/UseGetApi";
 import { Spinner } from "react-bootstrap";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
+import { SearchIcon } from "../../../../assets/svg/SvgIcon";
 
 const TeamMergeModal = (props: any) => {
   const [search, setSearch] = useState<string>("");
@@ -120,6 +121,7 @@ const TeamMergeModal = (props: any) => {
           value={search}
           className="form-control"
         />
+        <SearchIcon />
       </div>
       <ul>
         <p>Select Team</p>

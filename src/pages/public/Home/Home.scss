@@ -10,6 +10,7 @@
   @media (max-width: 767px) {
     background-size: cover;
   }
+
   .container {
     max-width: 1350px;
     display: flex;
@@ -19,18 +20,23 @@
 
   &-header {
     padding: 3rem 0;
+
     .btn-style {
       min-width: 12rem;
+
       @media (max-width: 575px) {
         min-width: fit-content;
       }
     }
+
     @media (max-width: 767px) {
       padding: 2rem 0;
     }
+
     @media (max-width: 575px) {
       padding: 1rem 0;
     }
+
     &-logo {
       @media (max-width: 767px) {
         max-width: 8rem;
@@ -57,6 +63,7 @@
         font-size: 4.4rem;
         line-height: 6rem;
       }
+
       @media (max-width: 767px) {
         font-size: 3.4rem;
         line-height: 5rem;
@@ -71,9 +78,11 @@
           display: none;
         }
       }
+
       span {
         color: #005ffe;
         display: inline;
+
         @media (max-width: 767px) {
           br {
             display: none;
@@ -81,6 +90,7 @@
         }
       }
     }
+
     h4 {
       color: rgba(29, 30, 37, 0.7);
       text-align: center;
@@ -88,12 +98,15 @@
       font-weight: 500;
       line-height: 160%;
       letter-spacing: 0.72px;
+
       @media (max-width: 1679px) {
         font-size: 2rem;
       }
+
       @media (max-width: 767px) {
         font-size: 1.8rem;
       }
+
       @media (max-width: 575px) {
         font-size: 1.5rem;
       }
@@ -106,6 +119,7 @@
     align-items: flex-end;
     flex-wrap: wrap;
     gap: 2.5rem;
+
     @media (max-width: 1199px) {
       gap: 1.8rem;
     }
@@ -119,6 +133,7 @@
         align-items: center;
       }
     }
+
     &-left,
     &-right {
       position: relative;
@@ -136,6 +151,7 @@
         font-style: normal;
         font-weight: 500;
         color: $black;
+
         @media (max-width: 575px) {
           font-size: 1.2rem;
         }
@@ -152,12 +168,14 @@
     margin: 3rem auto 0;
     padding: 0.6rem 0.6rem 0.6rem 3rem;
     border-radius: 1.5rem;
+
     @media (max-width: 575px) {
       border-radius: 1rem;
       font-size: 1.3rem;
       min-width: fit-content;
       padding: 0.6rem 0.6rem 0.6rem 0.6rem;
     }
+
     span {
       display: inline-flex;
       justify-content: center;
@@ -173,6 +191,7 @@
         width: 2.2rem;
         height: 2.2rem;
         border-radius: 0.8rem;
+
         svg {
           width: 1.2rem;
           height: 1.2rem;
@@ -207,10 +226,12 @@
     padding: 1rem;
     border-radius: 1.8rem;
   }
+
   @media (max-width: 575px) {
     width: 100% !important;
     height: 225px !important;
   }
+
   .recharts-wrapper {
     width: 100% !important;
     height: 100% !important;
@@ -222,6 +243,7 @@
         display: none;
       }
     }
+
     .recharts-surface {
       margin-left: -4rem;
       height: 100% !important;
@@ -231,10 +253,12 @@
   &.pie-chart {
     width: 320px !important;
     height: 280px !important;
+
     .recharts-wrapper {
       margin: 1.5rem auto 0;
       width: 90% !important;
       height: 90% !important;
+
       @media (max-width: 575px) {
         margin-top: 0.5rem;
       }
@@ -257,4 +281,33 @@
 
 .recharts-text.recharts-cartesian-axis-tick-value {
   font-size: 13px;
+}
+
+
+.home-top {
+  h1 {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background-image: url('../../../assets/images/Vectorstar.png');
+      left: 22%;
+      height: 150px;
+      width: 100px;
+      background-repeat: no-repeat;
+      top: -18px;
+
+      @media (max-width:1299px) {
+        left: 2%;
+      }
+
+      @media (max-width:480px) {
+        left: 0%;
+        height: 31px;
+        width: 37px;
+        background-size: contain;
+      }
+    }
+  }
 }

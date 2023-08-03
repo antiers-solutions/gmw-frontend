@@ -6,23 +6,16 @@ const ProfileDropdown = () => {
   const user: any = JSON.parse(localStorage.getItem("isLogged") || "{}");
 
   return (
-    <>
-      <CommonDropdown
-        toogleContent={
-          <>
-            <span className="dropdown-icon">
-              <img
-                style={{ borderRadius: "50%" }} //to-do
-                src={user.image_url || ""}
-                alt="img"
-              />
-            </span>
-            <strong>{user.name || "-"}</strong>
-          </>
-        }
-        className="profile-dropdown"
-      ></CommonDropdown>
-    </>
+    <div className="profile-dropdown">
+      <span className="dropdown-icon">
+        <img
+          style={{ borderRadius: "50%" }} //to-do
+          src={user.image_url || ""}
+          alt="img"
+        />
+      </span>
+      <strong>{user.name || "-"}</strong>
+    </div>
   );
 };
 

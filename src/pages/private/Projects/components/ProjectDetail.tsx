@@ -6,16 +6,21 @@ import { firstLetterCapitalize } from "../../../../helper/firstLetterCapitalize"
 import { api } from "../../../../api/api";
 import { DocIcon, ProjectIcon } from "../../../../assets/svg/SvgIcon";
 import { useNavigate, useParams } from "react-router-dom";
+import { splitText } from "../../../../helper/splitText";
 let fields = ["Milestone", "Delivery ID", "Link"];
 
 const ProjectDetail = ({
   setLoader,
   setMdContent,
   setCardData,
+  setProjectStatus,
+  projectStatus,
 }: {
   setLoader?: any;
   setMdContent: any;
   setCardData: any;
+  setProjectStatus?: any;
+  projectStatus?: string;
 }) => {
   const { id } = useParams(); // get id
   const navigate = useNavigate(); //route
@@ -50,7 +55,7 @@ const ProjectDetail = ({
     },
     {
       name: "Status",
-      info: "In Progress",
+      info: "",
     },
   ]);
   const [milestoneData, setMilestoneData] = useState([
@@ -81,7 +86,14 @@ const ProjectDetail = ({
   ]);
 
   //API links
-  const { projectById, milestoneById, teamById } = api;
+  const { projectById, milestoneById, teamById, projectStatusChange } = api;
+
+  useEffect(() => {
+    if (applicationData[3].info.toLocaleLowerCase() !== projectStatus) {
+      updateStatus(projectStatusChange());
+      console.log(projectStatus, applicationData[3].info, "kkkkkk");
+    }
+  }, [projectStatus]);
 
   // Function to fetch project data from the API based on the provided URL
   const getProjectData = async (url: string) => {
@@ -91,6 +103,7 @@ const ProjectDetail = ({
       const { project_name, status, team_id, total_cost, md_content } =
         project.data[0];
       // Update state variables with the extracted data
+      setProjectStatus(status);
       setMdContent(md_content || "");
       const card = [...cardData];
       const application = [...applicationData];
@@ -150,6 +163,14 @@ const ProjectDetail = ({
     setLoader(false);
   };
 
+  const updateStatus = async (url: string) => {
+    const payload = {
+      updatedStatus: projectStatus,
+      id,
+    };
+    const statusUpdated = await UseGetApi(url, "put", payload);
+    console.log(statusUpdated);
+  };
   // useEffect hook for API calling
   useEffect(() => {
     // Check if 'id' is not provided, if not, navigate back to the previous page
@@ -199,7 +220,7 @@ const ProjectDetail = ({
                       <td>{item.id}</td>
                       <td>
                         <a href={item.hash} target="_blank" rel="noreferrer">
-                          {item.hash}
+                          {splitText(item.hash, 9)}
                         </a>
                       </td>
                     </tr>

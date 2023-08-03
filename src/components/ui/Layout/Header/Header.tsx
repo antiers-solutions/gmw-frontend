@@ -1,7 +1,11 @@
 import { Container, Row, Col } from "react-bootstrap";
 import ProfileDropdown from "../../Dropdowns/ProfileDropdown/ProfileDropdown";
 import logo from "../../../../assets/images/mob-logo.png";
-import { CloseIcon, MenuIcon } from "../../../../assets/svg/SvgIcon";
+import {
+  CloseIcon,
+  MenuIcon,
+  SearchIcon,
+} from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -147,6 +151,7 @@ const Header = (props: {
                       value={search}
                       name="search"
                     />
+                    <SearchIcon />
                     {/* <button
                       type="submit"
                       className="header__search__search cursor-pointer"

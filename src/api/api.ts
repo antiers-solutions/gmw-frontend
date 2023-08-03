@@ -12,5 +12,7 @@ export const api = {
     logout: () => `/api/user/logout`,
     projectChart: () => `/api/graph/get-projects-count-by-status`,
     projectChartByLevel: () => `/api/graph/get-projects-count-by-level`,
-    projectByMilestone: () => `/api/graph/get-milestones-count-per-project`
+    projectByMilestone: () => `/api/graph/get-milestones-count-per-project`,
+    projectStatusChange: () => `/api/project/update-status`
+
 }
