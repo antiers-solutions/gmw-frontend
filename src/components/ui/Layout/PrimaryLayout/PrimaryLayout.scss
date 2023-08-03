@@ -31,21 +31,24 @@
     padding: 0 3rem 3.5rem 3rem;
     overflow: auto;
     height: calc(100vh - 40px);
+    @media (max-width: 1199px) {
+      height: 100vh;
+    }
     @media (max-width: 991px) {
       border-radius: 2rem;
-      padding: 2.5rem 2rem;
+      padding: 0 2rem 2.5rem;
     }
     @media (max-width: 767px) {
       border-radius: 0;
     }
   }
 }
-header {
+header.header {
   padding-top: 3.5rem;
 }
 
 .is-sticky {
-  header {
+  header.header {
     position: sticky;
     top: 0px;
     width: 100%;
@@ -54,18 +57,7 @@ header {
     padding-bottom: 10px !important;
     // padding: 0px 3rem;
     background-color: $lightWhite !important;
-    z-index: 99;
-    @media (max-width: 1880px) {
-      max-width: calc(97.8% - 23rem);
-      left: 27rem;
-    }
-    @media (max-width: 1840px) {
-      max-width: calc(97.8% - 23rem);
-      left: 27rem;
-    }
-    @media (max-width: 1199px) {
-      max-width: 100%;
-      left: 0rem;
-    }
+    z-index: 9;
+  
   }
 }

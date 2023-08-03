@@ -46,7 +46,9 @@
 
   &-top {
     text-align: center;
-    margin: auto 0 2rem;
+    margin: 0 auto 2rem;
+    max-width: 1000px;
+    width: 100%;
 
     @media (max-width: 575px) {
       margin-top: 3rem;
@@ -285,29 +287,25 @@
 
 
 .home-top {
-  h1 {
-    position: relative;
+  position: relative;
+  z-index: 9;
+  &::before {
+    content: "";
+    position: absolute;
+    background-image: url('../../../assets/images/Vectorstar.png');
+    left: 10px;
+    height: 54px;
+    width: 56px;
+    background-repeat: no-repeat;
+    top: -18px;
+    z-index: -1;
 
-    &::before {
-      content: "";
-      position: absolute;
-      background-image: url('../../../assets/images/Vectorstar.png');
-      left: 22%;
-      height: 150px;
-      width: 100px;
-      background-repeat: no-repeat;
-      top: -18px;
+    // @media (max-width:1299px) {
+    //   left: 2%;
+    // }
 
-      @media (max-width:1299px) {
-        left: 2%;
-      }
-
-      @media (max-width:480px) {
-        left: 0%;
-        height: 31px;
-        width: 37px;
-        background-size: contain;
-      }
+    @media (max-width:480px) {
+      content: unset;
     }
   }
 }

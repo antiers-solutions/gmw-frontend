@@ -125,7 +125,7 @@
 .project {
   .select__control {
     height: 46px;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 10px;
     max-width: 168px;
     width: 100%;
@@ -146,7 +146,7 @@
   .green {
     .select__value-container {
       .select__single-value {
-        color: green !important;
+        color:$green !important;
       }
     }
 
@@ -158,7 +158,7 @@
   .red {
     .select__value-container {
       .select__single-value {
-        color: red !important;
+        color:$red !important;
       }
     }
 
@@ -169,14 +169,14 @@
 
   .green {
     div {
-      color: green !important;
+      color: $green !important;
 
       &:nth-child(1) {
-        color: #FFBB35 !important;
+        color: $yellow !important;
       }
 
       &:nth-child(3) {
-        color: red !important;
+        color: $red !important;
       }
 
     }
@@ -184,14 +184,14 @@
 
   .yellow {
     div {
-      color: #FFBB35 !important;
+      color: $yellow !important;
 
       &:nth-child(2) {
-        color: green !important;
+        color: $green !important;
       }
 
       &:nth-child(3) {
-        color: red !important;
+        color: $red !important;
       }
     }
   }
@@ -199,14 +199,14 @@
   .red {
 
     div {
-      color: red !important;
+      color: $red !important;
 
       &:nth-child(2) {
-        color: green !important;
+        color: $green !important;
       }
 
       &:nth-child(1) {
-        color: #FFBB35 !important;
+        color: $yellow !important;
       }
 
 
