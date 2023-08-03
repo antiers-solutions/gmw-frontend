@@ -165,7 +165,7 @@ const Chart = ({
             stroke="#D2D6E0"
           />
           <XAxis
-            dataKey="accepted"
+            dataKey="name"
             tickMargin={25}
             angle={-20}
             // scale={"band"}
@@ -178,9 +178,17 @@ const Chart = ({
 
           <Area
             type="monotone"
-            dataKey="totalProjects"
+            dataKey="accepted"
             strokeWidth={3}
             stroke="#005FFE"
+            fill="url(#chartBody)"
+          />
+
+          <Area
+            type="monotone"
+            dataKey="rejected"
+            strokeWidth={3}
+            stroke="#C5DCFF"
             fill="url(#chartBody)"
           />
         </ComposedChart>

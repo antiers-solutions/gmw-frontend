@@ -7,37 +7,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
 import { getStatusClass } from "../../../helper/getStatusClass";
+import { timeFormat } from "../../../helper/timeFoemat";
 
 const cardData = [
   {
     text: "$1,534",
     percText: "+7",
-    subText: "Lorem Ispum",
+    subText: "Active",
     icon: <TagIcon />,
   },
   {
     text: "$1,700",
     percText: "+7",
-    subText: "Lorem Ispum",
+    subText: "Hold",
     icon: <TagIcon />,
     class: "pink",
   },
   {
     text: "$1,800",
     percText: "+7",
-    subText: "Lorem Ispum",
+    subText: "Reject",
     icon: <TagIcon />,
     class: "purple",
   },
   {
     text: "$20,000",
-    subText: "Total Amount Paid",
+    subText: "Complete",
     icon: <DollarIcon />,
     class: "green",
   },
 ];
 
-const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestone"];
+const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestones"];
 
 const Dashboard = ({ search }: { search: string }) => {
   // State variables
@@ -154,7 +155,7 @@ const Dashboard = ({ search }: { search: string }) => {
                     {firstLetterCapitalize(item?.project_name) || "-"}
                   </td>
                   <td>
-                    {new Date(item?.start_date)?.toLocaleDateString() || "-"}
+                    {(item?.start_date && timeFormat(item?.start_date)) || "-"}
                   </td>
                   <td>{Number(item?.level) || "-"}</td>
                   <td className={getStatusClass(item.status)}>
@@ -164,7 +165,7 @@ const Dashboard = ({ search }: { search: string }) => {
                     item.total_cost.currency?.toUpperCase() || "-"
                   }`}</td>
                   <td>{`${item.milestones?.length || 0} / ${
-                    item.totalMilestones
+                    item.totalMilestones || item.milestones?.length
                   }`}</td>
                 </tr>
               );

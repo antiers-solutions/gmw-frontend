@@ -12,14 +12,16 @@ import axios from "axios";
 const Home = () => {
   const navigate = useNavigate();
 
-  const COLORS = ["#0166FA", "#74ACFF", "#C5DCFF"];
+  const COLORS = [
+    "#0166FA",
+    "#74ACFF",
+    "#C5DCFF",
+    "#0000FF",
+    "#7393B3",
+    "#0096FF",
+  ];
 
-  const {
-    projectChart,
-    projectChartByLevel,
-    projectByMilestone,
-    projectStatusByYear,
-  } = api;
+  const { projectChart, projectByMilestone, projectStatusByYear } = api;
   const [projectCharts, setProjectCharts] = useState<any>([]);
   const [projectMilestoneCharts, setProjectMilestoneCharts] = useState<any>([]);
   const [levelChart, setLevelChart] = useState<any>([]);
@@ -29,23 +31,21 @@ const Home = () => {
       const { data } = chart;
 
       if (type === "project") {
-        setProjectCharts(data.data);
+        setProjectCharts(data?.data || []);
       } else if (type === "milestone") {
-        console.log(data.data["2022"]);
-        setProjectMilestoneCharts([data.data["2022"]]);
+        setProjectMilestoneCharts(data?.data || []);
       } else {
-        setLevelChart(data.data);
+        setLevelChart(data?.data || []);
       }
     } catch (e) {}
   };
 
   useEffect(() => {
     chartData(projectChart(), "project");
-    chartData(projectChartByLevel(), "projectByLevel");
+    chartData(projectByMilestone(), "projectByLevel");
     chartData(projectStatusByYear(), "milestone");
   }, []);
 
-  console.log(projectMilestoneCharts);
   return (
     <section className="home">
       <Container>
