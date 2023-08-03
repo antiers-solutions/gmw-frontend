@@ -31,9 +31,12 @@ const Login = () => {
     if (localStorage.getItem("isLogged")) navigate("/auth/projects");
   }, [localStorage.getItem("isLogged")]);
 
-  // Function to handle the success response after GitHub login
-  const onSuccess = async (e: any, response: any) => {
+  const onSubmit = (e: any, response: any) => {
     e.preventDefault();
+    onSuccess(response);
+  };
+  // Function to handle the success response after GitHub login
+  const onSuccess = async (response: any) => {
     setLoader(true);
     // Check if the response contains a code
     if (response.code) {
@@ -97,7 +100,7 @@ const Login = () => {
 
               {showInput ? (
                 <div className={`common_input`}>
-                  <form onSubmit={(e) => onSuccess(e, { code: token })}>
+                  <form onSubmit={(e) => onSubmit(e, { code: token })}>
                     <input
                       className="form-control"
                       type="password"
@@ -112,7 +115,7 @@ const Login = () => {
                       className=" primary my-4 w-100"
                       title="Submit"
                       disabled={!token}
-                      onClick={(e: any) => onSuccess(e, { code: token })}
+                      onClick={() => onSuccess({ code: token })}
                     />
                   </form>
                 </div>

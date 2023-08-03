@@ -1,37 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { InfoCard } from "../../components/ui";
 import { Col, Row } from "react-bootstrap";
 import { DollarIcon, TagIcon } from "../../assets/svg/SvgIcon";
+import UseGetApi from "../../hooks/UseGetApi";
+import { api } from "../../api/api";
 
 function InfoCards() {
-    const [cardData, setCardData] = useState([
-        {
-          text: "$1,534",
-          percText: "+7",
-          subText: "Active",
-          icon: <TagIcon />,
-        },
-        {
-          text: "$1,700",
-          percText: "+7",
-          subText: "Hold",
-          icon: <TagIcon />,
-          class: "pink",
-        },
-        {
-          text: "$1,800",
-          percText: "+7",
-          subText: "Reject",
-          icon: <TagIcon />,
-          class: "purple",
-        },
-        {
-          text: "$20,000",
-          subText: "Complete",
-          icon: <DollarIcon />,
-          class: "green",
-        },
-      ])
+  const [cardData, setCardData] = useState([
+    {
+      text: "-",
+      subText: "Total Proposals",
+      icon: <TagIcon />,
+    },
+    {
+      text: "-",
+      subText: "Rejected Proposals",
+      icon: <TagIcon />,
+      class: "purple",
+    },
+    {
+      text: "-",
+      subText: "Total Projects",
+      icon: <TagIcon />,
+      class: "pink",
+    },
+
+    {
+      text: "-",
+      subText: "Completed Projects",
+      icon: <TagIcon />,
+      class: "green",
+    },
+  ]);
+
+  const cardDataApi = async (url: string) => {
+    const card = await UseGetApi(url);
+    if (card?.data) {
+      let cardDetail = [...cardData];
+      cardDetail[0].text = card?.data?.totalProposals || 0;
+      cardDetail[1].text = card?.data?.totalRejectedProposals || 0;
+      cardDetail[2].text = card?.data?.totalProjects || 0;
+      cardDetail[3].text = card?.data?.totalCompletedProjects || 0;
+      setCardData(cardDetail);
+    }
+  };
+  useEffect(() => {
+    cardDataApi(api.dynamicCard());
+  }, []);
   return (
     <>
       <Row className="mb-3 mb-lg-5">

@@ -1,5 +1,6 @@
 //time formatting
 export const timeFormat = (value: string) => {
+  if (!value) return;
   let data = new Date(value)?.toLocaleDateString();
   var date = data.split("/");
   var dd = date[0].length > 1 ? date[0] : "0" + date[0];

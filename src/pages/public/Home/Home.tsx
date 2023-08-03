@@ -12,16 +12,9 @@ import axios from "axios";
 const Home = () => {
   const navigate = useNavigate();
 
-  const COLORS = [
-    "#0166FA",
-    "#74ACFF",
-    "#C5DCFF",
-    "#0000FF",
-    "#7393B3",
-    "#0096FF",
-  ];
+  const COLORS = ["#0166FA", "#74ACFF", "#C5DCFF"];
 
-  const { projectChart, projectByMilestone, projectStatusByYear } = api;
+  const { projectChart, projectChartByLevel, projectStatusByYear } = api;
   const [projectCharts, setProjectCharts] = useState<any>([]);
   const [projectMilestoneCharts, setProjectMilestoneCharts] = useState<any>([]);
   const [levelChart, setLevelChart] = useState<any>([]);
@@ -42,7 +35,7 @@ const Home = () => {
 
   useEffect(() => {
     chartData(projectChart(), "project");
-    chartData(projectByMilestone(), "projectByLevel");
+    chartData(projectChartByLevel(), "projectByLevel");
     chartData(projectStatusByYear(), "milestone");
   }, []);
 
@@ -70,10 +63,10 @@ const Home = () => {
         </div>
         <div className="home-imgs">
           <div className="home-imgs-left">
-            <p>Total Applications</p>
+            <p>Projects Level</p>
             <Chart
               type="pie"
-              data={projectCharts}
+              data={levelChart}
               COLORS={COLORS}
               className="pie-chart"
               paddingAngle={0}
@@ -105,10 +98,10 @@ const Home = () => {
             </div>
           </div>
           <div className="home-imgs-right">
-            <p>Total Grants</p>
+            <p>Projects</p>
             <Chart
               type="pie"
-              data={levelChart}
+              data={projectCharts}
               COLORS={COLORS}
               className="pie-chart"
               paddingAngle={7}

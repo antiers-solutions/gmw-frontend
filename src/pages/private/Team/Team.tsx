@@ -94,7 +94,7 @@ const Team = () => {
     try {
       const team = await UseGetApi(url);
       // Extract data from the response and update the state variables accordingly
-      const { teamData, projectsData } = team.data;
+      const { teamData, projectsData } = team?.data;
       const card: any = [...cardData];
       card[0].text = id;
       card[1].text = firstLetterCapitalize(teamData?.name) || "-";
@@ -104,20 +104,22 @@ const Team = () => {
       let hold = 0;
       let projectStatus: any = [...teamDatas];
       const projectDetail =
-        projectsData?.map((project: any) => {
-          if (project.status === "complete") {
-            complete++;
-          } else if (project.status === "active") {
-            active++;
-          } else {
-            hold++;
-          }
-          return {
-            name: firstLetterCapitalize(project.project_name) || "-",
-            status: project.status,
-            id: project.id,
-          };
-        }) || [];
+        (projectsData?.length &&
+          projectsData?.map((project: any) => {
+            if (project?.status === "complete") {
+              complete++;
+            } else if (project?.status === "active") {
+              active++;
+            } else {
+              hold++;
+            }
+            return {
+              name: firstLetterCapitalize(project?.project_name) || "-",
+              status: project?.status || "-",
+              id: project?.id || "-",
+            };
+          })) ||
+        [];
       projectStatus[0].info = complete;
       projectStatus[1].info = active;
       projectStatus[2].info = hold;

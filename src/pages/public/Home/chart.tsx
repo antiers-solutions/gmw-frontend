@@ -178,7 +178,7 @@ const Chart = ({
 
           <Area
             type="monotone"
-            dataKey="accepted"
+            dataKey="Accepted"
             strokeWidth={3}
             stroke="#005FFE"
             fill="url(#chartBody)"
@@ -186,7 +186,7 @@ const Chart = ({
 
           <Area
             type="monotone"
-            dataKey="rejected"
+            dataKey="Rejected"
             strokeWidth={3}
             stroke="#C5DCFF"
             fill="url(#chartBody)"

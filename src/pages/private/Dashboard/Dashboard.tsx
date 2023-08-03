@@ -6,8 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
 import { getStatusClass } from "../../../helper/getStatusClass";
-import { timeFormat } from "../../../helper/timeFoemat";
 import InfoCards from "../../../components/Infocard/InfoCards";
+import { timeFormat } from "../../../helper/timeFormat";
 
 const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestones"];
 

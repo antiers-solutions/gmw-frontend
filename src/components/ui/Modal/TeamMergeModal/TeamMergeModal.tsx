@@ -27,15 +27,17 @@ const TeamMergeModal = (props: any) => {
       const fetchedTeams: any = teamResponse?.data?.teams || [];
 
       // Filter out teams with ids that are in the selectedTeam array
-      const filteredTeams: any = fetchedTeams.filter(
-        (team: any) => !selectedTeam.includes(team.id)
-      );
+      const filteredTeams: any =
+        fetchedTeams?.length &&
+        fetchedTeams?.filter((team: any) => !selectedTeam.includes(team.id));
 
       // Add the selected teams to the beginning of the array
-      const mergedTeams: any = selectedTeam.map((id: any, index: number) => ({
-        id,
-        name: selectedTeamName[index],
-      }));
+      const mergedTeams: any =
+        selectedTeam?.length &&
+        selectedTeam?.map((id: any, index: number) => ({
+          id,
+          name: selectedTeamName[index],
+        }));
 
       setSearchedTeam([...mergedTeams, ...filteredTeams] || []);
     } catch (e) {

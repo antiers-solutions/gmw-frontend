@@ -14,6 +14,7 @@ export const api = {
     projectChartByLevel: () => `/api/graph/get-projects-count-by-level`,
     projectByMilestone: () => `/api/graph/get-milestones-count-per-project`,
     projectStatusByYear: () => `/api/graph/get-rejected-accepted-projects-year?year=2022`,
-    projectStatusChange: () => `/api/project/update-status`
+    projectStatusChange: () => `/api/project/update-status`,
+    dynamicCard: () => `/api/dynamic-cards`
 
 }

@@ -36,10 +36,9 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
 
   //state
   const [pageNo, setPageNo] = useState(1);
-  const [teamDataArray, setTeamDataArray] = useState([]);
+  const [teamDataArray, setTeamDataArray] = useState<any>([]);
   const [teamDataCount, setTeamDataCount] = useState(0);
   const [loader, setLoader] = useState(false);
-  const [statusCount, setStatusCount] = useState([]);
 
   //api links
   const { allTeam, teamByName } = api;
@@ -49,13 +48,11 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
     // Fetch team data using the provided API URL
     try {
       const team = await UseGetApi(url);
-
       // Set the team data array to the fetched data or an empty array if no data is available
-      setTeamDataArray(team?.data?.teams || []);
+      setTeamDataArray(team?.data?.teamsDataWithProjectStatus || []);
 
       // Set the count of team data items to the fetched count or 0 if count is not available
       setTeamDataCount(team?.data?.totalCount || 0);
-      setStatusCount(team?.data?.statusCount || []);
     } catch (e) {}
     // Set the loading state to false
     setLoader(false);
@@ -122,21 +119,9 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                       {firstLetterCapitalize(item?.name) || "-"}
                     </td>
                     <td>{item.projects.length || "-"}</td>
-                    <td>
-                      {(statusCount?.length &&
-                        statusCount[index][item?.name || ""]["active"]) ||
-                        0}
-                    </td>
-                    <td>
-                      {(statusCount?.length &&
-                        statusCount[index][item?.name || ""]["complete"]) ||
-                        0}
-                    </td>
-                    <td>
-                      {(statusCount?.length &&
-                        statusCount[index][item?.name || ""]["hold"]) ||
-                        0}
-                    </td>
+                    <td>{item?.projectStatus?.active || 0}</td>
+                    <td>{item?.projectStatus?.complete || 0}</td>
+                    <td>{item?.projectStatus?.hold || 0}</td>
                     <td>0</td>
                   </tr>
                 );

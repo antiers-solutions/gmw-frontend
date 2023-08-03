@@ -7,7 +7,7 @@ import { api } from "../../../../api/api";
 import { DocIcon, ProjectIcon } from "../../../../assets/svg/SvgIcon";
 import { useNavigate, useParams } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";
-import { string } from "yup";
+import { timeFormat } from "../../../../helper/timeFormat";
 let fields = ["Milestone", "Delivery ID", "Link"];
 
 const ProjectDetail = ({
@@ -100,21 +100,30 @@ const ProjectDetail = ({
     try {
       const project = await UseGetApi(url);
       // Extract data from the response
-      const { project_name, status, team_id, total_cost, md_content } =
-        project.data[0];
+      const {
+        project_name,
+        status,
+        team_id,
+        start_date,
+        total_cost,
+        md_content,
+      } = project.data[0];
       // Update state variables with the extracted data
-      setProjectStatus(status);
+      setProjectStatus(status || "-");
       setMdContent(md_content || "");
       const card = [...cardData];
       const application = [...applicationData];
       const team = [...teamData];
       const milestone = [...milestoneData];
-      card[1].text = firstLetterCapitalize(project_name) || "-";
-      application[0].info = firstLetterCapitalize(project_name) || "-";
-      application[3].info = firstLetterCapitalize(status) || "-";
+      card[1].text =
+        (project_name && firstLetterCapitalize(project_name)) || "-";
+      application[0].info =
+        (project_name && firstLetterCapitalize(project_name)) || "-";
+      application[3].info = (status && firstLetterCapitalize(status)) || "-";
       team[1].info = team_id || "-";
       milestone[1].info = `${total_cost?.amount || "-"}`;
       milestone[0].info = `${total_cost?.currency?.toUpperCase() || "-"}`;
+      application[2].info = `${start_date ? timeFormat(start_date) : "-"}`;
       setCardDatas(card || []);
       setCardData(card || []);
       setApplicationData(application || []);
@@ -126,14 +135,14 @@ const ProjectDetail = ({
       navigate(-1);
     }
   };
-
   // Function to fetch team data from the API based on the provided URL
   const getTeamData: any = async (url: string) => {
     try {
       const team = await UseGetApi(url);
       // Extract data from the response
       const teams = [...teamData];
-      teamData[0].info = firstLetterCapitalize(team.data.teamData.name) || "-";
+      teamData[0].info =
+        firstLetterCapitalize(team?.data?.teamData?.name) || "-";
       setTeamData(teams || []);
     } catch (e) {}
     setLoader(false);
@@ -145,16 +154,18 @@ const ProjectDetail = ({
       const milestone = await UseGetApi(url);
       // Extract data from the response and process it into a formatted array of milestones
       const milestones = milestone?.data?.map((item: any) => {
-        const sliceIndex = item.file_name.lastIndexOf(".");
-        const milestoneName = item.file_name
-          .slice(0, sliceIndex)
-          .trim()
-          .replace(/^\w/, (c: string) => c.toUpperCase());
+        const sliceIndex = item?.file_name?.lastIndexOf(".");
+        const milestoneName =
+          item?.file_name ||
+          "-"
+            .slice(0, sliceIndex)
+            .trim()
+            .replace(/^\w/, (c: string) => c.toUpperCase());
 
         return {
           milestone: milestoneName || "-",
-          id: item.id,
-          hash: item.project_md_link,
+          id: item?.id || "-",
+          hash: item?.project_md_link || "-",
         };
       });
       // Update the state variable with the formatted array of milestones
