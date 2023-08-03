@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   CommonButton,
   CustomTable,
-  Loader,
   TeamMergeModal,
 } from "../../../components/ui";
 import UseGetApi from "../../../hooks/UseGetApi";
@@ -11,6 +10,7 @@ import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
 import "./Deliveries.scss";
 import { Spinner } from "react-bootstrap";
+import InfoCards from "../../../components/Infocard/InfoCards";
 
 // const fields = [
 //   "Team Name",
@@ -85,8 +85,10 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
   return (
     <>
       <div className="inner-layout">
+        <h6 className="title">Teams: {teamDataCount}</h6>
+        <InfoCards />
         <div className="mb-3 d-flex justify-content-between align-items-center">
-          <h6 className="title mb-0">Teams: {teamDataCount}</h6>
+          <h6 className="title mb-0">Teams List</h6>
           <CommonButton
             title="Merge"
             className="primary"

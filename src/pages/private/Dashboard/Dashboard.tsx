@@ -1,6 +1,5 @@
-import { Col, Row, Spinner } from "react-bootstrap";
-import { CustomTable, InfoCard, Loader } from "../../../components/ui";
-import { DollarIcon, TagIcon } from "../../../assets/svg/SvgIcon";
+import { Spinner } from "react-bootstrap";
+import { CustomTable } from "../../../components/ui";
 import { useEffect, useState } from "react";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,35 +7,7 @@ import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
 import { getStatusClass } from "../../../helper/getStatusClass";
 import { timeFormat } from "../../../helper/timeFoemat";
-
-const cardData = [
-  {
-    text: "$1,534",
-    percText: "+7",
-    subText: "Active",
-    icon: <TagIcon />,
-  },
-  {
-    text: "$1,700",
-    percText: "+7",
-    subText: "Hold",
-    icon: <TagIcon />,
-    class: "pink",
-  },
-  {
-    text: "$1,800",
-    percText: "+7",
-    subText: "Reject",
-    icon: <TagIcon />,
-    class: "purple",
-  },
-  {
-    text: "$20,000",
-    subText: "Complete",
-    icon: <DollarIcon />,
-    class: "green",
-  },
-];
+import InfoCards from "../../../components/Infocard/InfoCards";
 
 const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestones"];
 
@@ -115,20 +86,8 @@ const Dashboard = ({ search }: { search: string }) => {
     <div className="dashboard">
       {loader ? <Spinner animation="border" variant="primary"></Spinner> : null}
       <h6 className="title">Grants: {projectDataCount}</h6>
-      <Row className="mb-3 mb-lg-5">
-        {cardData.map((item: any, index) => (
-          <Col xxl={3} sm={6} className="mb-4 mb-xxl-0" key={index}>
-            <InfoCard
-              className={item.class}
-              icon={item.icon}
-              text={item.text}
-              percText={item.percText}
-              subText={item.subText}
-            />
-          </Col>
-        ))}
-      </Row>
-      <h6 className="title mb-4">Projects List</h6>
+      <InfoCards />
+      <h6 className="title mb-3 proj_listTitle">Projects List</h6>
       <CustomTable
         className="width_td"
         fields={fields}
