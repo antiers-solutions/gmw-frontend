@@ -63,11 +63,7 @@ const Login = () => {
 
   // Function to handle the failure response after GitHub login
   const onFailure = (response: any) => console.error(response, "error");
-  console.log(
-    process.env.REACT_APP_REDIRECT_URI,
-    process.env.REACT_APP_CLIENT_ID,
-    process.env
-  );
+
   return (
     <div className="login-page">
       {loader ? <Loader /> : null}
