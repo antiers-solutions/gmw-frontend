@@ -49,7 +49,6 @@ const Projects = () => {
   const setactiveClass = (value: string) => {
     setCommonButton(value);
   };
-  console.log(projectStatus, "&&&&");
   const StatusOptions = [
     {
       value: "active",

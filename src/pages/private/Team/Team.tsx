@@ -54,33 +54,33 @@ const Team = () => {
 
   const [applicationData, setApplicationData] = useState([
     {
-      name: "Completed",
-      info: "-",
+      name: "Complete",
+      info: "0",
     },
     {
-      name: "In Progress",
-      info: "-",
+      name: "Active",
+      info: "0",
     },
 
     {
-      name: "Rejected",
-      info: "-",
+      name: "Hold",
+      info: "0",
     },
   ]);
 
   const [teamDatas, setTeamDatas] = useState([
     {
-      name: "Completed",
-      info: "-",
+      name: "Complete",
+      info: "0",
     },
     {
-      name: "In Progress",
-      info: "-",
+      name: "Active",
+      info: "0",
     },
 
     {
-      name: "Rejected",
-      info: "-",
+      name: "Hold",
+      info: "0",
     },
   ]);
 

@@ -13,7 +13,7 @@ const InfoCard = (props: {
     <div className={`info-card ${props.className ? props.className : ""}`}>
       <div className="info-card__icon icon-bg">{props.icon}</div>
       <div className="info-card__content">
-        <h6>
+        <h6 className="text-dark">
           {props.text}
           {props.percText && (
             // use classname "negtive" for show in red

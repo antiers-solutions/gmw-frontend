@@ -10,14 +10,24 @@ import { useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
 import "./Deliveries.scss";
+import { Spinner } from "react-bootstrap";
+
+// const fields = [
+//   "Team Name",
+//   "Total Projects",
+//   "Ongoing",
+//   "Delivered",
+//   "Proposed",
+//   "Terminated",
+// ];
 
 const fields = [
   "Team Name",
   "Total Projects",
-  "Ongoing",
-  "Delivered",
-  "Proposed",
-  "Terminated",
+  "Active",
+  "Completed",
+  "Hold",
+  "Rejected",
 ];
 
 const TeamsMainPage = ({ search }: { search?: string }) => {
@@ -29,6 +39,7 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
   const [teamDataArray, setTeamDataArray] = useState([]);
   const [teamDataCount, setTeamDataCount] = useState(0);
   const [loader, setLoader] = useState(false);
+  const [statusCount, setStatusCount] = useState([]);
 
   //api links
   const { allTeam, teamByName } = api;
@@ -44,6 +55,7 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
 
       // Set the count of team data items to the fetched count or 0 if count is not available
       setTeamDataCount(team?.data?.totalCount || 0);
+      setStatusCount(team?.data?.statusCount || []);
     } catch (e) {}
     // Set the loading state to false
     setLoader(false);
@@ -81,7 +93,9 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
             onClick={handleShow}
           />
         </div>
-        {loader ? <Loader /> : null}
+        {loader ? (
+          <Spinner animation="border" variant="primary"></Spinner>
+        ) : null}
         <CustomTable
           fields={fields}
           pagination={!search && teamDataCount > pageLimit}
@@ -93,7 +107,7 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
           pageNo={pageNo}
         >
           {teamDataArray.length
-            ? teamDataArray?.map((item: any) => {
+            ? teamDataArray?.map((item: any, index: number) => {
                 return (
                   <tr
                     key={item.id}
@@ -106,10 +120,22 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                       {firstLetterCapitalize(item?.name) || "-"}
                     </td>
                     <td>{item.projects.length || "-"}</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>
+                      {(statusCount?.length &&
+                        statusCount[index][item?.name || ""]["active"]) ||
+                        0}
+                    </td>
+                    <td>
+                      {(statusCount?.length &&
+                        statusCount[index][item?.name || ""]["complete"]) ||
+                        0}
+                    </td>
+                    <td>
+                      {(statusCount?.length &&
+                        statusCount[index][item?.name || ""]["hold"]) ||
+                        0}
+                    </td>
+                    <td>0</td>
                   </tr>
                 );
               })

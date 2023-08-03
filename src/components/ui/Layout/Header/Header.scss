@@ -5,7 +5,8 @@
   position: relative;
   z-index: 1;
   margin-bottom: 60px;
-
+  position: sticky;
+  top: 0;
   @media (max-width: 767px) {
     margin-bottom: 2rem;
   }
@@ -125,30 +126,6 @@
 .mob-logo {
   @media (max-width: 767px) {
     width: 2rem;
-  }
-}
-
-.is-sticky {
-  position: fixed;
-  top: 0px;
-  left: 27rem;
-  width: 100%;
-  max-width: calc(96.8% - 23rem);
-  z-index: 999;
-  animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
-  padding-top: 10px !important;
-  padding-bottom: 10px !important;
-  padding: 0px 3rem;
-  background-color: $lightWhite;
-
-  @media (max-width:1880px) {
-    max-width: calc(95.8% - 23rem);
-    left: 27rem;
-  }
-
-  @media (max-width:1199px) {
-    max-width: calc(94.8% - 0rem);
-    left: 2rem;
   }
 }
 

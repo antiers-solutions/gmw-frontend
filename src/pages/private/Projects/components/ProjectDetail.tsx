@@ -7,6 +7,7 @@ import { api } from "../../../../api/api";
 import { DocIcon, ProjectIcon } from "../../../../assets/svg/SvgIcon";
 import { useNavigate, useParams } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";
+import { string } from "yup";
 let fields = ["Milestone", "Delivery ID", "Link"];
 
 const ProjectDetail = ({
@@ -91,7 +92,6 @@ const ProjectDetail = ({
   useEffect(() => {
     if (applicationData[3].info.toLocaleLowerCase() !== projectStatus) {
       updateStatus(projectStatusChange());
-      console.log(projectStatus, applicationData[3].info, "kkkkkk");
     }
   }, [projectStatus]);
 
@@ -169,7 +169,9 @@ const ProjectDetail = ({
       id,
     };
     const statusUpdated = await UseGetApi(url, "put", payload);
-    console.log(statusUpdated);
+    if (statusUpdated?.data?.acknowledged) {
+      getProjectData(projectById(String(id)));
+    }
   };
   // useEffect hook for API calling
   useEffect(() => {

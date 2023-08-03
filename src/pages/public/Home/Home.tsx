@@ -14,7 +14,12 @@ const Home = () => {
 
   const COLORS = ["#0166FA", "#74ACFF", "#C5DCFF"];
 
-  const { projectChart, projectChartByLevel, projectByMilestone } = api;
+  const {
+    projectChart,
+    projectChartByLevel,
+    projectByMilestone,
+    projectStatusByYear,
+  } = api;
   const [projectCharts, setProjectCharts] = useState<any>([]);
   const [projectMilestoneCharts, setProjectMilestoneCharts] = useState<any>([]);
   const [levelChart, setLevelChart] = useState<any>([]);
@@ -26,7 +31,8 @@ const Home = () => {
       if (type === "project") {
         setProjectCharts(data.data);
       } else if (type === "milestone") {
-        setProjectMilestoneCharts(data.data);
+        console.log(data.data["2022"]);
+        setProjectMilestoneCharts([data.data["2022"]]);
       } else {
         setLevelChart(data.data);
       }
@@ -36,9 +42,10 @@ const Home = () => {
   useEffect(() => {
     chartData(projectChart(), "project");
     chartData(projectChartByLevel(), "projectByLevel");
-    chartData(projectByMilestone(), "milestone");
+    chartData(projectStatusByYear(), "milestone");
   }, []);
 
+  console.log(projectMilestoneCharts);
   return (
     <section className="home">
       <Container>

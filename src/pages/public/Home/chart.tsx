@@ -165,7 +165,7 @@ const Chart = ({
             stroke="#D2D6E0"
           />
           <XAxis
-            dataKey="name"
+            dataKey="accepted"
             tickMargin={25}
             angle={-20}
             // scale={"band"}

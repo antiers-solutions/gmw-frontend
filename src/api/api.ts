@@ -13,6 +13,7 @@ export const api = {
     projectChart: () => `/api/graph/get-projects-count-by-status`,
     projectChartByLevel: () => `/api/graph/get-projects-count-by-level`,
     projectByMilestone: () => `/api/graph/get-milestones-count-per-project`,
+    projectStatusByYear: () => `/api/graph/get-rejected-accepted-projects-year?year=2022`,
     projectStatusChange: () => `/api/project/update-status`
 
 }

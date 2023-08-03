@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import { CustomTable, InfoCard, Loader } from "../../../components/ui";
 import { DollarIcon, TagIcon } from "../../../assets/svg/SvgIcon";
 import { useEffect, useState } from "react";
@@ -112,7 +112,7 @@ const Dashboard = ({ search }: { search: string }) => {
 
   return (
     <div className="dashboard">
-      {loader ? <Loader /> : null}
+      {loader ? <Spinner animation="border" variant="primary"></Spinner> : null}
       <h6 className="title">Grants: {projectDataCount}</h6>
       <Row className="mb-3 mb-lg-5">
         {cardData.map((item: any, index) => (
@@ -153,7 +153,9 @@ const Dashboard = ({ search }: { search: string }) => {
                   <td className="fw600 setWidth">
                     {firstLetterCapitalize(item?.project_name) || "-"}
                   </td>
-                  <td>{item.start_date || "-"}</td>
+                  <td>
+                    {new Date(item?.start_date)?.toLocaleDateString() || "-"}
+                  </td>
                   <td>{Number(item?.level) || "-"}</td>
                   <td className={getStatusClass(item.status)}>
                     {firstLetterCapitalize(item.status) || "-"}

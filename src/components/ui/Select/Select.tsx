@@ -24,10 +24,6 @@ const CustomSelect = ({
   value,
   label,
 }: propsType) => {
-  useEffect(() => {
-    console.log(options, "options!!!!");
-  }, [options]);
-
   return (
     <>
       {label && <label className="form-label">{label}</label>}

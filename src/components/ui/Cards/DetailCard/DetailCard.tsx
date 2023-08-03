@@ -3,6 +3,7 @@ import "./DetailCard.scss";
 import { useNavigate } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";
 import { Copyicon } from "../../../../assets/svg/SvgIcon";
+import { getStatusClass } from "../../../../helper/getStatusClass";
 
 const DetailCard = ({
   heading,
@@ -56,7 +57,9 @@ const DetailCard = ({
                   <strong>{item.name}</strong>
                   <span
                     className={
-                      showCss && item.name !== "Team ID" ? "cursor-pointer" : ""
+                      showCss
+                        ? "cursor-pointer"
+                        : getStatusClass(item.name.toLowerCase())
                     }
                     onClick={() =>
                       showCss
@@ -65,10 +68,7 @@ const DetailCard = ({
                     }
                   >
                     {item.name === "Team ID" ? (
-                      <>
-                        {" "}
-                        {splitText(item.info, 4)} <Copyicon />
-                      </>
+                      <> {splitText(item.info, 4)}</>
                     ) : (
                       item.info
                     )}

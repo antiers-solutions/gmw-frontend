@@ -116,6 +116,7 @@ const TeamMergeModal = (props: any) => {
           type="text"
           autoComplete="off"
           placeholder="Search"
+          maxLength={255}
           onChange={(e: any) => setInputState(e.target.value, "search")}
           name="search"
           value={search}
@@ -165,6 +166,7 @@ const TeamMergeModal = (props: any) => {
             <input
               type="text"
               placeholder="Team Name"
+              maxLength={255}
               className="form-control"
               value={teamName}
               onChange={(e) => setInputState(e.target.value, "teamName")}

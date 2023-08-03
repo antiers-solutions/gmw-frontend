@@ -101,23 +101,8 @@ const Header = (props: {
     }
   };
 
-  // on render, set listener
-  useEffect(() => {
-    window.addEventListener("scroll", isSticky);
-    return () => {
-      window.removeEventListener("scroll", isSticky);
-    };
-  }, []);
-
-  const isSticky = () => {
-    const scrollTop = window.scrollY;
-    const stickyClass = scrollTop >= 1 ? "is-sticky" : "";
-    setSticky(stickyClass);
-  };
-
-  const classes = `header ${sticky}`;
   return (
-    <header className={classes}>
+    <header className="header">
       <Container fluid className="px-0">
         <Row className="align-items-center">
           <Col xs={1} className="d-xl-none">
@@ -141,6 +126,7 @@ const Header = (props: {
                   <div className={`common_input`}>
                     <input
                       className="form-control"
+                      maxLength={255}
                       placeholder={`Search By ${
                         location.pathname === "/auth/projects"
                           ? "Project Name"
