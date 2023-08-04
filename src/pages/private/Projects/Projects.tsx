@@ -7,14 +7,18 @@ import {
 } from "../../../components/ui";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
 import "./Projects.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MarkdownIt from "markdown-it";
 import markdownItEmoji from "markdown-it-emoji";
 import ProjectDetail from "./components/ProjectDetail";
-import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
+import UseGetApi from "../../../hooks/UseGetApi";
+import { useParams } from "react-router-dom";
+import { api } from "../../../api/api";
 
 const Projects = () => {
+  const { id } = useParams(); // get id
+  const { projectStatusChange } = api;
   //state
   const [cardData, setCardData] = useState([
     {
@@ -49,6 +53,17 @@ const Projects = () => {
   const setactiveClass = (value: string) => {
     setCommonButton(value);
   };
+
+  useEffect(() => {
+    if (commonButton !== "info") {
+      const payload = {
+        updatedStatus: projectStatus,
+        id,
+      };
+      UseGetApi(projectStatusChange(), "put", payload);
+    }
+  }, [projectStatus]);
+
   const StatusOptions = [
     {
       value: "active",

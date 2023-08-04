@@ -18,7 +18,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
-import { getStatusClass } from "../../../helper/getStatusClass";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
+import { addZero } from "../../../helper/addZero";
 
 const fields = ["Project name", "Status"];
 
@@ -58,7 +59,7 @@ const Team = () => {
       info: "00",
     },
     {
-      name: "In Review",
+      name: "In-Review",
       info: "00",
     },
 
@@ -120,11 +121,9 @@ const Team = () => {
             };
           })) ||
         [];
-      projectStatus[0].info =
-        String(complete).length == 1 ? "0" + complete : complete;
-      projectStatus[1].info =
-        String(active).length == 1 ? "0" + active : active;
-      projectStatus[2].info = String(hold).length == 1 ? "0" + hold : hold;
+      projectStatus[0].info = addZero(String(complete));
+      projectStatus[1].info = addZero(String(active));
+      projectStatus[2].info = addZero(String(hold));
       setTeamDatas(projectStatus || []);
       setCardData(card || []);
       setDeliveryData(projectDetail || []);
@@ -178,7 +177,7 @@ const Team = () => {
                   >
                     <td className="fw600">{item.name}</td>
                     <td className={getStatusClass(item.status)}>
-                      {firstLetterCapitalize(item.status)}
+                      {getStatusName(item?.status) || "-"}
                     </td>
                   </tr>
                 ))
@@ -186,7 +185,7 @@ const Team = () => {
           </CustomTable>
         </Col>
         <Col lg={4}>
-          <div className="team-page__right__inner">
+          <div className="team-page__right__inner teamsRowCard">
             <Row>
               <Col sm={12}>
                 <DetailCard

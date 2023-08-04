@@ -75,12 +75,10 @@
   gap: 10px;
 }
 
-
 .team-modal {
   .common_input {
     input {
       padding-left: 35px;
-
     }
 
     svg {
@@ -89,5 +87,13 @@
       left: 42px;
       user-select: none;
     }
+  }
+}
+
+.mergeSpanBox {
+  span {
+    max-width: 380px;
+    width: 100%;
+    word-break: break-word;
   }
 }

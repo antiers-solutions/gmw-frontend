@@ -1,7 +1,9 @@
 export const getStatusClass = (status: string) => {
-  if (status === "active") return "yellow";
-  if (status === "complete") return "green";
-  if (status === "hold") return "red";
+  if (status === "active" || status === "in-progress" || status === "in-review")
+    return "yellow";
+  if (status === "complete" || status === "accepted" || status === "completed")
+    return "green";
+  if (status === "hold" || status === "rejected") return "red";
   if (status === "reject") return "purple";
 };
 

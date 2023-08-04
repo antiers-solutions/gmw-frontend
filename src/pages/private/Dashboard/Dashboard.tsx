@@ -28,15 +28,15 @@ const Dashboard = ({ search }: { search: string }) => {
   // API links
   const { allProject, projectByName, filteredProject } = api;
   useEffect(() => {
-    if (location.state) {
+    if (location.state && !search) {
       const { level, status } = location?.state;
       getFilterProjectData(
         filteredProject(level.value, status.value, pageLimit, pageNo)
       );
     } else {
-      getProjectData(allProject(pageLimit, pageNo));
+      if (!search) getProjectData(allProject(pageLimit, pageNo));
     }
-  }, [location?.state, pageLimit, pageNo]);
+  }, [location?.state, pageLimit, pageNo, search]);
 
   useEffect(() => {
     setPageNo(1);
@@ -78,7 +78,9 @@ const Dashboard = ({ search }: { search: string }) => {
         getProjectData(projectByName(search), "search");
       }, 800);
     } else {
-      getProjectData(allProject(pageLimit, pageNo));
+      if (!location.state) {
+        getProjectData(allProject(pageLimit, pageNo));
+      }
     }
 
     return () => clearTimeout(timer);

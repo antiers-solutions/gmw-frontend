@@ -24,20 +24,20 @@ const TeamMergeModal = (props: any) => {
     try {
       // Fetch team data using the provided API URL
       const teamResponse = await UseGetApi(url);
-      const fetchedTeams: any = teamResponse?.data?.teams || [];
-
+      const fetchedTeams: any =
+        teamResponse?.data?.teamsDataWithProjectStatus || [];
       // Filter out teams with ids that are in the selectedTeam array
-      const filteredTeams: any =
-        fetchedTeams?.length &&
-        fetchedTeams?.filter((team: any) => !selectedTeam.includes(team.id));
+      const filteredTeams: any = fetchedTeams?.length
+        ? fetchedTeams?.filter((team: any) => !selectedTeam.includes(team.id))
+        : [];
 
       // Add the selected teams to the beginning of the array
-      const mergedTeams: any =
-        selectedTeam?.length &&
-        selectedTeam?.map((id: any, index: number) => ({
-          id,
-          name: selectedTeamName[index],
-        }));
+      const mergedTeams: any = selectedTeam?.length
+        ? selectedTeam?.map((id: any, index: number) => ({
+            id,
+            name: selectedTeamName[index],
+          }))
+        : [];
 
       setSearchedTeam([...mergedTeams, ...filteredTeams] || []);
     } catch (e) {
@@ -101,8 +101,8 @@ const TeamMergeModal = (props: any) => {
   // Reset the form fields
   const onReset = () => {
     setSearch("");
-    setSearchedTeam([]);
     setSelectedTeam([]);
+    setTeamName("");
     setSelectedTeamName([]);
   };
 
@@ -138,7 +138,7 @@ const TeamMergeModal = (props: any) => {
           >
             {searchedTeam.length ? (
               searchedTeam?.map((item: any, index: number) => (
-                <li key={index}>
+                <li className="mergeSpanBox" key={index}>
                   <span>{item.name || "-"}</span>
                   <Checkbox
                     onChange={(e: any) =>
@@ -155,21 +155,21 @@ const TeamMergeModal = (props: any) => {
         </div>
       </ul>
 
-      {selectedTeam.length > 1 ? (
-        <div className="team-name">
-          <p className="fw-bold">Team Name</p>
-          <div className={`common_input`}>
-            <input
-              type="text"
-              placeholder="Team Name"
-              maxLength={255}
-              className="form-control"
-              value={teamName}
-              onChange={(e) => setInputState(e.target.value, "teamName")}
-            />
-          </div>
+      <div className="team-name">
+        <p className="fw-bold">Team Name</p>
+        <div className={`common_input`}>
+          <input
+            type="text"
+            disabled={selectedTeam.length < 2}
+            placeholder="Team Name"
+            maxLength={255}
+            className="form-control"
+            value={teamName}
+            onChange={(e) => setInputState(e.target.value, "teamName")}
+          />
         </div>
-      ) : null}
+      </div>
+
       <div className="d-flex justify-content-center modal_btngroup">
         <CommonButton
           title="Reset"
@@ -181,7 +181,7 @@ const TeamMergeModal = (props: any) => {
           title="Create Team"
           className="primary btn-lg"
           onClick={onSubmit}
-          disabled={selectedTeam?.length < 2}
+          disabled={selectedTeam?.length < 2 || !teamName}
         />
       </div>
     </CommonModal>

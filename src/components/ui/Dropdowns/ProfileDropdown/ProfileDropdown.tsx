@@ -13,7 +13,7 @@ const ProfileDropdown = () => {
           alt="img"
         />
       </span>
-      <strong>{user.name || "-"}</strong>
+      <strong>{user?.name || user?.gitId || "-"}</strong>
     </div>
   );
 };

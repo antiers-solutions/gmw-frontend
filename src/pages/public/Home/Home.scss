@@ -269,15 +269,6 @@
         overflow: visible;
       }
     }
-
-    // @media (max-width: 1199px) {
-    //   width: 220px !important;
-    //   height: 220px !important;
-    // }
-    // @media (max-width: 575px) {
-    //   width: 180px !important;
-    //   height: 180px !important;
-    // }
   }
 }
 
@@ -285,14 +276,13 @@
   font-size: 13px;
 }
 
-
 .home-top {
   position: relative;
   z-index: 9;
   &::before {
     content: "";
     position: absolute;
-    background-image: url('../../../assets/images/Vectorstar.png');
+    background-image: url("../../../assets/images/Vectorstar.png");
     left: 10px;
     height: 54px;
     width: 56px;
@@ -300,11 +290,7 @@
     top: -18px;
     z-index: -1;
 
-    // @media (max-width:1299px) {
-    //   left: 2%;
-    // }
-
-    @media (max-width:480px) {
+    @media (max-width: 480px) {
       content: unset;
     }
   }

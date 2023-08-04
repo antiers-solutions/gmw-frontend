@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import logo from "../../../assets/images/logo.svg";
 import { CommonButton } from "../../../components/ui";
-import { DiagonalArrow } from "../../../assets/svg/SvgIcon";
 import "./Home.scss";
 import { useNavigate } from "react-router-dom";
 import Chart from "./chart";
@@ -59,7 +58,14 @@ const Home = () => {
               Polkadot & <br /> Kusama.
             </span>
           </h1>
-          <h4>Learn more about our Grants Program.</h4>
+          <a
+            className="link-opacity-100"
+            href="https://grants.web3.foundation/"
+            target="_blank"
+          >
+            {" "}
+            <h4>Learn more about our Grants Program.</h4>{" "}
+          </a>
         </div>
         <div className="home-imgs">
           <div className="home-imgs-left">
@@ -82,20 +88,7 @@ const Home = () => {
                 className="graph-chart"
               />
             </div>
-            <div className="text-center">
-              <CommonButton
-                onClick={() => navigate("/login")}
-                title={
-                  <>
-                    Explore
-                    <span>
-                      <DiagonalArrow />
-                    </span>
-                  </>
-                }
-                className="primary explore-btn"
-              />
-            </div>
+            <div className="text-center primary explore-btn"></div>
           </div>
           <div className="home-imgs-right">
             <p>Projects</p>

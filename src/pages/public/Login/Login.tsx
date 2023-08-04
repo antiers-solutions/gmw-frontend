@@ -8,6 +8,7 @@ import { Col, Row } from "react-bootstrap";
 import loginImg from "../../../assets/images/login-img.png";
 import "./Login.scss";
 import BackIcon from "../../../assets/svg/BackIcon.svg";
+
 const Login = () => {
   // state
   const [gitLoginSuccess, setGitLoginSuccess] = useState(false);
@@ -24,6 +25,11 @@ const Login = () => {
     // This effect seems redundant, and you might want to remove it or add more logic here.
     setGitLoginSuccess(true);
   }, [gitLoginSuccess]);
+
+  useEffect(() => {
+    setError("");
+    setToken("");
+  }, [showInput]);
 
   // This effect runs whenever the value of localStorage.getItem("isLogged") changes
   useEffect(() => {
@@ -116,7 +122,7 @@ const Login = () => {
                     <CommonButton
                       className=" primary my-4 w-100"
                       title="Submit"
-                      disabled={!token}
+                      disabled={!token || Boolean(error)}
                       onClick={() => onSuccess({ code: token })}
                     />
                   </form>

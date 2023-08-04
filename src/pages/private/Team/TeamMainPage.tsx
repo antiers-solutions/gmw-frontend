@@ -12,6 +12,7 @@ import "./Deliveries.scss";
 import { Spinner } from "react-bootstrap";
 import InfoCards from "../../../components/Infocard/InfoCards";
 import ToolTip from "../../../components/ui/Tooltip/ToolTip";
+import { addZero } from "../../../helper/addZero";
 
 // const fields = [
 //   "Team Name",
@@ -25,7 +26,7 @@ import ToolTip from "../../../components/ui/Tooltip/ToolTip";
 const fields = [
   "Team Name",
   "Total Projects",
-  "Active",
+  "In-Progress",
   "Completed",
   "Hold",
   "Rejected",
@@ -123,11 +124,13 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                         tooltipData={firstLetterCapitalize(item?.name) || "-"}
                       />{" "}
                     </td>
-                    <td>{item.projects.length || "-"}</td>
-                    <td>{item?.projectStatus?.active || 0}</td>
-                    <td>{item?.projectStatus?.complete || 0}</td>
-                    <td>{item?.projectStatus?.hold || 0}</td>
-                    <td>0</td>
+                    <td>{addZero(String(item?.projects?.length)) || "-"}</td>
+                    <td>{addZero(String(item?.projectStatus?.active)) || 0}</td>
+                    <td>
+                      {addZero(String(item?.projectStatus?.complete)) || 0}
+                    </td>
+                    <td>{addZero(String(item?.projectStatus?.hold)) || 0}</td>
+                    <td>00</td>
                   </tr>
                 );
               })

@@ -7,7 +7,7 @@ function ToolTip({ tooltipData }: { tooltipData: string }) {
   const firstLetterSplit = (value: string) => {
     if (!value) return "-";
     const exactValue = value.slice(0, value.indexOf(" "));
-    return value.indexOf(" ") > 1 ? exactValue + "..." : value;
+    return value.indexOf(" ") >= 1 ? exactValue + "..." : value;
   };
 
   return (

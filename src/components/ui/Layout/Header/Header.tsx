@@ -7,7 +7,7 @@ import {
   SearchIcon,
 } from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FilterDropdown from "../../Dropdowns/FilterDropdown/FilterDropdown";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
@@ -62,7 +62,7 @@ const Header = (props: {
 
   // React Router hook to access the current location
   const location = useLocation();
-
+  const navigate = useNavigate();
   // Function that will be called when the form is submitted
   const onSubmit = (e: any, values: any) => {
     e.preventDefault();
@@ -72,11 +72,9 @@ const Header = (props: {
   // useEffect hook to handle side effects related to the route and search bar
   useEffect(() => {
     // Clear search state when the route changes
-    setSearch("");
     setLevel(LevelOptions[0]);
     setStatus(StatusOptions[0]);
     // Call 'getSearchData' with an empty search value when the route changes
-    props.getSearchData("");
 
     // Check if the current route is '/auth/team' or '/auth/projects'
     if (["/auth/team", "/auth/projects"].includes(location.pathname)) {
@@ -89,8 +87,15 @@ const Header = (props: {
     setSearchBar(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    setSearch("");
+    props.getSearchData("");
+  }, [location.key]);
+
   // Assuming the alphaNumeric regex pattern is already defined somewhere in your code
   const setInputState = (value: string) => {
+    setLevel(LevelOptions[0]);
+    setStatus(StatusOptions[0]);
     if (alphaNumeric.test(value)) {
       setSearch(value);
       props.getSearchData(value);
