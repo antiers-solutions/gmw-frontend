@@ -11,6 +11,7 @@ import { api } from "../../../api/api";
 import "./Deliveries.scss";
 import { Spinner } from "react-bootstrap";
 import InfoCards from "../../../components/Infocard/InfoCards";
+import ToolTip from "../../../components/ui/Tooltip/ToolTip";
 
 // const fields = [
 //   "Team Name",
@@ -93,7 +94,9 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
           />
         </div>
         {loader ? (
-          <Spinner animation="border" variant="primary"></Spinner>
+          <div className="loaderStyle">
+            <Spinner animation="border" variant="primary"></Spinner>
+          </div>
         ) : null}
         <CustomTable
           fields={fields}
@@ -110,13 +113,15 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                 return (
                   <tr
                     key={item.id}
-                    className="cursor-pointer"
+                    className="cursor-pointer teamTableView"
                     onClick={() => {
                       navigate(`/auth/team/${item.id}`);
                     }}
                   >
-                    <td className="fw600">
-                      {firstLetterCapitalize(item?.name) || "-"}
+                    <td className="fw600 ">
+                      <ToolTip
+                        tooltipData={firstLetterCapitalize(item?.name) || "-"}
+                      />{" "}
                     </td>
                     <td>{item.projects.length || "-"}</td>
                     <td>{item?.projectStatus?.active || 0}</td>

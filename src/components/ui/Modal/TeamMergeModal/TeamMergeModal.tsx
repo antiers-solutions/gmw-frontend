@@ -149,13 +149,7 @@ const TeamMergeModal = (props: any) => {
                 </li>
               ))
             ) : (
-              <span>
-                {!loader
-                  ? !search
-                    ? "Search the team"
-                    : "No Record found"
-                  : null}
-              </span>
+              <span>{!loader ? (!search ? "" : "No Record found") : null}</span>
             )}
           </PerfectScrollbar>
         </div>

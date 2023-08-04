@@ -1,0 +1,12 @@
+@import "../../../assets/theme/_var.scss";
+.tooltip-inner {
+  font-size: 12px;
+  font-weight: 500;
+  background-color: $lightWhite !important;
+  color: $black !important;
+}
+.tooltip-arrow {
+  &::before {
+    border-bottom-color: $lightWhite !important;
+  }
+}

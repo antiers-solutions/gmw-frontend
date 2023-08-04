@@ -37,11 +37,11 @@ const StatusOptions = [
   },
   {
     value: "active",
-    label: "Active",
+    label: "In-Progress",
   },
   {
     value: "complete",
-    label: "Complete",
+    label: "Completed",
   },
   {
     value: "hold",
@@ -59,7 +59,7 @@ const Header = (props: {
   const [search, setSearch] = useState<string>(""); // Show search bar
   const [level, setLevel] = useState<any>(LevelOptions[0]);
   const [status, setStatus] = useState<any>(StatusOptions[0]);
-  const [sticky, setSticky] = useState("");
+
   // React Router hook to access the current location
   const location = useLocation();
 

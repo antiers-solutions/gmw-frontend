@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { InfoCard } from "../../components/ui";
 import { Col, Row } from "react-bootstrap";
-import { DollarIcon, TagIcon } from "../../assets/svg/SvgIcon";
+import { TagIcon } from "../../assets/svg/SvgIcon";
 import UseGetApi from "../../hooks/UseGetApi";
 import { api } from "../../api/api";
 

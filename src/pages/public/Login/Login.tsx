@@ -55,9 +55,11 @@ const Login = () => {
             window.location.reload();
             // Redirect to the dashboard
           } else {
-            setError("Please enter valid credentials");
+            setError("Please enter valid token");
           }
-        } catch (e) {}
+        } catch (e) {
+          setError("Please enter valid token");
+        }
       }
     }
 

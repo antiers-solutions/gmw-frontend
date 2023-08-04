@@ -1,4 +1,3 @@
-import CommonDropdown from "../CommonDropdown/CommonDropdown";
 import "./ProfileDropdown.scss";
 
 const ProfileDropdown = () => {

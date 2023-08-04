@@ -13,9 +13,6 @@
     width: calc(100% - 27rem);
     overflow: hidden;
     height: 100vh;
-    @media (max-width: 1889px) {
-      padding: 0;
-    }
     @media (max-width: 1199px) {
       width: 100%;
       padding: 0rem;
@@ -58,6 +55,5 @@ header.header {
     // padding: 0px 3rem;
     background-color: $lightWhite !important;
     z-index: 9;
-  
   }
 }

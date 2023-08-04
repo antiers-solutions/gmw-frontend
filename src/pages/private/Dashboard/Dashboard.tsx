@@ -1,13 +1,15 @@
-import { Spinner } from "react-bootstrap";
+import { Button, OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 import { CustomTable } from "../../../components/ui";
 import { useEffect, useState } from "react";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
-import { getStatusClass } from "../../../helper/getStatusClass";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import InfoCards from "../../../components/Infocard/InfoCards";
 import { timeFormat } from "../../../helper/timeFormat";
+import ToolTip from "../../../components/ui/Tooltip/ToolTip";
+// import { tooltip } from "../../../components/ui/Tooltip/ToolTip";
 
 const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestones"];
 
@@ -84,7 +86,11 @@ const Dashboard = ({ search }: { search: string }) => {
 
   return (
     <div className="dashboard">
-      {loader ? <Spinner animation="border" variant="primary"></Spinner> : null}
+      {loader ? (
+        <div className="loaderStyle">
+          <Spinner animation="border" variant="primary"></Spinner>
+        </div>
+      ) : null}
       <h6 className="title">Grants: {projectDataCount}</h6>
       <InfoCards />
       <h6 className="title mb-3 proj_listTitle">Projects List</h6>
@@ -111,14 +117,19 @@ const Dashboard = ({ search }: { search: string }) => {
                   }}
                 >
                   <td className="fw600 setWidth">
-                    {firstLetterCapitalize(item?.project_name) || "-"}
+                    {/* {firstLetterCapitalize(item?.project_name) || "-"} */}
+                    <ToolTip
+                      tooltipData={
+                        firstLetterCapitalize(item?.project_name) || "-"
+                      }
+                    />
                   </td>
                   <td>
                     {(item?.start_date && timeFormat(item?.start_date)) || "-"}
                   </td>
                   <td>{Number(item?.level) || "-"}</td>
                   <td className={getStatusClass(item.status)}>
-                    {firstLetterCapitalize(item.status) || "-"}
+                    {getStatusName(item?.status) || "-"}
                   </td>{" "}
                   <td className="fw700">{`${item.total_cost.amount || "-"} ${
                     item.total_cost.currency?.toUpperCase() || "-"

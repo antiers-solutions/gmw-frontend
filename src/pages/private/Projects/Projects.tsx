@@ -12,7 +12,7 @@ import MarkdownIt from "markdown-it";
 import markdownItEmoji from "markdown-it-emoji";
 import ProjectDetail from "./components/ProjectDetail";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
-import { getStatusClass } from "../../../helper/getStatusClass";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 
 const Projects = () => {
   //state
@@ -52,18 +52,15 @@ const Projects = () => {
   const StatusOptions = [
     {
       value: "active",
-      label: "Active",
-      // className:"greeenvalue",
+      label: "In-Progress",
     },
     {
       value: "complete",
-      label: "Complete",
-      // className:"yellowvelue",
+      label: "Completed",
     },
     {
       value: "hold",
       label: "Hold",
-      // className:"redvalue",
     },
   ];
   return (
@@ -83,14 +80,14 @@ const Projects = () => {
               </Col>
             ))
           : null}
-        <div className="col-md-3 offset-xxl-3 col-sm-1 dropdown_project">
+        <div className="col-md-2 offset-xxl-4 col-sm-1 dropdown_project">
           <CustomSelect
             className={`${getStatusClass(projectStatus)} `}
             options={StatusOptions}
             defaultValue={StatusOptions[0]}
             value={{
               value: projectStatus,
-              label: firstLetterCapitalize(projectStatus),
+              label: getStatusName(projectStatus),
             }}
             label="Project Status"
             onChange={(e: any) => {

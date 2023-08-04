@@ -2,7 +2,6 @@ import { ReactNode, useEffect, useState } from "react";
 import "./DetailCard.scss";
 import { useNavigate } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";
-import { Copyicon } from "../../../../assets/svg/SvgIcon";
 import { getStatusClass } from "../../../../helper/getStatusClass";
 
 const DetailCard = ({

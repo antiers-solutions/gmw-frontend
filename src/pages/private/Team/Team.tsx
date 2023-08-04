@@ -54,27 +54,27 @@ const Team = () => {
 
   const [applicationData, setApplicationData] = useState([
     {
-      name: "Complete",
-      info: "0",
+      name: "Accepted",
+      info: "00",
     },
     {
-      name: "Active",
-      info: "0",
+      name: "In Review",
+      info: "00",
     },
 
     {
-      name: "Hold",
-      info: "0",
+      name: "Rejected",
+      info: "00",
     },
   ]);
 
   const [teamDatas, setTeamDatas] = useState([
     {
-      name: "Complete",
+      name: "Completed",
       info: "0",
     },
     {
-      name: "Active",
+      name: "In-Progress",
       info: "0",
     },
 
@@ -120,9 +120,11 @@ const Team = () => {
             };
           })) ||
         [];
-      projectStatus[0].info = complete;
-      projectStatus[1].info = active;
-      projectStatus[2].info = hold;
+      projectStatus[0].info =
+        String(complete).length == 1 ? "0" + complete : complete;
+      projectStatus[1].info =
+        String(active).length == 1 ? "0" + active : active;
+      projectStatus[2].info = String(hold).length == 1 ? "0" + hold : hold;
       setTeamDatas(projectStatus || []);
       setCardData(card || []);
       setDeliveryData(projectDetail || []);

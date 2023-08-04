@@ -213,23 +213,6 @@ export function TagIcon() {
   );
 }
 
-export function DollarIcon() {
-  return (
-    <svg
-      width="19"
-      height="19"
-      viewBox="0 0 19 19"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M9.5 0C4.26169 0 0 4.26169 0 9.5C0 14.7383 4.26169 19 9.5 19C14.7383 19 19 14.7383 19 9.5C19 4.26169 14.7383 0 9.5 0ZM9.5 8.66342C10.9414 8.66342 12.1141 9.83608 12.1141 11.2775C12.1141 12.4263 11.3688 13.4037 10.3366 13.7535V15.1132H8.66342V13.7535C7.6312 13.4037 6.88592 12.4263 6.88592 11.2775H8.55907C8.55907 11.7963 8.98115 12.2184 9.5 12.2184C10.0188 12.2184 10.4409 11.7963 10.4409 11.2775C10.4409 10.7587 10.0188 10.3366 9.5 10.3366C8.05858 10.3366 6.88592 9.16392 6.88592 7.7225C6.88592 6.57365 7.6312 5.59625 8.66342 5.24651V3.88685H10.3366V5.24651C11.3688 5.59625 12.1141 6.57365 12.1141 7.7225H10.4409C10.4409 7.20365 10.0188 6.78157 9.5 6.78157C8.98115 6.78157 8.55907 7.20365 8.55907 7.7225C8.55907 8.24134 8.98115 8.66342 9.5 8.66342Z"
-        fill="white"
-      />
-    </svg>
-  );
-}
-
 export function DocIcon() {
   return (
     <svg
@@ -366,37 +349,5 @@ export const DiagonalArrow = () => (
       stroke="white"
       stroke-width="0.5"
     />
-  </svg>
-);
-
-export const Copyicon = () => (
-  <svg
-    fill="#005ffe"
-    version="1.1"
-    id="Layer_1"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 472 472"
-    width="800px"
-    height="800px"
-    stroke="#005ffe"
-  >
-    <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-    <g
-      id="SVGRepo_tracerCarrier"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-
-    <g id="SVGRepo_iconCarrier">
-      {" "}
-      <g>
-        {" "}
-        <rect x="136" width="100" height="50" />{" "}
-        <polygon points="306,30 266,30 266,80 106,80 106,30 66,30 66,362 136,362 136,110 306,110 " />{" "}
-        <polygon points="321,155 321,225 391,225 " />{" "}
-        <polygon points="291,255 291,140 166,140 166,472 406,472 406,255 " />{" "}
-      </g>{" "}
-    </g>
   </svg>
 );

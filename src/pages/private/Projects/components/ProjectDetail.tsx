@@ -8,6 +8,7 @@ import { DocIcon, ProjectIcon } from "../../../../assets/svg/SvgIcon";
 import { useNavigate, useParams } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";
 import { timeFormat } from "../../../../helper/timeFormat";
+import { getStatusName } from "../../../../helper/getStatusClass";
 let fields = ["Milestone", "Delivery ID", "Link"];
 
 const ProjectDetail = ({
@@ -27,7 +28,7 @@ const ProjectDetail = ({
   const navigate = useNavigate(); //route
   const [teamData, setTeamData] = useState([
     {
-      name: "Team name",
+      name: "Team Name",
       info: "-",
     },
     {
@@ -43,11 +44,11 @@ const ProjectDetail = ({
   const [applicationData, setApplicationData] = useState([
     {
       name: "Application Name",
-      info: "Validator Screen",
+      info: "-",
     },
     {
       name: "Application ID",
-      info: "126",
+      info: "-",
     },
 
     {
@@ -79,7 +80,7 @@ const ProjectDetail = ({
       icon: <DocIcon />,
     },
     {
-      text: "Chaincode",
+      text: "-",
       subText: "Project Name",
       icon: <ProjectIcon />,
       class: "pink",
@@ -119,7 +120,7 @@ const ProjectDetail = ({
         (project_name && firstLetterCapitalize(project_name)) || "-";
       application[0].info =
         (project_name && firstLetterCapitalize(project_name)) || "-";
-      application[3].info = (status && firstLetterCapitalize(status)) || "-";
+      application[3].info = (status && getStatusName(status)) || "-";
       team[1].info = team_id || "-";
       milestone[1].info = `${total_cost?.amount || "-"}`;
       milestone[0].info = `${total_cost?.currency?.toUpperCase() || "-"}`;
@@ -180,7 +181,7 @@ const ProjectDetail = ({
       id,
     };
     const statusUpdated = await UseGetApi(url, "put", payload);
-    if (statusUpdated?.data?.acknowledged) {
+    if (statusUpdated?.data === "success") {
       getProjectData(projectById(String(id)));
     }
   };
@@ -204,7 +205,6 @@ const ProjectDetail = ({
     setCardData(card);
     setApplicationData(application);
   }, [id]);
-
   return (
     <div className="project inner-layout">
       <Row className="mb-3 mb-md-5">
@@ -229,7 +229,12 @@ const ProjectDetail = ({
               {deliveryData?.length
                 ? deliveryData.map((item: any) => (
                     <tr>
-                      <td className="fw600">{item.milestone}</td>
+                      <td className="fw600">
+                        {item?.milestone?.slice(
+                          0,
+                          item?.milestone?.indexOf(".")
+                        ) || "-"}
+                      </td>
                       <td>{item.id}</td>
                       <td>
                         <a href={item.hash} target="_blank" rel="noreferrer">
