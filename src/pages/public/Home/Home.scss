@@ -218,6 +218,19 @@
   -moz-box-shadow: 0px 0px 15px 1px rgba(224, 220, 224, 1);
   box-shadow: 0px 0px 15px 1px rgba(224, 220, 224, 1);
 
+  &.composedChartRes {
+    padding: 0;
+    position: relative;
+
+    .composedCharts {
+      position: absolute;
+      left: -20px;
+      top: 48%;
+      transform: translateY(-50%);
+      z-index: 9;
+    }
+  }
+
   @media (max-width: 1199px) {
     width: 410px !important;
     height: 335px !important;
@@ -229,9 +242,9 @@
     border-radius: 1.8rem;
   }
 
-  @media (max-width: 575px) {
+  @media (max-width: 480px) {
     width: 100% !important;
-    height: 225px !important;
+    // height: 225px !important;
   }
 
   .recharts-wrapper {
@@ -247,7 +260,7 @@
     }
 
     .recharts-surface {
-      margin-left: -4rem;
+      // margin-left: -1rem;
       height: 100% !important;
     }
   }
@@ -279,6 +292,7 @@
 .home-top {
   position: relative;
   z-index: 9;
+
   &::before {
     content: "";
     position: absolute;

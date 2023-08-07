@@ -107,7 +107,9 @@ const Chart = ({
 
   return (
     <ResponsiveContainer
-      className={`responsive-container ${className}`}
+      className={`responsive-container ${
+        type !== "pie" ? "composedChartRes" : ""
+      } ${className}`}
       width="100%"
       height={250}
     >
@@ -144,6 +146,7 @@ const Chart = ({
         </PieChart>
       ) : (
         <ComposedChart
+          className="composedCharts"
           data={chartData}
           margin={{
             top: 5,
@@ -168,13 +171,11 @@ const Chart = ({
             dataKey="name"
             tickMargin={25}
             angle={-20}
-            // scale={"band"}
             padding={{ left: 1, right: 35 }}
           />
           <YAxis />
 
           <Tooltip />
-          {/* <Legend /> */}
 
           <Area
             type="monotone"
