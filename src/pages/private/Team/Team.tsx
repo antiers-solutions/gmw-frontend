@@ -13,7 +13,7 @@ import {
   TeamIcon,
 } from "../../../assets/svg/SvgIcon";
 import "./Team.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
@@ -23,7 +23,7 @@ import { addZero } from "../../../helper/addZero";
 
 const fields = ["Project name", "Status"];
 
-const Team = () => {
+const Team = ({ ID }: { ID?: string }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -97,7 +97,7 @@ const Team = () => {
       // Extract data from the response and update the state variables accordingly
       const { teamData, projectsData } = team?.data;
       const card: any = [...cardData];
-      card[0].text = id;
+      card[0].text = id || ID;
       card[1].text = firstLetterCapitalize(teamData?.name) || "-";
       card[3].text = projectsData?.length || "-";
       let active = 0;
@@ -136,12 +136,12 @@ const Team = () => {
   // API calling useEffect
   useEffect(() => {
     // If 'id' is not found, navigate back to the previous page
-    if (!id) {
+    if (!id && !ID) {
       navigate(-1);
       return;
     }
     setLoader(true);
-    geTeamData(teamById(id));
+    geTeamData(teamById(id || ID || ""));
   }, [id]);
 
   return (
@@ -149,8 +149,8 @@ const Team = () => {
       {loader ? <Loader /> : null}
       <h6 className="title">Teams</h6>
       <Row className="mb-3 mb-lg-5">
-        {cardData.map((item) => (
-          <Col xxl={3} sm={6} className="mb-4 mb-xxl-0">
+        {cardData.map((item, index) => (
+          <Col xxl={3} sm={6} key={index} className="mb-4 mb-xxl-0">
             <InfoCard
               className={item.class}
               icon={item.icon}
@@ -175,8 +175,13 @@ const Team = () => {
                     key={index}
                     onClick={() => navigate(`/auth/projects/${item.id}`)}
                   >
-                    <td className="fw600">{item.name}</td>
-                    <td className={getStatusClass(item.status)}>
+                    <td className="fw600" data-testid="projectName">
+                      {item.name}
+                    </td>
+                    <td
+                      className={getStatusClass(item.status)}
+                      data-testid="projectStatus"
+                    >
                       {getStatusName(item?.status) || "-"}
                     </td>
                   </tr>

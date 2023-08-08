@@ -7,13 +7,12 @@ export const api = {
     teamById: (team_id: String) => `/teams/get-by-id/${team_id}`,
     allTeam: (pageLimit: Number, pageNo: Number) => `/teams/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`,
     teamByName: (search: string) => `/teams/search-by-name?searchedName=${search}`,
-    mergeTeam: () => `/teams/update-team`,
+    mergeTeam: () => `/teams/merge-team`,
     login: () => `/user/signup`,
     logout: () => `/user/logout`,
     projectChart: () => `/graph/get-projects-count-by-status`,
     projectChartByLevel: () => `/graph/get-projects-count-by-level`,
-    projectByMilestone: () => `/graph/get-milestones-count-per-project`,
-    projectStatusByYear: () => `/graph/get-rejected-accepted-projects-year?year=2022`,
+    projectStatusByYear: (currentYear: number) => `/graph/get-rejected-accepted-projects-year?year=${currentYear}`,
     projectStatusChange: () => `/project/update-status`,
     dynamicCard: () => `/dynamic-cards`
 

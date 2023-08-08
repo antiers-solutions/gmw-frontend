@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from "react";
 import CommonButton from "../../CommonButton/CommonButton";
 import CommonModal from "../CommonModal/CommonModal";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Checkbox from "../../Formik/Checkbox/Checkbox";
 import "./TeamMergeModal.scss";
-import { useEffect, useState } from "react";
 import { api } from "../../../../api/api";
 import UseGetApi from "../../../../hooks/UseGetApi";
 import { Spinner } from "react-bootstrap";
@@ -26,7 +26,7 @@ const TeamMergeModal = (props: any) => {
       const teamResponse = await UseGetApi(url);
       const fetchedTeams: any =
         teamResponse?.data?.teamsDataWithProjectStatus || [];
-      // Filter out teams with ids that are in the selectedTeam array
+      // Filter out teams with ID that are in the selectedTeam array
       const filteredTeams: any = fetchedTeams?.length
         ? fetchedTeams?.filter((team: any) => !selectedTeam.includes(team.id))
         : [];

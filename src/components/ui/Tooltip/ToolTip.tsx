@@ -6,13 +6,13 @@ function ToolTip({ tooltipData }: { tooltipData: string }) {
   const tooltip = <Tooltip id="tooltip">{tooltipData}</Tooltip>;
   const firstLetterSplit = (value: string) => {
     if (!value) return "-";
-    const exactValue = value.slice(0, value.indexOf(" "));
-    return value.indexOf(" ") >= 1 ? exactValue + "..." : value;
+    const exactValue = value.slice(0, 6);
+    return exactValue + "...";
   };
 
   return (
     <OverlayTrigger placement="bottom" overlay={tooltip}>
-      <span className="tooltipStyleInternal">
+      <span className="tooltipStyleInternal" data-testid="name">
         {" "}
         {firstLetterSplit(tooltipData)}
       </span>

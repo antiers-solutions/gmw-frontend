@@ -1,4 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../../assets/images/logo.png";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
@@ -35,6 +36,7 @@ const sidebarLinks = [
 ];
 
 const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
+  const navigate = useNavigate();
   // const [isOpen, setIsopen] = useState(false);
 
   // const ToggleSidebar = () => {
@@ -74,7 +76,7 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
 
           <button
             type="button"
-            onClick={() => logoutUser()}
+            onClick={() => logoutUser(navigate)}
             className="sidebar__logoutBtn"
           >
             <span className="sidebar-icon">

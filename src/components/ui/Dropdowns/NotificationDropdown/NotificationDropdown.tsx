@@ -18,26 +18,6 @@ const NotificationDropdown = () => {
     >
       <div className="notification-dropdown__head d-flex align-items-center justify-content-between">
         <span className="fw-700">Notification</span>
-        {/* <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={onSubmit}
-        >
-          {(formik) => (
-            <Form>
-              <FormikControls
-                placeholder="example@gmail.com"
-                control="input"
-                type="Email"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.mail}
-                formik={formik}
-                name="mail"
-              />
-            </Form>
-          )}
-        </Formik> */}
       </div>
 
       <div className="notification-dropdown__body">

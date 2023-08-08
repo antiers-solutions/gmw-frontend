@@ -1,7 +1,7 @@
 import Pagination from "react-bootstrap/Pagination";
 import "./CustomPagination.scss";
 import { LeftArrowIcon, RightArrowIcon } from "../../../assets/svg/SvgIcon";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const CustomPagination = ({
   handleNextClick,

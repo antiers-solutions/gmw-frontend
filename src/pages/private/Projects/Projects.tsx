@@ -7,16 +7,16 @@ import {
 } from "../../../components/ui";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
 import "./Projects.scss";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MarkdownIt from "markdown-it";
 import markdownItEmoji from "markdown-it-emoji";
-import ProjectDetail from "./components/ProjectDetail";
 import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useParams } from "react-router-dom";
 import { api } from "../../../api/api";
+import ProjectDetail from "../../../components/ProjectDetail/ProjectDetail";
 
-const Projects = () => {
+const Projects = ({ ID }: { ID?: string }) => {
   const { id } = useParams(); // get id
   const { projectStatusChange } = api;
   //state
@@ -58,7 +58,7 @@ const Projects = () => {
     if (commonButton !== "info") {
       const payload = {
         updatedStatus: projectStatus,
-        id,
+        id: id || ID,
       };
       UseGetApi(projectStatusChange(), "put", payload);
     }
@@ -84,8 +84,8 @@ const Projects = () => {
       <h6 className="title">Project Detail page</h6>
       <Row className="mb-3 mb-lg-5">
         {cardData.length
-          ? cardData.map((item) => (
-              <Col xxl={3} sm={6} className="mb-4 mb-xxl-0">
+          ? cardData.map((item, index) => (
+              <Col xxl={3} sm={6} key={index} className="mb-4 mb-xxl-0">
                 <InfoCard
                   className={item.class}
                   icon={item.icon}
@@ -132,6 +132,7 @@ const Projects = () => {
           setCardData={(value: any) => {
             setCardData(value);
           }}
+          ID={ID || id}
           setProjectStatus={(value: string) => setProjectStatus(value)}
           projectStatus={projectStatus}
         />

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Table } from "react-bootstrap";
 import { NoRecord } from "../../../assets/svg/SvgIcon";
 import CustomPagination from "../CustomPagination/CustomPagination";

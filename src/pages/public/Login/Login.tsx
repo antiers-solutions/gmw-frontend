@@ -1,7 +1,7 @@
 import { CommonButton, Loader } from "../../../components/ui";
 import logo from "../../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../api/api";
 import { Col, Row } from "react-bootstrap";

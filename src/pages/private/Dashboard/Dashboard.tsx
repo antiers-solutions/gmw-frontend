@@ -1,6 +1,6 @@
-import { Button, OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { CustomTable } from "../../../components/ui";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
@@ -11,7 +11,7 @@ import { timeFormat } from "../../../helper/timeFormat";
 import ToolTip from "../../../components/ui/Tooltip/ToolTip";
 // import { tooltip } from "../../../components/ui/Tooltip/ToolTip";
 
-const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestones"];
+const fields = ["Name", "Started On", "Status", "Cost", "Level", "Milestones"];
 
 const Dashboard = ({ search }: { search: string }) => {
   // State variables
@@ -93,7 +93,9 @@ const Dashboard = ({ search }: { search: string }) => {
           <Spinner animation="border" variant="primary"></Spinner>
         </div>
       ) : null}
-      <h6 className="title">Grants: {projectDataCount}</h6>
+      <h6 className="title" data-testid="count">
+        Grants: {projectDataCount}
+      </h6>
       <InfoCards />
       <h6 className="title mb-3 proj_listTitle">Projects List</h6>
       <CustomTable
@@ -118,7 +120,7 @@ const Dashboard = ({ search }: { search: string }) => {
                     navigate(`/auth/projects/${item.id}`);
                   }}
                 >
-                  <td className="fw600 setWidth">
+                  <td className="fw600 setWidth" data-testid="projectName">
                     {/* {firstLetterCapitalize(item?.project_name) || "-"} */}
                     <ToolTip
                       tooltipData={
@@ -129,13 +131,13 @@ const Dashboard = ({ search }: { search: string }) => {
                   <td>
                     {(item?.start_date && timeFormat(item?.start_date)) || "-"}
                   </td>
-                  <td>{Number(item?.level) || "-"}</td>
                   <td className={getStatusClass(item.status)}>
                     {getStatusName(item?.status) || "-"}
-                  </td>{" "}
+                  </td>
                   <td className="fw700">{`${item.total_cost.amount || "-"} ${
                     item.total_cost.currency?.toUpperCase() || "-"
                   }`}</td>
+                  <td>{Number(item?.level) || "-"}</td>
                   <td>{`${item.milestones?.length || 0} / ${
                     item.totalMilestones || item.milestones?.length
                   }`}</td>

@@ -8,7 +8,7 @@ import {
 } from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterDropdown from "../../Dropdowns/FilterDropdown/FilterDropdown";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
 

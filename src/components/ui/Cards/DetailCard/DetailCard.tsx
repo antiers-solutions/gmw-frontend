@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import "./DetailCard.scss";
 import { useNavigate } from "react-router-dom";
 import { splitText } from "../../../../helper/splitText";

@@ -1,3 +1,4 @@
+import React from "react";
 import "./ProfileDropdown.scss";
 
 const ProfileDropdown = () => {
@@ -13,7 +14,7 @@ const ProfileDropdown = () => {
           alt="img"
         />
       </span>
-      <strong>{user?.name || user?.gitId || "-"}</strong>
+      <strong data-testid="name">{user?.name || user?.gitId || "-"}</strong>
     </div>
   );
 };

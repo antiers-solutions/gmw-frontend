@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CommonButton,
   CustomTable,
@@ -84,7 +84,9 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
   return (
     <>
       <div className="inner-layout">
-        <h6 className="title">Teams: {teamDataCount}</h6>
+        <h6 className="title" data-testid="count">
+          Teams: {teamDataCount}
+        </h6>
         <InfoCards />
         <div className="mb-3 d-flex justify-content-between align-items-center">
           <h6 className="title mb-0">Teams List</h6>
@@ -119,17 +121,23 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                       navigate(`/auth/team/${item.id}`);
                     }}
                   >
-                    <td className="fw600 ">
+                    <td className="fw600 " data-testid="projectName">
                       <ToolTip
                         tooltipData={firstLetterCapitalize(item?.name) || "-"}
                       />{" "}
                     </td>
-                    <td>{addZero(String(item?.projects?.length)) || "-"}</td>
-                    <td>{addZero(String(item?.projectStatus?.active)) || 0}</td>
-                    <td>
+                    <td data-testid="projectLength">
+                      {addZero(String(item?.projects?.length)) || "-"}
+                    </td>
+                    <td data-testid="active">
+                      {addZero(String(item?.projectStatus?.active)) || 0}
+                    </td>
+                    <td data-testid="complete">
                       {addZero(String(item?.projectStatus?.complete)) || 0}
                     </td>
-                    <td>{addZero(String(item?.projectStatus?.hold)) || 0}</td>
+                    <td data-testid="hold">
+                      {addZero(String(item?.projectStatus?.hold)) || 0}
+                    </td>
                     <td>00</td>
                   </tr>
                 );

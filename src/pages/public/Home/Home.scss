@@ -209,7 +209,7 @@
 
 .responsive-container {
   width: 510px !important;
-  height: 335px !important;
+  height: 385px !important;
   padding: 2rem;
   border-radius: 2.5rem;
   background: $white;
@@ -225,7 +225,7 @@
     .composedCharts {
       position: absolute;
       left: -20px;
-      top: 48%;
+      top: 50%;
       transform: translateY(-50%);
       z-index: 9;
     }
@@ -233,7 +233,7 @@
 
   @media (max-width: 1199px) {
     width: 410px !important;
-    height: 335px !important;
+    height: 365px !important;
   }
 
   @media (max-width: 991px) {
@@ -249,7 +249,7 @@
 
   .recharts-wrapper {
     width: 100% !important;
-    height: 100% !important;
+    height: 310px !important;
   }
 
   &.graph-chart {
@@ -307,5 +307,16 @@
     @media (max-width: 480px) {
       content: unset;
     }
+  }
+}
+
+.yearlySelect {
+  position: relative;
+  &_main {
+    position: absolute !important;
+    right: 20px;
+    top: 10px;
+    z-index: 99;
+    min-width: 150px;
   }
 }
