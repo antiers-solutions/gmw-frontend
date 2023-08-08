@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import { CustomTable } from "../../../components/ui";
-import React, { useEffect, useState } from "react";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
@@ -9,7 +9,6 @@ import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import InfoCards from "../../../components/Infocard/InfoCards";
 import { timeFormat } from "../../../helper/timeFormat";
 import ToolTip from "../../../components/ui/Tooltip/ToolTip";
-// import { tooltip } from "../../../components/ui/Tooltip/ToolTip";
 
 const fields = ["Name", "Started On", "Status", "Cost", "Level", "Milestones"];
 
@@ -111,7 +110,6 @@ const Dashboard = ({ search }: { search: string }) => {
       >
         {projectDataArray?.length
           ? projectDataArray?.map((item: any) => {
-              // const FinalLevel = Number(item?.level);
               return (
                 <tr
                   className="cursor-pointer"
@@ -121,7 +119,6 @@ const Dashboard = ({ search }: { search: string }) => {
                   }}
                 >
                   <td className="fw600 setWidth" data-testid="projectName">
-                    {/* {firstLetterCapitalize(item?.project_name) || "-"} */}
                     <ToolTip
                       tooltipData={
                         firstLetterCapitalize(item?.project_name) || "-"

@@ -94,8 +94,6 @@ const Chart = ({
           {name}
         </text>
         <text
-          // x={ex + (cos >= 0 ? 1 : -1) * 12}
-          // y={ey}
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey + 25}
           textAnchor={textAnchor}

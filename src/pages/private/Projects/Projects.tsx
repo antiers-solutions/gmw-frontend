@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import {
   CommonButton,
@@ -7,14 +8,13 @@ import {
 } from "../../../components/ui";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
 import "./Projects.scss";
-import React, { useEffect, useState } from "react";
 import MarkdownIt from "markdown-it";
 import markdownItEmoji from "markdown-it-emoji";
 import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useParams } from "react-router-dom";
 import { api } from "../../../api/api";
-import ProjectDetail from "../../../components/ProjectDetail/ProjectDetail";
+import ProjectDetail from "./components/ProjectDetail";
 
 const Projects = ({ ID }: { ID?: string }) => {
   const { id } = useParams(); // get id

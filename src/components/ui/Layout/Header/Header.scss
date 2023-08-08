@@ -33,28 +33,6 @@
       box-shadow: none;
       border: 0;
     }
-
-    // @media (max-width: 767px) {
-    //   margin-bottom: 2rem;
-    // }
-
-    // &__search,
-    // &__right {
-    //   position: absolute;
-    //   top: 50%;
-    //   transform: translateY(-50%);
-    // }
-    // &__search {
-    //   right: 2.5rem;
-    // }
-    // &__right {
-    //   right: 2.8rem;
-    //   color: $darkBlue;
-    //   svg {
-    //     margin-right: 0.8rem;
-    //     margin-top: -0.4rem;
-    //   }
-    // }
     .common_input {
       flex-grow: 1;
       display: flex;

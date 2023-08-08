@@ -37,34 +37,20 @@ const sidebarLinks = [
 
 const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
   const navigate = useNavigate();
-  // const [isOpen, setIsopen] = useState(false);
-
-  // const ToggleSidebar = () => {
-  //   setIsopen(!isOpen);
-  // };
 
   return (
     <>
-      {/* <div className="sidebar-btn open" onClick={ToggleSidebar}>
-        <MenuIcon />
-      </div> */}
-      {/* <div className={`sidebar ${isOpen == true ? "active" : ""}`}> */}
       <div className={`sidebar ${props.isOpen === true ? "active" : ""}`}>
         <div className="sidebar__head">
           <Link to="/auth/projects">
             <img src={logo} alt="logo" />
           </Link>
-          {/* <button className="sidebar-btn close" onClick={ToggleSidebar}>
-            <CloseIcon />
-          </button> */}
         </div>
         <div className="sidebar__wrap">
           <ul className="sidebar__nav">
             <PerfectScrollbar options={{ wheelPropagation: false }}>
               {sidebarLinks.map((item) => (
-                <li
-                // onClick={sidebarHandle}
-                >
+                <li>
                   <NavLink to={item.to}>
                     <span className="sidebar-icon">{item.icon}</span>
                     {item.name}

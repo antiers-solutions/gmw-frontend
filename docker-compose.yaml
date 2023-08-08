@@ -1,0 +1,6 @@
+services:
+  gms-frontend:
+    container_name: gmw-frontend
+    network_mode: "host"
+    build:
+      context: .

@@ -17,12 +17,14 @@ const ProjectDetail = ({
   setCardData,
   setProjectStatus,
   projectStatus,
+  ID,
 }: {
   setLoader?: any;
   setMdContent: any;
   setCardData: any;
   setProjectStatus?: any;
   projectStatus?: string;
+  ID?: string;
 }) => {
   const { id } = useParams(); // get id
   const navigate = useNavigate(); //route
@@ -178,29 +180,29 @@ const ProjectDetail = ({
   const updateStatus = async (url: string) => {
     const payload = {
       updatedStatus: projectStatus,
-      id,
+      id: id || ID,
     };
     const statusUpdated = await UseGetApi(url, "put", payload);
     if (statusUpdated?.data === "success") {
-      getProjectData(projectById(String(id)));
+      getProjectData(projectById(String(id || ID)));
     }
   };
   // useEffect hook for API calling
   useEffect(() => {
     // Check if 'id' is not provided, if not, navigate back to the previous page
-    if (!id) {
+    if (!id && !ID) {
       navigate(-1);
       return;
     }
     // Set loading state to true before making the API calls
     setLoader(true);
     // Make API calls to fetch project, team, and milestone data based on the 'id'
-    getProjectData(projectById(id));
-    getMilestoneData(milestoneById(id));
+    getProjectData(projectById(id || ID || ""));
+    getMilestoneData(milestoneById(id || ID || ""));
     const card = [...cardData];
     const application = [...applicationData];
-    card[0].text = id;
-    application[1].info = id;
+    card[0].text = id || ID || "";
+    application[1].info = id || ID || "";
     // Update the 'cardData' and 'applicationData' state with the 'id'
     setCardData(card);
     setApplicationData(application);

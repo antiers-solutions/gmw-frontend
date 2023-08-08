@@ -11,7 +11,7 @@ const UseGetApi = async (url: string, method?: string, body?: any) => {
     // Make a GET request using Axios with the provided URL and HTTP method (defaulting to "get" if not provided)
     const result = await axios({
       method: method || "get",
-      url: url,
+      url: process.env.REACT_APP_URL + url,
       data: body || undefined,
       withCredentials: true, // Include credentials for cross-origin requests
     });

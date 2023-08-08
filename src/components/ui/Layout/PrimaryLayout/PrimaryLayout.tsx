@@ -30,13 +30,6 @@ const PrimaryLayout = ({ getSearchData }: { getSearchData?: any }) => {
     if (ref.current) {
       ref.current.addEventListener("scroll", handleScroll);
     }
-
-    // Clean up the event listener on unmount
-    // return () => {
-    //   if (ref.current) {
-    //     ref.current.removeEventListener("scroll", handleScroll);
-    //   }
-    // };
   }, [ref]);
   return (
     <div className="primary-layout">

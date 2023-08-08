@@ -14,15 +14,6 @@ import InfoCards from "../../../components/Infocard/InfoCards";
 import ToolTip from "../../../components/ui/Tooltip/ToolTip";
 import { addZero } from "../../../helper/addZero";
 
-// const fields = [
-//   "Team Name",
-//   "Total Projects",
-//   "Ongoing",
-//   "Delivered",
-//   "Proposed",
-//   "Terminated",
-// ];
-
 const fields = [
   "Team Name",
   "Total Projects",

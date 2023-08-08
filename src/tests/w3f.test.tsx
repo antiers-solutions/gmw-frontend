@@ -20,7 +20,6 @@ jest.mock("../hooks/UseGetApi.tsx", () => {
   return {
     __esModule: true,
     default: async (url: string, method: string, body: any) => {
-      // console.log("here is the api", url, method, body);
       if (url === "/project/get-all?pageLimit=10&pageNo=1") {
         return {
           data: {
@@ -284,13 +283,6 @@ describe("CustomPagination Test", () => {
     waitFor(() => {});
   });
 });
-
-// describe("Sidebar Test", () => {
-//   test("Sidebar", async () => {
-//     const rendered = render(<Sidebar ToggleSidebar={() => {}} isOpen={true} />);
-//     waitFor(() => {});
-//   });
-// });
 
 describe("FilterDropdown Test", () => {
   test("FilterDropdown", async () => {

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProfileDropdown from "../../Dropdowns/ProfileDropdown/ProfileDropdown";
 import logo from "../../../../assets/images/mob-logo.png";
@@ -8,7 +9,6 @@ import {
 } from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import FilterDropdown from "../../Dropdowns/FilterDropdown/FilterDropdown";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
 
@@ -117,7 +117,6 @@ const Header = (props: {
           </Col>
           <Col xs={11} md={4} xl={3} className="order-md-last">
             <div className="d-flex align-items-center justify-content-end ">
-              {/* <NotificationDropdown /> */}
               <ProfileDropdown />
               <div className="toggle-btn" onClick={props.ToggleSidebar}>
                 {props.isOpen ? <CloseIcon /> : <MenuIcon />}
@@ -143,22 +142,10 @@ const Header = (props: {
                       name="search"
                     />
                     <SearchIcon />
-                    {/* <button
-                      type="submit"
-                      className="header__search__search cursor-pointer"
-                    >
-                      <SearchIcon />
-                    </button> */}
                   </div>
                 </form>
 
                 <div className="header__search__actions">
-                  {/* <button
-                      type="submit"
-                      className="header__search__search cursor-pointer"
-                    >
-                      <SearchIcon />
-                    </button> */}
                   {location.pathname === "/auth/projects" ? (
                     <>
                       <span className="header__search__divider" />

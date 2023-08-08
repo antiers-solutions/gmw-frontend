@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import {
   CommonButton,
@@ -13,7 +14,6 @@ import {
   TeamIcon,
 } from "../../../assets/svg/SvgIcon";
 import "./Team.scss";
-import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";

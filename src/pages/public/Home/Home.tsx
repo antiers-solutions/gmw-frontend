@@ -21,7 +21,7 @@ const Home = () => {
   const [levelChart, setLevelChart] = useState<any>([]);
   const chartData = async (url: string, type: string) => {
     try {
-      const chart = await axios.get(url);
+      const chart = await axios.get(process.env.REACT_APP_URL + url);
       const { data } = chart;
 
       if (type === "project") {

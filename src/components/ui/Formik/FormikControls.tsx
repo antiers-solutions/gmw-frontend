@@ -5,8 +5,6 @@ function FormikControls(props: any) {
   switch (control) {
     case "input":
       return <Input {...rest} />;
-    // case "checkbox":
-    //   return <Checkbox {...rest} />;
     default:
       return null;
   }
