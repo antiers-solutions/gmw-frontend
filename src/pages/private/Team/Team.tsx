@@ -172,6 +172,7 @@ const Team = ({ ID }: { ID?: string }) => {
               ? deliveryData.map((item: any, index) => (
                   <tr
                     className="cursor-pointer"
+                    data-testid="onClick"
                     key={index}
                     onClick={() => navigate(`/auth/projects/${item.id}`)}
                   >

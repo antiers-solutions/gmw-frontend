@@ -8,7 +8,7 @@ import {
   SearchIcon,
 } from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import FilterDropdown from "../../Dropdowns/FilterDropdown/FilterDropdown";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
 
@@ -62,7 +62,7 @@ const Header = (props: {
 
   // React Router hook to access the current location
   const location = useLocation();
-  const navigate = useNavigate();
+
   // Function that will be called when the form is submitted
   const onSubmit = (e: any, values: any) => {
     e.preventDefault();

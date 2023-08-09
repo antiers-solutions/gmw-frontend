@@ -40,7 +40,8 @@
     "clean:mapfiles": "find build -name '*.map' -exec rm {} ';'",
     "clean": "rimraf build",
     "postbuild": "mv build/static/* build/",
-    "test": "npx jest --coverage",
+    "test": "npx jest",
+    "test:coverage": "npx jest --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

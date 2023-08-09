@@ -1,115 +1,13 @@
 import React from "react";
-import { render, waitFor, screen } from "@testing-library/react";
-import Dashboard from "../pages/private/Dashboard/Dashboard";
-import "@testing-library/jest-dom/extend-expect";
-import TeamsMainPage from "../pages/private/Team/TeamMainPage";
-import Team from "../pages/private/Team/Team";
-import Projects from "../pages/private/Projects/Projects";
-import ToolTip from "../components/ui/Tooltip/ToolTip";
-import ProfileDropdown from "../components/ui/Dropdowns/ProfileDropdown/ProfileDropdown";
-import Header from "../components/ui/Layout/Header/Header";
-import { CustomPagination } from "../components/ui";
-import { FilterDropdown } from "../components/ui";
-import { logoutUser } from "../helper/logout";
-import { useNavigate } from "react-router";
-import { TeamMergeModal } from "../components/ui";
-import { api } from "../api/api";
-import { FormikControls } from "../components/ui";
+import Projects from "../../pages/private/Projects/Projects";
+import { screen, waitFor } from "@testing-library/dom";
+import { render } from "@testing-library/react";
 
-jest.mock("../hooks/UseGetApi.tsx", () => {
+jest.mock("../../hooks/UseGetApi.tsx", () => {
   return {
     __esModule: true,
     default: async (url: string, method: string, body: any) => {
-      if (url === "/project/get-all?pageLimit=10&pageNo=1") {
-        return {
-          data: {
-            totalCount: 407,
-            projects: [
-              {
-                _id: "64ccde92a15ec4f83dd35a5d",
-                id: "c97cf5d7-bf0f-439f-aa00-1123d24dff89",
-                start_date: "2021-12-15T10:19:48.000Z",
-                project_name: "admeta",
-                status: "complete",
-                total_cost: {
-                  amount: "12000",
-                  currency: "usd",
-                },
-                total_duration: "1 months",
-                team_id: "9e8c36ea-502c-4545-9498-0cb6ad64676a",
-                level: "2",
-                milestones: ["5c0a52e1-da47-4316-a701-e2a82a547e2e"],
-                totalMilestones: 1,
-              },
-            ],
-          },
-        };
-      } else if (url === "/teams/get-all?pageLimit=10&pageNo=1") {
-        return {
-          data: {
-            totalCount: "407",
-            teamsDataWithProjectStatus: [
-              {
-                id: "e91201d1-0e82-4d7a-91d6-21294ef02dec",
-                projects: [
-                  {
-                    projectId: "8906b923-a1d6-45fd-adda-2bd07226d253",
-                    status: "complete",
-                    _id: "64ccde92a15ec4f83dd35c16",
-                  },
-                ],
-                name: "mutai solutions",
-                projectStatus: {
-                  active: 0,
-                  complete: 1,
-                  hold: 0,
-                },
-              },
-            ],
-          },
-        };
-      } else if (url === "/teams/get-by-id/3232") {
-        return {
-          data: {
-            teamData: {
-              _id: "64ccde92a15ec4f83dd35c17",
-              id: "1d3749ef-7ceb-4978-89c0-94f5ca98f394",
-              name: "dia data",
-              members: [],
-              projects: [
-                {
-                  projectId: "b37185e7-0e94-42e7-a0ea-6aa2ca129396",
-                  status: "active",
-                  _id: "64ccde92a15ec4f83dd35c18",
-                },
-              ],
-              __v: 0,
-            },
-            projectsData: [
-              {
-                _id: "64ccde92a15ec4f83dd35a6e",
-                id: "b37185e7-0e94-42e7-a0ea-6aa2ca129396",
-                start_date: "2023-03-22T19:30:40.000Z",
-                html_url:
-                  "https://github.com/shaurya-ATR940/Grants-Program_dummy/blob/master/applications/DIA_Bridge_Attestation_Oracle.md",
-                payment_details:
-                  "0xc13233bd20a7fcb1d7c2394ade4857b778382264 ethereum. preferred currency - usdc (0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48).",
-                project_name: "bridges attestation oracle",
-                status: "active",
-                total_cost: {
-                  amount: "30000",
-                  currency: "usd",
-                },
-                total_duration: "3 months",
-                team_id: "1d3749ef-7ceb-4978-89c0-94f5ca98f394",
-                level: "2",
-                milestones: [],
-                totalMilestones: 2,
-              },
-            ],
-          },
-        };
-      } else if (url === "/project/get-by-id/3232") {
+      if (url === "/project/get-by-id/3232") {
         return {
           data: [
             {
@@ -161,17 +59,47 @@ jest.mock("../hooks/UseGetApi.tsx", () => {
             },
           ],
         };
-      } else if (url === "/dynamic-cards") {
+      } else if (url === "/teams/get-by-id/3232") {
         return {
           data: {
-            totalProposals: 578,
-            totalProjects: 407,
-            totalRejectedProposals: 278,
-            totalCompletedProjects: 218,
+            teamData: {
+              _id: "64ccde92a15ec4f83dd35c17",
+              id: "1d3749ef-7ceb-4978-89c0-94f5ca98f394",
+              name: "dia data",
+              members: [],
+              projects: [
+                {
+                  projectId: "b37185e7-0e94-42e7-a0ea-6aa2ca129396",
+                  status: "active",
+                  _id: "64ccde92a15ec4f83dd35c18",
+                },
+              ],
+              __v: 0,
+            },
+            projectsData: [
+              {
+                _id: "64ccde92a15ec4f83dd35a6e",
+                id: "b37185e7-0e94-42e7-a0ea-6aa2ca129396",
+                start_date: "2023-03-22T19:30:40.000Z",
+                html_url:
+                  "https://github.com/shaurya-ATR940/Grants-Program_dummy/blob/master/applications/DIA_Bridge_Attestation_Oracle.md",
+                payment_details:
+                  "0xc13233bd20a7fcb1d7c2394ade4857b778382264 ethereum. preferred currency - usdc (0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48).",
+                project_name: "bridges attestation oracle",
+                status: "active",
+                total_cost: {
+                  amount: "30000",
+                  currency: "usd",
+                },
+                total_duration: "3 months",
+                team_id: "1d3749ef-7ceb-4978-89c0-94f5ca98f394",
+                level: "2",
+                milestones: [],
+                totalMilestones: 2,
+              },
+            ],
           },
         };
-      } else if (url === "/user/logout") {
-        return { data: null };
       }
     },
   };
@@ -186,159 +114,18 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-describe("Project Test", () => {
-  test("Project List", async () => {
-    const rendered = render(<Dashboard search="" />);
-    waitFor(() => {
-      const count = screen.getByTestId("count");
-      const projectName = screen.getByTestId("projectName");
-      expect(count).toHaveTextContent("407");
-      expect(projectName).toHaveTextContent("admeta");
-    });
-  });
-});
-
-describe("Team Test", () => {
-  test("Team List", async () => {
-    const rendered = render(<TeamsMainPage search="" />);
-    waitFor(() => {
-      const count = screen.getByTestId("count");
-      const projectName = screen.getByTestId("projectName");
-      const projectLength = screen.getByTestId("projectLength");
-      const active = screen.getByTestId("active");
-      const complete = screen.getByTestId("complete");
-      const hold = screen.getByTestId("hold");
-      expect(count).toHaveTextContent("407");
-      expect(projectName).toHaveTextContent("mutai solutions");
-      expect(projectLength).toHaveTextContent("1");
-      expect(active).toHaveTextContent("0");
-      expect(complete).toHaveTextContent("1");
-      expect(hold).toHaveTextContent("0");
-    });
-  });
-});
-
-describe("Team Details Test", () => {
-  test("Team Details", async () => {
-    const rendered = render(<Team ID="3232" />);
-    waitFor(() => {
-      const cardProjectName = screen.getByTestId("cardProjectName");
-      const projectName = screen.getByTestId("projectName");
-      const projectStatus = screen.getByTestId("projectStatus");
-      expect(cardProjectName).toHaveTextContent("dia data");
-      expect(projectName).toHaveTextContent("dia data");
-      expect(projectStatus).toHaveTextContent("In-Progress");
-    });
-  });
-});
-
 describe("Project Details Test", () => {
   test("Project Details", async () => {
     const rendered = render(<Projects ID="3232" />);
-    waitFor(() => {
-      const milestoneName = screen.getByTestId("milestone-0-name");
+    await waitFor(() => {
+      const milestoneName = screen.getByText("admeta_milestone_1");
       const milestoneId = screen.getByTestId("milestone-0-id");
       const milestoneLink = screen.getByTestId("milestone-0-link");
-      expect(milestoneName).toHaveTextContent("admeta_milestone_1");
-      expect(milestoneId).toHaveTextContent(
+      expect(milestoneName.innerHTML).toBe("admeta_milestone_1");
+      expect(milestoneId.innerHTML).toBe(
         "5c0a52e1-da47-4316-a701-e2a82a547e2e"
       );
-      expect(milestoneLink).toHaveTextContent(
-        "https://github.com/shaurya-ATR940/Grants-Program_dummy/blob/master/applications/AdMeta.md"
-      );
+      expect(milestoneLink.innerHTML).toBe("https://g...AdMeta.md");
     });
-  });
-});
-
-describe("Tooltip Test", () => {
-  test("Tooltip", async () => {
-    const rendered = render(<ToolTip tooltipData={"jatin Sehgal"} />);
-    waitFor(() => {
-      const name = screen.getByTestId("name");
-      expect(name).toHaveTextContent("jatin");
-    });
-  });
-});
-
-describe("ProfileDropdown Test", () => {
-  test("ProfileDropdown", async () => {
-    const rendered = render(<ProfileDropdown />);
-    waitFor(() => {
-      const name = screen.getByTestId("name");
-      expect(name).toHaveTextContent("-");
-    });
-  });
-});
-
-describe("Header Test", () => {
-  test("Header", async () => {
-    const rendered = render(<Header getSearchData={() => {}} />);
-    waitFor(() => {});
-  });
-});
-
-describe("CustomPagination Test", () => {
-  test("CustomPagination", async () => {
-    const rendered = render(<CustomPagination />);
-    waitFor(() => {});
-  });
-});
-
-describe("FilterDropdown Test", () => {
-  test("FilterDropdown", async () => {
-    const rendered = render(
-      <FilterDropdown
-        level={""}
-        setLevel={() => {}}
-        status={""}
-        setStatus={() => {}}
-        levelOptions={{}}
-        statusOptions={{}}
-      />
-    );
-    waitFor(() => {});
-  });
-});
-
-describe("Logout Test", () => {
-  test("Logout", async () => {
-    logoutUser(useNavigate);
-  });
-});
-
-describe("TeamMergeModal Test", () => {
-  test("TeamMergeModal", async () => {
-    const rendered = render(<TeamMergeModal show onHide={() => {}} />);
-    waitFor(() => {});
-  });
-});
-
-describe("Api Test", () => {
-  test("Api", async () => {
-    await api.allProject(1, 10);
-    await api.allTeam(1, 10);
-    await api.projectByName("ds");
-    await api.projectById("dcs");
-    await api.filteredProject(2, "active", 10, 1);
-    await api.milestoneById("dcs");
-    await api.teamById("dcs");
-    await api.teamByName("dcs");
-    await api.mergeTeam();
-    await api.login();
-
-    await api.logout();
-
-    await api.projectChart();
-    await api.projectChartByLevel();
-    await api.projectStatusChange();
-    await api.dynamicCard();
-    await api.projectStatusByYear(new Date().getFullYear());
-  });
-});
-
-describe("Formik Test", () => {
-  test("Formik", async () => {
-    const rendered = render(<FormikControls />);
-    waitFor(() => {});
   });
 });

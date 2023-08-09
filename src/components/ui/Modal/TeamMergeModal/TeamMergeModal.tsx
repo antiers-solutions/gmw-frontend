@@ -139,7 +139,7 @@ const TeamMergeModal = (props: any) => {
             {searchedTeam.length ? (
               searchedTeam?.map((item: any, index: number) => (
                 <li className="mergeSpanBox" key={index}>
-                  <span>{item.name || "-"}</span>
+                  <span data-testid="name">{item.name || "-"}</span>
                   <Checkbox
                     onChange={(e: any) =>
                       handleChange(e.target.checked, item.id, item.name)

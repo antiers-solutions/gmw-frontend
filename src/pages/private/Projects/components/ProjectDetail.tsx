@@ -229,17 +229,25 @@ const ProjectDetail = ({
           <DetailCard heading="Delivery Information">
             <CustomTable fields={fields}>
               {deliveryData?.length
-                ? deliveryData.map((item: any) => (
-                    <tr>
-                      <td className="fw600">
+                ? deliveryData.map((item: any, index: number) => (
+                    <tr key={index}>
+                      <td
+                        className="fw600"
+                        data-testid={`milestone-${index}-name`}
+                      >
                         {item?.milestone?.slice(
                           0,
                           item?.milestone?.indexOf(".")
                         ) || "-"}
                       </td>
-                      <td>{item.id}</td>
+                      <td data-testid={`milestone-${index}-id`}>{item.id}</td>
                       <td>
-                        <a href={item.hash} target="_blank" rel="noreferrer">
+                        <a
+                          href={item.hash}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-testid={`milestone-${index}-link`}
+                        >
                           {splitText(item.hash, 9)}
                         </a>
                       </td>

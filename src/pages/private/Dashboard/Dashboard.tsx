@@ -114,6 +114,7 @@ const Dashboard = ({ search }: { search: string }) => {
                 <tr
                   className="cursor-pointer"
                   key={item.id}
+                  data-testid="onClick"
                   onClick={() => {
                     navigate(`/auth/projects/${item.id}`);
                   }}

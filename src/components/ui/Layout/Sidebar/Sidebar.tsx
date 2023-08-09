@@ -10,7 +10,8 @@ import {
   TeamIcon,
 } from "../../../../assets/svg/SvgIcon";
 import "./Sidebar.scss";
-import { logoutUser } from "../../../../helper/logout";
+import UseGetApi from "../../../../hooks/UseGetApi";
+import { api } from "../../../../api/api";
 
 const sidebarLinks = [
   {
@@ -37,6 +38,13 @@ const sidebarLinks = [
 
 const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
   const navigate = useNavigate();
+  const { logout } = api;
+
+  const userLogout = async () => {
+    await UseGetApi(logout(), "delete");
+    localStorage.setItem("isLogged", "");
+    navigate("/");
+  };
 
   return (
     <>
@@ -62,7 +70,7 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
 
           <button
             type="button"
-            onClick={() => logoutUser(navigate)}
+            onClick={() => userLogout()}
             className="sidebar__logoutBtn"
           >
             <span className="sidebar-icon">
