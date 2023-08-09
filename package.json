@@ -34,7 +34,7 @@
     "yup": "^1.2.0"
   },
   "scripts": {
-    "start": "DANGEROUSLY_DISABLE_HOST_CHECK=true react-scripts start",
+    "start": "react-scripts start",
     "build": "CI=false && npm-run-all build-js clean:mapfiles",
     "build-js": "react-scripts build",
     "clean:mapfiles": "find build -name '*.map' -exec rm {} ';'",
