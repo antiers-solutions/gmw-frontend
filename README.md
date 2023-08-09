@@ -6,10 +6,7 @@
 ```bash
   npm i 
 ```
-
-## Node Version
-
-18.16.0
+- Recommended Node version: LTS or above
 
 ## Available Scripts
 
