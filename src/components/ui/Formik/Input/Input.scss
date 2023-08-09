@@ -1,6 +1,10 @@
 @import "../../../../assets/theme/_var.scss";
 
 .common_input {
+  svg {
+    user-select: none;
+  }
+
   .form-control {
     padding: 1.4rem 2.7rem;
     color: $darkBlue;
@@ -20,10 +24,12 @@
       color: $lightBlue;
     }
   }
+
   &--error {
     .form-control {
       border-color: red;
     }
+
     color: red;
   }
 }

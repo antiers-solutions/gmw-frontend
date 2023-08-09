@@ -33,9 +33,6 @@ const Notification = ({ className }: any) => {
       {notificationList.map((data, index) => {
         return (
           <li key={index} className="notification__item">
-            {/* <div className="notification__icon">
-              <img src={data.icon} />
-            </div> */}
             <div className="notification__body">
               <p>{data.title}</p>
               <small className="fw-400">{data.time}</small>

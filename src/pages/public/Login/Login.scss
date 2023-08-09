@@ -2,9 +2,6 @@
 
 .login {
   &-page {
-    // display: flex;
-    // align-items: center;
-    // justify-content: center;
     min-height: 100vh;
 
     &-left,
@@ -33,9 +30,6 @@
   }
 
   &-card {
-    // padding: 5.7rem 5rem 7rem;
-    // border-radius: 2.4rem;
-    // background-color: $lightWhite;
     width: 100%;
     max-width: 36rem;
 
@@ -44,7 +38,6 @@
       margin-bottom: 5.7rem;
       font-weight: 400;
       letter-spacing: 0.54px;
-      // text-align: center;
 
       @media (max-width: 767px) {
         font-size: 1.5rem;
@@ -71,4 +64,15 @@
   background-color: transparent;
   margin-bottom: 2rem;
   border: 0;
+}
+
+.simpleText {
+  cursor: text;
+  border: 0;
+  text-align: left;
+  padding: 0 !important;
+  font-size: 16px;
+  &:hover {
+    background-color: transparent;
+  }
 }

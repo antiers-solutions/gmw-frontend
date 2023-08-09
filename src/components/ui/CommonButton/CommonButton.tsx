@@ -1,3 +1,4 @@
+import React from "react";
 import "./CommonButton.scss";
 import GitHubLogin from "react-github-login";
 

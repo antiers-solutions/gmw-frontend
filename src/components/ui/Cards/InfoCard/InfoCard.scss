@@ -38,11 +38,13 @@
     svg {
       width: 1.7rem;
       height: 1.7rem;
+
       path {
         fill: $white;
       }
     }
   }
+
   .icon-bg {
     background: $yellow;
   }
@@ -51,12 +53,13 @@
     h6 {
       margin-bottom: 0.7rem;
       line-height: 1;
+
       small {
         font-weight: 600;
         margin-left: 0.9rem;
 
         &.positive {
-          color: #22dc4b;
+          color: #0ba40b;
         }
 
         &.negtive {
@@ -64,6 +67,7 @@
         }
       }
     }
+
     p {
       font-size: 1.4rem;
       line-height: 1;

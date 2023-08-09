@@ -4,11 +4,13 @@
   background-color: $white;
   border-radius: 1.2rem;
   height: 100%;
+
   &__head {
     padding: 1.8rem 3rem;
     background: $gradient;
     color: $white;
     border-radius: 1.2rem 1.2rem 0 0;
+
     p {
       font-weight: 600;
     }
@@ -17,6 +19,7 @@
   &__content {
     padding: 2.5rem 3rem;
     color: $darkBlue;
+
     li {
       font-size: 1.4rem;
       line-height: 1;
@@ -31,7 +34,9 @@
         flex-basis: 20rem;
         flex-shrink: 0;
       }
-      span {
+
+      span,
+      p {
         font-weight: 400;
         flex-grow: 1;
         margin-left: 0.8rem;
@@ -43,8 +48,9 @@
     &.table {
       border-radius: 0;
 
-      > thead {
+      >thead {
         background: #e9edf8;
+
         tr th {
           border-radius: 0;
           color: $darkBlue;
@@ -52,6 +58,7 @@
       }
 
       tr {
+
         th,
         td {
           padding: 1.2rem 3rem;
@@ -63,9 +70,23 @@
 
 .flex {
   &__content {
+
     strong,
     span {
       flex: 0 0 50% !important;
+    }
+  }
+}
+
+.detail-card__content {
+  li {
+    span {
+      svg {
+        height: 15px;
+        width: 15px;
+        margin-left: 15px;
+        cursor: pointer;
+      }
     }
   }
 }

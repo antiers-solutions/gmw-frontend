@@ -84,10 +84,7 @@ const Routes = () => {
 
   return (
     <>
-      <Suspense
-
-      // fallback={<LoaderSuspense />}
-      >
+      <Suspense>
         <RouterProvider router={router} />
       </Suspense>
     </>

@@ -58,6 +58,7 @@ const FilterDropdown = ({
           {" "}
           <CommonButton
             title="Clear Filter"
+            disabled={!level.value && !status?.value}
             className="primary"
             onClick={() => {
               setLevel(levelOptions[0]);

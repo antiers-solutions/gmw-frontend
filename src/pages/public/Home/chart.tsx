@@ -94,8 +94,6 @@ const Chart = ({
           {name}
         </text>
         <text
-          // x={ex + (cos >= 0 ? 1 : -1) * 12}
-          // y={ey}
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey + 25}
           textAnchor={textAnchor}
@@ -107,7 +105,9 @@ const Chart = ({
 
   return (
     <ResponsiveContainer
-      className={`responsive-container ${className}`}
+      className={`responsive-container ${
+        type !== "pie" ? "composedChartRes" : ""
+      } ${className}`}
       width="100%"
       height={250}
     >
@@ -144,6 +144,7 @@ const Chart = ({
         </PieChart>
       ) : (
         <ComposedChart
+          className="composedCharts"
           data={chartData}
           margin={{
             top: 5,
@@ -168,19 +169,25 @@ const Chart = ({
             dataKey="name"
             tickMargin={25}
             angle={-20}
-            // scale={"band"}
             padding={{ left: 1, right: 35 }}
           />
           <YAxis />
 
           <Tooltip />
-          {/* <Legend /> */}
 
           <Area
             type="monotone"
-            dataKey="totalProjects"
+            dataKey="Accepted"
             strokeWidth={3}
             stroke="#005FFE"
+            fill="url(#chartBody)"
+          />
+
+          <Area
+            type="monotone"
+            dataKey="Rejected"
+            strokeWidth={3}
+            stroke="#C5DCFF"
             fill="url(#chartBody)"
           />
         </ComposedChart>

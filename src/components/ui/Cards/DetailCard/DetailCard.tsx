@@ -1,6 +1,8 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import "./DetailCard.scss";
 import { useNavigate } from "react-router-dom";
+import { splitText } from "../../../../helper/splitText";
+import { getStatusClass } from "../../../../helper/getStatusClass";
 
 const DetailCard = ({
   heading,
@@ -53,14 +55,22 @@ const DetailCard = ({
                 <li key={index}>
                   <strong>{item.name}</strong>
                   <span
-                    className={showCss ? "cursor-pointer" : ""}
+                    className={
+                      showCss
+                        ? "cursor-pointer"
+                        : getStatusClass(item.name.toLowerCase())
+                    }
                     onClick={() =>
                       showCss
                         ? navigate(`/auth/team/${contentLists[1].info}`)
                         : null
                     }
                   >
-                    {item.info}
+                    {item.name === "Team ID" ? (
+                      <> {splitText(item.info, 4)}</>
+                    ) : (
+                      item.info
+                    )}
                   </span>
                 </li>
               ))

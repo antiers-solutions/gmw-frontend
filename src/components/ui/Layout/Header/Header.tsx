@@ -1,10 +1,14 @@
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProfileDropdown from "../../Dropdowns/ProfileDropdown/ProfileDropdown";
 import logo from "../../../../assets/images/mob-logo.png";
-import { CloseIcon, MenuIcon } from "../../../../assets/svg/SvgIcon";
+import {
+  CloseIcon,
+  MenuIcon,
+  SearchIcon,
+} from "../../../../assets/svg/SvgIcon";
 import "./Header.scss";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
 import FilterDropdown from "../../Dropdowns/FilterDropdown/FilterDropdown";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
 
@@ -33,11 +37,11 @@ const StatusOptions = [
   },
   {
     value: "active",
-    label: "Active",
+    label: "In-Progress",
   },
   {
     value: "complete",
-    label: "Complete",
+    label: "Completed",
   },
   {
     value: "hold",
@@ -68,11 +72,9 @@ const Header = (props: {
   // useEffect hook to handle side effects related to the route and search bar
   useEffect(() => {
     // Clear search state when the route changes
-    setSearch("");
     setLevel(LevelOptions[0]);
     setStatus(StatusOptions[0]);
     // Call 'getSearchData' with an empty search value when the route changes
-    props.getSearchData("");
 
     // Check if the current route is '/auth/team' or '/auth/projects'
     if (["/auth/team", "/auth/projects"].includes(location.pathname)) {
@@ -85,9 +87,20 @@ const Header = (props: {
     setSearchBar(false);
   }, [location.pathname]);
 
+  useEffect(() => {
+    setSearch("");
+    props.getSearchData("");
+  }, [location.key]);
+
   // Assuming the alphaNumeric regex pattern is already defined somewhere in your code
   const setInputState = (value: string) => {
+    setLevel(LevelOptions[0]);
+    setStatus(StatusOptions[0]);
     if (alphaNumeric.test(value)) {
+      setSearch(value);
+      props.getSearchData(value);
+    }
+    if (!value) {
       setSearch(value);
       props.getSearchData(value);
     }
@@ -104,7 +117,6 @@ const Header = (props: {
           </Col>
           <Col xs={11} md={4} xl={3} className="order-md-last">
             <div className="d-flex align-items-center justify-content-end ">
-              {/* <NotificationDropdown /> */}
               <ProfileDropdown />
               <div className="toggle-btn" onClick={props.ToggleSidebar}>
                 {props.isOpen ? <CloseIcon /> : <MenuIcon />}
@@ -118,6 +130,7 @@ const Header = (props: {
                   <div className={`common_input`}>
                     <input
                       className="form-control"
+                      maxLength={255}
                       placeholder={`Search By ${
                         location.pathname === "/auth/projects"
                           ? "Project Name"
@@ -128,22 +141,11 @@ const Header = (props: {
                       value={search}
                       name="search"
                     />
-                    {/* <button
-                      type="submit"
-                      className="header__search__search cursor-pointer"
-                    >
-                      <SearchIcon />
-                    </button> */}
+                    <SearchIcon />
                   </div>
                 </form>
 
                 <div className="header__search__actions">
-                  {/* <button
-                      type="submit"
-                      className="header__search__search cursor-pointer"
-                    >
-                      <SearchIcon />
-                    </button> */}
                   {location.pathname === "/auth/projects" ? (
                     <>
                       <span className="header__search__divider" />

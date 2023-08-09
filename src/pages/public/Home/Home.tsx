@@ -1,34 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import logo from "../../../assets/images/logo.svg";
-import { CommonButton } from "../../../components/ui";
-import { DiagonalArrow } from "../../../assets/svg/SvgIcon";
+import { CommonButton, CustomSelect } from "../../../components/ui";
 import "./Home.scss";
 import { useNavigate } from "react-router-dom";
 import Chart from "./chart";
 import { api } from "../../../api/api";
 import axios from "axios";
+import { DiagonalArrow } from "../../../assets/svg/SvgIcon";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const COLORS = ["#0166FA", "#74ACFF", "#C5DCFF"];
+  const currentYear = new Date().getFullYear();
 
-  const { projectChart, projectChartByLevel, projectByMilestone } = api;
+  const { projectChart, projectChartByLevel, projectStatusByYear } = api;
   const [projectCharts, setProjectCharts] = useState<any>([]);
   const [projectMilestoneCharts, setProjectMilestoneCharts] = useState<any>([]);
   const [levelChart, setLevelChart] = useState<any>([]);
   const chartData = async (url: string, type: string) => {
     try {
-      const chart = await axios.get(url);
+      const chart = await axios.get(process.env.REACT_APP_URL + url);
       const { data } = chart;
 
       if (type === "project") {
-        setProjectCharts(data.data);
+        setProjectCharts(data?.data || []);
       } else if (type === "milestone") {
-        setProjectMilestoneCharts(data.data);
+        setProjectMilestoneCharts(data?.data || []);
       } else {
-        setLevelChart(data.data);
+        setLevelChart(data?.data || []);
       }
     } catch (e) {}
   };
@@ -36,7 +37,17 @@ const Home = () => {
   useEffect(() => {
     chartData(projectChart(), "project");
     chartData(projectChartByLevel(), "projectByLevel");
-    chartData(projectByMilestone(), "milestone");
+    chartData(projectStatusByYear(currentYear), "milestone");
+  }, []);
+
+  const [yearOptions, setYearOptions] = useState<any>([]);
+
+  useEffect(() => {
+    const year = [];
+    for (let i = 2020; i <= currentYear; i++) {
+      year.push({ value: i, label: i });
+    }
+    setYearOptions(year);
   }, []);
 
   return (
@@ -59,14 +70,15 @@ const Home = () => {
               Polkadot & <br /> Kusama.
             </span>
           </h1>
+
           <h4>Learn more about our Grants Program.</h4>
         </div>
         <div className="home-imgs">
           <div className="home-imgs-left">
-            <p>Total Applications</p>
+            <p>Projects Level</p>
             <Chart
               type="pie"
-              data={projectCharts}
+              data={levelChart}
               COLORS={COLORS}
               className="pie-chart"
               paddingAngle={0}
@@ -75,7 +87,19 @@ const Home = () => {
             />
           </div>
           <div className="home-imgs-middle">
-            <div className="text-center">
+            <div className="text-center yearlySelect">
+              <CustomSelect
+                options={yearOptions}
+                defaultValue={
+                  yearOptions.length
+                    ? yearOptions[yearOptions?.length - 1]
+                    : { value: currentYear, label: currentYear }
+                }
+                className="yearlySelect_main"
+                onChange={(e: any) => {
+                  chartData(projectStatusByYear(e.value), "milestone");
+                }}
+              />
               <Chart
                 type="line"
                 data={projectMilestoneCharts}
@@ -84,7 +108,9 @@ const Home = () => {
             </div>
             <div className="text-center">
               <CommonButton
-                onClick={() => navigate("/login")}
+                onClick={() =>
+                  window.open("https://grants.web3.foundation/", "_blank")
+                }
                 title={
                   <>
                     Explore
@@ -98,10 +124,10 @@ const Home = () => {
             </div>
           </div>
           <div className="home-imgs-right">
-            <p>Total Grants</p>
+            <p>Projects</p>
             <Chart
               type="pie"
-              data={levelChart}
+              data={projectCharts}
               COLORS={COLORS}
               className="pie-chart"
               paddingAngle={7}

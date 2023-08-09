@@ -1,43 +1,16 @@
-import { Col, Row } from "react-bootstrap";
-import { CustomTable, InfoCard, Loader } from "../../../components/ui";
-import { DollarIcon, TagIcon } from "../../../assets/svg/SvgIcon";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Spinner } from "react-bootstrap";
+import { CustomTable } from "../../../components/ui";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
-import { getStatusClass } from "../../../helper/getStatusClass";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
+import InfoCards from "../../../components/Infocard/InfoCards";
+import { timeFormat } from "../../../helper/timeFormat";
+import ToolTip from "../../../components/ui/Tooltip/ToolTip";
 
-const cardData = [
-  {
-    text: "$1,534",
-    percText: "+7",
-    subText: "Lorem Ispum",
-    icon: <TagIcon />,
-  },
-  {
-    text: "$1,700",
-    percText: "+7",
-    subText: "Lorem Ispum",
-    icon: <TagIcon />,
-    class: "pink",
-  },
-  {
-    text: "$1,800",
-    percText: "+7",
-    subText: "Lorem Ispum",
-    icon: <TagIcon />,
-    class: "purple",
-  },
-  {
-    text: "$20,000",
-    subText: "Total Amount Paid",
-    icon: <DollarIcon />,
-    class: "green",
-  },
-];
-
-const fields = ["Name", "Started On", "Level", "Status", "Cost", "Milestone"];
+const fields = ["Name", "Started On", "Status", "Cost", "Level", "Milestones"];
 
 const Dashboard = ({ search }: { search: string }) => {
   // State variables
@@ -54,15 +27,15 @@ const Dashboard = ({ search }: { search: string }) => {
   // API links
   const { allProject, projectByName, filteredProject } = api;
   useEffect(() => {
-    if (location.state) {
+    if (location.state && !search) {
       const { level, status } = location?.state;
       getFilterProjectData(
         filteredProject(level.value, status.value, pageLimit, pageNo)
       );
     } else {
-      getProjectData(allProject(pageLimit, pageNo));
+      if (!search) getProjectData(allProject(pageLimit, pageNo));
     }
-  }, [location?.state, pageLimit, pageNo]);
+  }, [location?.state, pageLimit, pageNo, search]);
 
   useEffect(() => {
     setPageNo(1);
@@ -104,7 +77,9 @@ const Dashboard = ({ search }: { search: string }) => {
         getProjectData(projectByName(search), "search");
       }, 800);
     } else {
-      getProjectData(allProject(pageLimit, pageNo));
+      if (!location.state) {
+        getProjectData(allProject(pageLimit, pageNo));
+      }
     }
 
     return () => clearTimeout(timer);
@@ -112,25 +87,20 @@ const Dashboard = ({ search }: { search: string }) => {
 
   return (
     <div className="dashboard">
-      {loader ? <Loader /> : null}
-      <h6 className="title">Grants: {projectDataCount}</h6>
-      <Row className="mb-3 mb-lg-5">
-        {cardData.map((item: any, index) => (
-          <Col xxl={3} sm={6} className="mb-4 mb-xxl-0" key={index}>
-            <InfoCard
-              className={item.class}
-              icon={item.icon}
-              text={item.text}
-              percText={item.percText}
-              subText={item.subText}
-            />
-          </Col>
-        ))}
-      </Row>
-      <h6 className="title mb-4">Projects List</h6>
+      {loader ? (
+        <div className="loaderStyle">
+          <Spinner animation="border" variant="primary"></Spinner>
+        </div>
+      ) : null}
+      <h6 className="title" data-testid="count">
+        Grants: {projectDataCount}
+      </h6>
+      <InfoCards />
+      <h6 className="title mb-3 proj_listTitle">Projects List</h6>
       <CustomTable
+        className="width_td"
         fields={fields}
-        pagination={!search}
+        pagination={!search && projectDataCount > pageLimit}
         handleNextClick={() => pageNo >= 1 && setPageNo(pageNo + 1)}
         handlePrevClick={() => pageNo > 1 && setPageNo(pageNo - 1)}
         handlePageNumberClick={(value: number) => setPageNo(value)}
@@ -140,28 +110,34 @@ const Dashboard = ({ search }: { search: string }) => {
       >
         {projectDataArray?.length
           ? projectDataArray?.map((item: any) => {
-              // const FinalLevel = Number(item?.level);
               return (
                 <tr
                   className="cursor-pointer"
                   key={item.id}
+                  data-testid="onClick"
                   onClick={() => {
                     navigate(`/auth/projects/${item.id}`);
                   }}
                 >
-                  <td className="fw600">
-                    {firstLetterCapitalize(item?.project_name) || "-"}
+                  <td className="fw600 setWidth" data-testid="projectName">
+                    <ToolTip
+                      tooltipData={
+                        firstLetterCapitalize(item?.project_name) || "-"
+                      }
+                    />
                   </td>
-                  <td>{item.start_date || "-"}</td>
-                  <td>{Number(item?.level) || "-"}</td>
+                  <td>
+                    {(item?.start_date && timeFormat(item?.start_date)) || "-"}
+                  </td>
                   <td className={getStatusClass(item.status)}>
-                    {firstLetterCapitalize(item.status) || "-"}
-                  </td>{" "}
+                    {getStatusName(item?.status) || "-"}
+                  </td>
                   <td className="fw700">{`${item.total_cost.amount || "-"} ${
                     item.total_cost.currency?.toUpperCase() || "-"
                   }`}</td>
+                  <td>{Number(item?.level) || "-"}</td>
                   <td>{`${item.milestones?.length || 0} / ${
-                    item.totalMilestones
+                    item.totalMilestones || item.milestones?.length
                   }`}</td>
                 </tr>
               );

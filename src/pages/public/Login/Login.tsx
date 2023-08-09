@@ -1,20 +1,21 @@
 import { CommonButton, Loader } from "../../../components/ui";
 import logo from "../../../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../api/api";
 import { Col, Row } from "react-bootstrap";
 import loginImg from "../../../assets/images/login-img.png";
 import "./Login.scss";
 import BackIcon from "../../../assets/svg/BackIcon.svg";
+
 const Login = () => {
   // state
   const [gitLoginSuccess, setGitLoginSuccess] = useState(false);
   const [loader, setLoader] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [token, setToken] = useState("");
-
+  const [error, setError] = useState("");
   const navigate = useNavigate(); // React Router hook for changing routes
   const { login } = api; // API endpoint URLs
 
@@ -25,15 +26,23 @@ const Login = () => {
     setGitLoginSuccess(true);
   }, [gitLoginSuccess]);
 
+  useEffect(() => {
+    setError("");
+    setToken("");
+  }, [showInput]);
+
   // This effect runs whenever the value of localStorage.getItem("isLogged") changes
   useEffect(() => {
     // If a token is found in the local storage, redirect to the dashboard
     if (localStorage.getItem("isLogged")) navigate("/auth/projects");
   }, [localStorage.getItem("isLogged")]);
 
-  // Function to handle the success response after GitHub login
-  const onSuccess = async (e: any, response: any) => {
+  const onSubmit = (e: any, response: any) => {
     e.preventDefault();
+    onSuccess(response);
+  };
+  // Function to handle the success response after GitHub login
+  const onSuccess = async (response: any) => {
     setLoader(true);
     // Check if the response contains a code
     if (response.code) {
@@ -41,18 +50,25 @@ const Login = () => {
       if (gitLoginSuccess) {
         try {
           // Send a request to the server with the received code
-          const gitCode = await axios.post(login(), {
-            access_token: response?.code,
-          });
+          const gitCode = await axios.post(
+            process.env.REACT_APP_URL + login(),
+            {
+              access_token: response?.code,
+            }
+          );
           // Check if the server response contains a data
-          if (gitCode.data) {
+          if (gitCode?.data?.data?.gitId) {
             // Store the data in local storage
             localStorage.setItem("isLogged", JSON.stringify(gitCode.data.data));
             // Reload the window (this might not be necessary, depending on your use case)
             window.location.reload();
             // Redirect to the dashboard
+          } else {
+            setError("Please enter valid token");
           }
-        } catch (e) {}
+        } catch (e) {
+          setError("Please enter valid token");
+        }
       }
     }
 
@@ -89,25 +105,28 @@ const Login = () => {
             <div className="login-card-btns">
               <CommonButton
                 title="GitHub Access Token"
-                className="primary"
+                className={showInput ? "simpleText" : "primary"}
                 onClick={() => setShowInput(true)}
               />
 
               {showInput ? (
                 <div className={`common_input`}>
-                  <form onSubmit={(e) => onSuccess(e, { code: token })}>
+                  <form onSubmit={(e) => onSubmit(e, { code: token })}>
                     <input
                       className="form-control"
                       type="password"
-                      onChange={(e) => setToken(e.target.value)}
+                      onChange={(e) => {
+                        setToken(e.target.value);
+                        setError("");
+                      }}
                       placeholder="Enter Token"
                     />
-
+                    <span className="text-danger">{error ? error : null}</span>
                     <CommonButton
                       className=" primary my-4 w-100"
                       title="Submit"
-                      disabled={!token}
-                      onClick={(e: any) => onSuccess(e, { code: token })}
+                      disabled={!token || Boolean(error)}
+                      onClick={() => onSuccess({ code: token })}
                     />
                   </form>
                 </div>

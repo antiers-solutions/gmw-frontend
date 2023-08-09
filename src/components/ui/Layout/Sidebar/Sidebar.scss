@@ -11,7 +11,6 @@
   background-color: $white;
   width: 27rem;
   padding: 1.2rem;
-  //   overflow: hidden;
 
   @media (max-width: 1199px) {
     left: -100%;
@@ -85,7 +84,6 @@
         line-height: 100%;
         letter-spacing: 0.03em;
         color: $darkBlue;
-        // @extend %transition;
 
         @media (max-width: 767px) {
           padding: 1rem 1.5rem;
@@ -112,8 +110,6 @@
   }
 
   &__logoutBtn {
-    // margin-top: auto;
-    // margin-bottom: 4rem;
     position: absolute;
     bottom: 4rem;
     background-color: transparent;

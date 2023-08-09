@@ -1,13 +1,14 @@
+import React, { useEffect, useState } from "react";
 import CommonButton from "../../CommonButton/CommonButton";
 import CommonModal from "../CommonModal/CommonModal";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import Checkbox from "../../Formik/Checkbox/Checkbox";
 import "./TeamMergeModal.scss";
-import { useEffect, useState } from "react";
 import { api } from "../../../../api/api";
 import UseGetApi from "../../../../hooks/UseGetApi";
 import { Spinner } from "react-bootstrap";
 import { alphaNumeric } from "../../../../helper/alphaNumeric";
+import { SearchIcon } from "../../../../assets/svg/SvgIcon";
 
 const TeamMergeModal = (props: any) => {
   const [search, setSearch] = useState<string>("");
@@ -15,7 +16,6 @@ const TeamMergeModal = (props: any) => {
   const [searchedTeam, setSearchedTeam] = useState<any>([]);
   const [selectedTeam, setSelectedTeam] = useState<any>([]);
   const [selectedTeamName, setSelectedTeamName] = useState<any>([]);
-  const [error, setError] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(false);
 
   const { teamByName, mergeTeam } = api;
@@ -24,18 +24,20 @@ const TeamMergeModal = (props: any) => {
     try {
       // Fetch team data using the provided API URL
       const teamResponse = await UseGetApi(url);
-      const fetchedTeams: any = teamResponse?.data?.teams || [];
-
-      // Filter out teams with ids that are in the selectedTeam array
-      const filteredTeams: any = fetchedTeams.filter(
-        (team: any) => !selectedTeam.includes(team.id)
-      );
+      const fetchedTeams: any =
+        teamResponse?.data?.teamsDataWithProjectStatus || [];
+      // Filter out teams with ID that are in the selectedTeam array
+      const filteredTeams: any = fetchedTeams?.length
+        ? fetchedTeams?.filter((team: any) => !selectedTeam.includes(team.id))
+        : [];
 
       // Add the selected teams to the beginning of the array
-      const mergedTeams: any = selectedTeam.map((id: any, index: number) => ({
-        id,
-        name: selectedTeamName[index],
-      }));
+      const mergedTeams: any = selectedTeam?.length
+        ? selectedTeam?.map((id: any, index: number) => ({
+            id,
+            name: selectedTeamName[index],
+          }))
+        : [];
 
       setSearchedTeam([...mergedTeams, ...filteredTeams] || []);
     } catch (e) {
@@ -73,19 +75,14 @@ const TeamMergeModal = (props: any) => {
           updatedName: teamName,
           teamIds: selectedTeam,
         });
-        setError("");
         props.onHide();
       } catch (e) {}
-    } else {
-      setError("Atleast select two teams");
     }
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (search) {
-        getTeamData(teamByName(search));
-      }
+      getTeamData(teamByName(search));
     }, 800);
 
     return () => clearTimeout(timer);
@@ -96,24 +93,38 @@ const TeamMergeModal = (props: any) => {
     if (alphaNumeric.test(value)) {
       name === "search" ? setSearch(value) : setTeamName(value);
     }
+    if (!value) {
+      name === "search" ? setSearch(value) : setTeamName(value);
+    }
+  };
+
+  // Reset the form fields
+  const onReset = () => {
+    setSearch("");
+    setSelectedTeam([]);
+    setTeamName("");
+    setSelectedTeamName([]);
   };
 
   return (
     <CommonModal
       show={props.show}
       onHide={props.onHide}
-      title="Team Merge"
+      title="Team Merge (>=2)"
       className="team-modal"
     >
       <div className={`common_input`}>
         <input
           type="text"
-          placeholder="Enter Team Name"
+          autoComplete="off"
+          placeholder="Search"
+          maxLength={255}
           onChange={(e: any) => setInputState(e.target.value, "search")}
           name="search"
           value={search}
           className="form-control"
         />
+        <SearchIcon />
       </div>
       <ul>
         <p>Select Team</p>
@@ -127,8 +138,8 @@ const TeamMergeModal = (props: any) => {
           >
             {searchedTeam.length ? (
               searchedTeam?.map((item: any, index: number) => (
-                <li key={index}>
-                  <span>{item.name}</span>
+                <li className="mergeSpanBox" key={index}>
+                  <span data-testid="name">{item.name || "-"}</span>
                   <Checkbox
                     onChange={(e: any) =>
                       handleChange(e.target.checked, item.id, item.name)
@@ -138,39 +149,39 @@ const TeamMergeModal = (props: any) => {
                 </li>
               ))
             ) : (
-              <span>
-                {!loader
-                  ? !search
-                    ? "Search the team"
-                    : "No Record found"
-                  : null}
-              </span>
+              <span>{!loader ? (!search ? "" : "No Record found") : null}</span>
             )}
           </PerfectScrollbar>
         </div>
       </ul>
 
-      {selectedTeam.length > 1 ? (
-        <div className="team-name">
-          <p>Team Name</p>
-          <div className={`common_input`}>
-            <input
-              type="text"
-              placeholder="Team Name"
-              className="form-control"
-              value={teamName}
-              onChange={(e) => setInputState(e.target.value, "teamName")}
-            />
-          </div>
+      <div className="team-name">
+        <p className="fw-bold">Team Name</p>
+        <div className={`common_input`}>
+          <input
+            type="text"
+            disabled={selectedTeam.length < 2}
+            placeholder="Team Name"
+            maxLength={255}
+            className="form-control"
+            value={teamName}
+            onChange={(e) => setInputState(e.target.value, "teamName")}
+          />
         </div>
-      ) : null}
-      {error ? <span className="error-msg">{error}</span> : null}
-      <div className="d-flex justify-content-center">
+      </div>
+
+      <div className="d-flex justify-content-center modal_btngroup">
+        <CommonButton
+          title="Reset"
+          className="primary btn-lg"
+          onClick={onReset}
+          disabled={!selectedTeam?.length}
+        />
         <CommonButton
           title="Create Team"
           className="primary btn-lg"
           onClick={onSubmit}
-          disabled={!selectedTeam.length}
+          disabled={selectedTeam?.length < 2 || !teamName}
         />
       </div>
     </CommonModal>

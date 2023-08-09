@@ -16,4 +16,20 @@
       }
     }
   }
+
+  table {
+    tr {
+      td {
+        &:nth-child(1) {
+          max-width: 160px;
+          white-space: break-spaces;
+        }
+      }
+    }
+  }
+}
+.teamsRowCard {
+  .row {
+    height: auto;
+  }
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import Modal from "react-bootstrap/Modal";
 import "./CommonModal.scss";
 import { CloseIcon } from "../../../../assets/svg/SvgIcon";

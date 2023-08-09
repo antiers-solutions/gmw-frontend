@@ -1,3 +1,4 @@
+import React from "react";
 import { Triangle } from "react-loader-spinner";
 import "./Loader.scss";
 

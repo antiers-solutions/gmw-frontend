@@ -1,4 +1,5 @@
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../../assets/images/logo.png";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
@@ -9,7 +10,8 @@ import {
   TeamIcon,
 } from "../../../../assets/svg/SvgIcon";
 import "./Sidebar.scss";
-import { logoutUser } from "../../../../helper/logout";
+import UseGetApi from "../../../../hooks/UseGetApi";
+import { api } from "../../../../api/api";
 
 const sidebarLinks = [
   {
@@ -35,34 +37,28 @@ const sidebarLinks = [
 ];
 
 const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
-  // const [isOpen, setIsopen] = useState(false);
+  const navigate = useNavigate();
+  const { logout } = api;
 
-  // const ToggleSidebar = () => {
-  //   setIsopen(!isOpen);
-  // };
+  const userLogout = async () => {
+    await UseGetApi(logout(), "delete");
+    localStorage.setItem("isLogged", "");
+    navigate("/");
+  };
 
   return (
     <>
-      {/* <div className="sidebar-btn open" onClick={ToggleSidebar}>
-        <MenuIcon />
-      </div> */}
-      {/* <div className={`sidebar ${isOpen == true ? "active" : ""}`}> */}
       <div className={`sidebar ${props.isOpen === true ? "active" : ""}`}>
         <div className="sidebar__head">
           <Link to="/auth/projects">
             <img src={logo} alt="logo" />
           </Link>
-          {/* <button className="sidebar-btn close" onClick={ToggleSidebar}>
-            <CloseIcon />
-          </button> */}
         </div>
         <div className="sidebar__wrap">
           <ul className="sidebar__nav">
             <PerfectScrollbar options={{ wheelPropagation: false }}>
               {sidebarLinks.map((item) => (
-                <li
-                // onClick={sidebarHandle}
-                >
+                <li>
                   <NavLink to={item.to}>
                     <span className="sidebar-icon">{item.icon}</span>
                     {item.name}
@@ -74,7 +70,7 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
 
           <button
             type="button"
-            onClick={() => logoutUser()}
+            onClick={() => userLogout()}
             className="sidebar__logoutBtn"
           >
             <span className="sidebar-icon">

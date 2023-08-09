@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import {
   CommonButton,
@@ -13,16 +14,16 @@ import {
   TeamIcon,
 } from "../../../assets/svg/SvgIcon";
 import "./Team.scss";
-import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import UseGetApi from "../../../hooks/UseGetApi";
 import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
 import { api } from "../../../api/api";
-import { getStatusClass } from "../../../helper/getStatusClass";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
+import { addZero } from "../../../helper/addZero";
 
 const fields = ["Project name", "Status"];
 
-const Team = () => {
+const Team = ({ ID }: { ID?: string }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
@@ -54,33 +55,33 @@ const Team = () => {
 
   const [applicationData, setApplicationData] = useState([
     {
-      name: "Completed",
-      info: "-",
+      name: "Accepted",
+      info: "00",
     },
     {
-      name: "In Progress",
-      info: "-",
+      name: "In-Review",
+      info: "00",
     },
 
     {
       name: "Rejected",
-      info: "-",
+      info: "00",
     },
   ]);
 
   const [teamDatas, setTeamDatas] = useState([
     {
       name: "Completed",
-      info: "-",
+      info: "0",
     },
     {
-      name: "In Progress",
-      info: "-",
+      name: "In-Progress",
+      info: "0",
     },
 
     {
-      name: "Rejected",
-      info: "-",
+      name: "Hold",
+      info: "0",
     },
   ]);
 
@@ -94,9 +95,9 @@ const Team = () => {
     try {
       const team = await UseGetApi(url);
       // Extract data from the response and update the state variables accordingly
-      const { teamData, projectsData } = team.data;
+      const { teamData, projectsData } = team?.data;
       const card: any = [...cardData];
-      card[0].text = id;
+      card[0].text = id || ID;
       card[1].text = firstLetterCapitalize(teamData?.name) || "-";
       card[3].text = projectsData?.length || "-";
       let active = 0;
@@ -104,23 +105,25 @@ const Team = () => {
       let hold = 0;
       let projectStatus: any = [...teamDatas];
       const projectDetail =
-        projectsData?.map((project: any) => {
-          if (project.status === "complete") {
-            complete++;
-          } else if (project.status === "active") {
-            active++;
-          } else {
-            hold++;
-          }
-          return {
-            name: firstLetterCapitalize(project.project_name) || "-",
-            status: project.status,
-            id: project.id,
-          };
-        }) || [];
-      projectStatus[0].info = complete;
-      projectStatus[1].info = active;
-      projectStatus[2].info = hold;
+        (projectsData?.length &&
+          projectsData?.map((project: any) => {
+            if (project?.status === "complete") {
+              complete++;
+            } else if (project?.status === "active") {
+              active++;
+            } else {
+              hold++;
+            }
+            return {
+              name: firstLetterCapitalize(project?.project_name) || "-",
+              status: project?.status || "-",
+              id: project?.id || "-",
+            };
+          })) ||
+        [];
+      projectStatus[0].info = addZero(String(complete));
+      projectStatus[1].info = addZero(String(active));
+      projectStatus[2].info = addZero(String(hold));
       setTeamDatas(projectStatus || []);
       setCardData(card || []);
       setDeliveryData(projectDetail || []);
@@ -133,12 +136,12 @@ const Team = () => {
   // API calling useEffect
   useEffect(() => {
     // If 'id' is not found, navigate back to the previous page
-    if (!id) {
+    if (!id && !ID) {
       navigate(-1);
       return;
     }
     setLoader(true);
-    geTeamData(teamById(id));
+    geTeamData(teamById(id || ID || ""));
   }, [id]);
 
   return (
@@ -146,8 +149,8 @@ const Team = () => {
       {loader ? <Loader /> : null}
       <h6 className="title">Teams</h6>
       <Row className="mb-3 mb-lg-5">
-        {cardData.map((item) => (
-          <Col xxl={3} sm={6} className="mb-4 mb-xxl-0">
+        {cardData.map((item, index) => (
+          <Col xxl={3} sm={6} key={index} className="mb-4 mb-xxl-0">
             <InfoCard
               className={item.class}
               icon={item.icon}
@@ -169,12 +172,18 @@ const Team = () => {
               ? deliveryData.map((item: any, index) => (
                   <tr
                     className="cursor-pointer"
+                    data-testid="onClick"
                     key={index}
                     onClick={() => navigate(`/auth/projects/${item.id}`)}
                   >
-                    <td className="fw600">{item.name}</td>
-                    <td className={getStatusClass(item.status)}>
-                      {firstLetterCapitalize(item.status)}
+                    <td className="fw600" data-testid="projectName">
+                      {item.name}
+                    </td>
+                    <td
+                      className={getStatusClass(item.status)}
+                      data-testid="projectStatus"
+                    >
+                      {getStatusName(item?.status) || "-"}
                     </td>
                   </tr>
                 ))
@@ -182,7 +191,7 @@ const Team = () => {
           </CustomTable>
         </Col>
         <Col lg={4}>
-          <div className="team-page__right__inner">
+          <div className="team-page__right__inner teamsRowCard">
             <Row>
               <Col sm={12}>
                 <DetailCard
