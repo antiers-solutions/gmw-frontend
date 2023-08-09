@@ -10,9 +10,9 @@ USER node
 ENV BUILD_EXPIRE=${BUILD_EXPIRE}
 ENV BUILD_DOMAIN=${BUILD_DOMAIN}
 RUN rm -rf node_modules/
-# RUN rm -rf package-lock.json
+
 RUN rm -rf yarn.lock
-# RUN npm install -g npm@9.8.1
+
 RUN  npm install && npm run build
 
 FROM antiers/wio:0.1.0 AS production
