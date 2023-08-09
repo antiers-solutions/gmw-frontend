@@ -1,15 +1,12 @@
-# This is thr front-end for grant management webapp
+# This is the front-end component for grant management webapp
 
 ## Installation
 
 #### install using npm 
+- Recommended node version: 18.16.0
 ```bash
-  npm i 
+  npm i -f
 ```
-
-## Node Version
-
-18.16.0
 
 ## Available Scripts
 
@@ -23,7 +20,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm run test --coverage`
+### use `npm run test` to run test cases 
+### use `npm run test --coverage` to check coverage of test cases
 
 Launches the test runner in the interactive watch mode.
 
