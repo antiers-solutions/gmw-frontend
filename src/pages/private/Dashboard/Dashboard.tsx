@@ -9,16 +9,40 @@ import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import InfoCards from "../../../components/Infocard/InfoCards";
 import { timeFormat } from "../../../helper/timeFormat";
 import ToolTip from "../../../components/ui/Tooltip/ToolTip";
-
-const fields = ["Name", "Started On", "Status", "Cost", "Level", "Milestones"];
+import FilterIcon from "../../../assets/svg/sortIcon.svg";
+import "./Dashboard.scss";
 
 const Dashboard = ({ search }: { search: string }) => {
+  const fields = [
+    <span className="sortIcon">
+      Name
+      <span
+        onClick={() => sortedData("name", orderBy === "asc" ? "desc" : "asc")}
+      >
+        <img src={FilterIcon} alt="Filter" />
+      </span>
+    </span>,
+    <span className="sortIcon">
+      Started On
+      <span
+        onClick={() => sortedData("date", orderBy === "asc" ? "desc" : "asc")}
+      >
+        <img src={FilterIcon} alt="Filter" />
+      </span>
+    </span>,
+    "Status",
+    "Cost",
+    "Level",
+    "Milestones",
+  ];
   // State variables
   const [pageNo, setPageNo] = useState<number>(1);
   const pageLimit = 10;
   const [projectDataArray, setProjectDataArray] = useState<any[]>([]);
   const [projectDataCount, setProjectDataCount] = useState<number>(0);
   const [loader, setLoader] = useState(false);
+  const [sortBy, setSortBy] = useState("name");
+  const [orderBy, setOrderBy] = useState("asc");
 
   // React Router hook to manage navigation
   const navigate = useNavigate();
@@ -27,13 +51,16 @@ const Dashboard = ({ search }: { search: string }) => {
   // API links
   const { allProject, projectByName, filteredProject } = api;
   useEffect(() => {
-    if (location.state && !search) {
-      const { level, status } = location?.state;
-      getFilterProjectData(
-        filteredProject(level.value, status.value, pageLimit, pageNo)
-      );
-    } else {
-      if (!search) getProjectData(allProject(pageLimit, pageNo));
+    if (!search) {
+      const { level, status } = location?.state || {};
+      const projectDataFunction = location.state
+        ? () =>
+            getFilterProjectData(
+              filteredProject(level.value, status.value, pageLimit, pageNo)
+            )
+        : () => getProjectData(allProject(pageLimit, pageNo, sortBy, orderBy));
+
+      projectDataFunction();
     }
   }, [location?.state, pageLimit, pageNo, search]);
 
@@ -71,19 +98,28 @@ const Dashboard = ({ search }: { search: string }) => {
 
   // useEffect hook to fetch project data based on search, page number, and page limit
   useEffect(() => {
-    let timer: any;
-    if (search) {
-      timer = setTimeout(() => {
+    const timer =
+      search &&
+      setTimeout(() => {
         getProjectData(projectByName(search), "search");
       }, 800);
-    } else {
-      if (!location.state) {
-        getProjectData(allProject(pageLimit, pageNo));
-      }
+
+    if (!search && !location.state) {
+      getProjectData(allProject(pageLimit, pageNo, sortBy, orderBy));
     }
 
     return () => clearTimeout(timer);
   }, [search]);
+
+  // Function to sort and fetch project data based on sorting parameters
+  const sortedData = (name: string, type: string) => {
+    // Set the sorting parameters
+    setOrderBy(type);
+    setSortBy(name);
+
+    // Fetch project data using the sorting parameters
+    getProjectData(allProject(pageLimit, pageNo, name, type));
+  };
 
   return (
     <div className="dashboard">

@@ -2,8 +2,8 @@ import { api } from "../../api/api";
 
 describe("Api Test", () => {
   test("Api", async () => {
-    expect(api.allProject(1, 10)).toBe(
-      "/project/get-all?pageLimit=1&pageNo=10"
+    expect(api.allProject(1, 10, "name", "asc")).toBe(
+      "/project/get-all?pageLimit=1&pageNo=10&orderBy=asc&sortBy=name"
     );
     expect(api.allTeam(1, 10)).toBe("/teams/get-all?pageLimit=1&pageNo=10");
     expect(api.projectByName("ds")).toBe(

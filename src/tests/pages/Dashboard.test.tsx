@@ -6,7 +6,9 @@ jest.mock("../../hooks/UseGetApi.tsx", () => {
   return {
     __esModule: true,
     default: async (url: string, method: string, body: any) => {
-      if (url === "/project/get-all?pageLimit=10&pageNo=1") {
+      if (
+        url === "/project/get-all?pageLimit=10&pageNo=1&orderBy=asc&sortBy=name"
+      ) {
         return {
           data: {
             totalCount: 407,
