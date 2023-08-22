@@ -10,6 +10,14 @@
 
     > thead {
       background: linear-gradient(87.95deg, #005ffe -1.76%, #0096d5 103.74%);
+      tr {
+        border: 0 !important;
+        th {
+          &:not(:last-child) {
+            border-right: 1px solid #dee2e6;
+          }
+        }
+      }
     }
   }
 
@@ -21,10 +29,13 @@
       padding: 1.8rem 3rem;
       white-space: nowrap;
       vertical-align: middle;
-
-      // @media (max-width: 1679px) {
-      //   padding: 1rem 1.5rem;
-      // }
+      &:not(:first-child) {
+        text-align: center;
+        > span {
+          justify-content: center;
+          margin: 0 auto;
+        }
+      }
     }
   }
 
@@ -36,14 +47,6 @@
         font-weight: 600;
         border: none;
         color: $white;
-
-        // @media (max-width: 1679px) {
-        //   font-size: 1.6rem;
-        // }
-
-        // @media (max-width: 767px) {
-        //   font-size: 1.3rem;
-        // }
 
         &:first-child {
           border-top-left-radius: 1.2rem;
@@ -60,14 +63,6 @@
     td {
       border-bottom: 0;
       color: #4a577b;
-
-      // @media (max-width: 1679px) {
-      //   font-size: 1.4rem;
-      // }
-
-      // @media (max-width: 767px) {
-      //   font-size: 1.2rem;
-      // }
 
       &.fw600 {
         font-weight: 600;

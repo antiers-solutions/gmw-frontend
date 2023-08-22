@@ -86,6 +86,7 @@ const Team = ({ ID }: { ID?: string }) => {
   ]);
 
   const [deliveryData, setDeliveryData] = useState([]);
+  const [commonButtonStatus, setCommonButtonStatus] = useState("projects");
 
   //api links
   const { teamById } = api;
@@ -161,56 +162,70 @@ const Team = ({ ID }: { ID?: string }) => {
         ))}
       </Row>
       <div className="inner-layout__btns">
-        <CommonButton title="Projects" type="button" className="active" />
-        <CommonButton title="Applications" type="button" />
+        <CommonButton
+          title="Projects"
+          type="button"
+          onClick={() => setCommonButtonStatus("projects")}
+          className={commonButtonStatus === "projects" ? "active" : null}
+        />
+        <CommonButton
+          title="Applications"
+          type="button"
+          onClick={() => setCommonButtonStatus("applications")}
+          className={commonButtonStatus === "applications" ? "active" : null}
+        />
       </div>
 
-      <Row className="mb-lg-5">
-        <Col lg={8} className="mb-5 mb-lg-0">
-          <CustomTable fields={fields}>
-            {deliveryData.length
-              ? deliveryData.map((item: any, index) => (
-                  <tr
-                    className="cursor-pointer"
-                    data-testid="onClick"
-                    key={index}
-                    onClick={() => navigate(`/auth/projects/${item.id}`)}
-                  >
-                    <td className="fw600" data-testid="projectName">
-                      {item.name}
-                    </td>
-                    <td
-                      className={getStatusClass(item.status)}
-                      data-testid="projectStatus"
+      {commonButtonStatus === "projects" ? (
+        <Row className="mb-lg-5">
+          <Col lg={8} className="mb-5 mb-lg-0">
+            <CustomTable fields={fields}>
+              {deliveryData.length
+                ? deliveryData.map((item: any, index) => (
+                    <tr
+                      className="cursor-pointer"
+                      data-testid="onClick"
+                      key={index}
+                      onClick={() => navigate(`/auth/projects/${item.id}`)}
                     >
-                      {getStatusName(item?.status) || "-"}
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </CustomTable>
-        </Col>
-        <Col lg={4}>
-          <div className="team-page__right__inner teamsRowCard">
-            <Row>
-              <Col sm={12}>
-                <DetailCard
-                  heading="Applications"
-                  contentList={applicationData}
-                  className="flex"
-                />
-              </Col>
-              <Col sm={12}>
-                <DetailCard
-                  heading="Projects"
-                  className="flex"
-                  contentList={teamDatas}
-                />
-              </Col>
-            </Row>
-          </div>
-        </Col>
-      </Row>
+                      <td className="fw600" data-testid="projectName">
+                        {item.name}
+                      </td>
+                      <td
+                        className={getStatusClass(item.status)}
+                        data-testid="projectStatus"
+                      >
+                        {getStatusName(item?.status) || "-"}
+                      </td>
+                    </tr>
+                  ))
+                : null}
+            </CustomTable>
+          </Col>
+          <Col lg={4}>
+            <div className="team-page__right__inner teamsRowCard">
+              <Row>
+                <Col sm={12}>
+                  <DetailCard
+                    heading="Applications"
+                    contentList={applicationData}
+                    className="flex"
+                  />
+                </Col>
+                <Col sm={12}>
+                  <DetailCard
+                    heading="Projects"
+                    className="flex"
+                    contentList={teamDatas}
+                  />
+                </Col>
+              </Row>
+            </div>
+          </Col>
+        </Row>
+      ) : (
+        <span>Coming soon</span>
+      )}
     </div>
   );
 };

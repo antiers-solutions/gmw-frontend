@@ -33,6 +33,8 @@ function InfoCards() {
     },
   ]);
 
+  const { dynamicCard } = api;
+
   const cardDataApi = async (url: string) => {
     const card = await UseGetApi(url);
     if (card?.data) {
@@ -45,7 +47,7 @@ function InfoCards() {
     }
   };
   useEffect(() => {
-    cardDataApi(api.dynamicCard());
+    cardDataApi(dynamicCard());
   }, []);
   return (
     <>

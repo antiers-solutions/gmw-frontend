@@ -209,7 +209,7 @@ const ProjectDetail = ({
   }, [id]);
   return (
     <div className="project inner-layout">
-      <Row className="mb-3 mb-md-5">
+      <Row className="mb-3 mb-md-5 align-items-start">
         <Col md={6} xl={8} className="mb-4 mb-md-0">
           <DetailCard
             heading="Application Details"

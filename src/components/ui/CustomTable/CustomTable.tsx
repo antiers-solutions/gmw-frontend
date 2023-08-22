@@ -31,7 +31,7 @@ const CustomTable = ({
 }) => {
   return (
     <>
-      <Table responsive className={`common_table ${className}`}>
+      <Table bordered striped className={`common_table ${className}`}>
         {fields && (
           <thead>
             <tr>

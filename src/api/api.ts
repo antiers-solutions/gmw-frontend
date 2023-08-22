@@ -1,8 +1,10 @@
 export const api = {
     projectByName: (search: string) => `/project/search-by-name?searchedName=${search}`,
-    allProject: (pageLimit: Number, pageNo: Number) => `/project/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`,
+    allProject: (pageLimit: Number, pageNo: Number, sortBy: string, orderBy: string) =>
+        `/project/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}&orderBy=${orderBy}&sortBy=${sortBy}`,
     projectById: (id: String) => `/project/get-by-id/${id}`,
-    filteredProject: (level: number, status: string, pageLimit: Number, pageNo: Number) => `/project/filter?level=${level}&status=${status}&ageLimit=${pageLimit}&pageNo=${pageNo}`,
+    filteredProject: (level: number, status: string, pageLimit: Number, pageNo: Number) =>
+        `/project/filter?level=${level}&status=${status}&ageLimit=${pageLimit}&pageNo=${pageNo}`,
     milestoneById: (id: String) => `/milestone/get-by-projectId/${id}`,
     teamById: (team_id: String) => `/teams/get-by-id/${team_id}`,
     allTeam: (pageLimit: Number, pageNo: Number) => `/teams/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`,
