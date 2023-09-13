@@ -1,0 +1,81 @@
+@import "../../../assets/theme/_var.scss";
+.applicationsSec {
+  .heading {
+    h3 {
+      color: #324168;
+    }
+  }
+  .aplicationTop {
+    margin-top: 17px;
+    overflow: auto;
+  }
+  .aplicationTable {
+    &.table {
+      > thead {
+        tr {
+          border: 0 !important;
+          th {
+            border: 0;
+          }
+        }
+      }
+      tr {
+        th,
+        td {
+          font-size: 12px;
+          padding: 16px 30px;
+        }
+      }
+      thead {
+        border: none;
+      }
+      tbody {
+        p {
+          color: #4a577b;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          margin-bottom: 5px;
+          span {
+            color: #324168;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+          }
+        }
+        .multiImg {
+          width: 30px;
+          height: 30px;
+          border-radius: 20px;
+          margin-left: 5px;
+        }
+      }
+    }
+    .multiImgsDiv {
+        flex-wrap: wrap;
+        display: flex;
+        width: 250px;
+        margin: 0 auto;
+        gap: 5px;
+    }
+    .opnBtn {
+      border-radius: 4px;
+      background: #fff;
+      color: #0065f9;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 17px;
+      border: 1px solid #fff;
+    }
+    .closeBtn {
+      border-radius: 4px;
+      border: 1px solid #fff;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 17px;
+      background-color: transparent;
+      margin-left: 9px;
+    }
+  }
+}
