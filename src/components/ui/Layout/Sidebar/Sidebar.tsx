@@ -12,6 +12,7 @@ import {
 import "./Sidebar.scss";
 import UseGetApi from "../../../../hooks/UseGetApi";
 import { api } from "../../../../api/api";
+import { setCsrfToken } from "../../../../helper/setToken";
 
 const sidebarLinks = [
   {
@@ -42,7 +43,7 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
 
   const userLogout = async () => {
     await UseGetApi(logout(), "delete");
-    localStorage.setItem("isLogged", "");
+    setCsrfToken("");
     navigate("/");
   };
 
@@ -57,8 +58,8 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
         <div className="sidebar__wrap">
           <ul className="sidebar__nav">
             <PerfectScrollbar options={{ wheelPropagation: false }}>
-              {sidebarLinks.map((item) => (
-                <li>
+              {sidebarLinks.map((item, index) => (
+                <li key={index}>
                   <NavLink to={item.to}>
                     <span className="sidebar-icon">{item.icon}</span>
                     {item.name}

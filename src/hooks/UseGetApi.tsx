@@ -1,8 +1,9 @@
 import axios from "axios";
+import { getCsrfToken, setCsrfToken } from "../helper/setToken";
 
 const isLogged = () => {
   // If the session is expired, clear the token from localStorage
-  localStorage.setItem("isLogged", "");
+  setCsrfToken("");
   // Reload the page to force the user to log in again
   window.location.reload();
 };
@@ -11,11 +12,11 @@ const UseGetApi = async (url: string, method?: string, body?: any) => {
     // Make a GET request using Axios with the provided URL and HTTP method (defaulting to "get" if not provided)
     const result = await axios({
       method: method || "get",
-      url: process.env.REACT_APP_URL + url,
+      url: url,
       data: body || undefined,
       withCredentials: true, // Include credentials for cross-origin requests
     });
-    if (!localStorage.getItem("isLogged")) {
+    if (!getCsrfToken()) {
       isLogged();
     }
     // If the request is successful, return the data from the response
