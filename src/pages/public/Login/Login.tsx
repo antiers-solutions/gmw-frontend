@@ -8,6 +8,7 @@ import { Col, Row } from "react-bootstrap";
 import loginImg from "../../../assets/images/login-img.png";
 import "./Login.scss";
 import BackIcon from "../../../assets/svg/BackIcon.svg";
+import { getCsrfToken, setCsrfToken } from "../../../helper/setToken";
 
 const Login = () => {
   // state
@@ -31,11 +32,11 @@ const Login = () => {
     setToken("");
   }, [showInput]);
 
-  // This effect runs whenever the value of localStorage.getItem("isLogged") changes
+  // This effect runs whenever the value of getCsrfToken changes
   useEffect(() => {
     // If a token is found in the local storage, redirect to the dashboard
-    if (localStorage.getItem("isLogged")) navigate("/auth/projects");
-  }, [localStorage.getItem("isLogged")]);
+    if (getCsrfToken()) navigate("/auth/projects");
+  }, [getCsrfToken()]);
 
   const onSubmit = (e: any, response: any) => {
     e.preventDefault();
@@ -50,19 +51,15 @@ const Login = () => {
       if (gitLoginSuccess) {
         try {
           // Send a request to the server with the received code
-          const gitCode = await axios.post(
-            process.env.REACT_APP_URL + login(),
-            {
-              access_token: response?.code,
-            }
-          );
+          const gitCode = await axios.post(login(), {
+            access_token: response?.code,
+          });
           // Check if the server response contains a data
           if (gitCode?.data?.data?.gitId) {
             // Store the data in local storage
-            localStorage.setItem("isLogged", JSON.stringify(gitCode.data.data));
-            // Reload the window (this might not be necessary, depending on your use case)
-            window.location.reload();
-            // Redirect to the dashboard
+            setCsrfToken(JSON.stringify(gitCode.data.data));
+            // Redirect to the projects page
+            navigate("/auth/projects");
           } else {
             setError("Please enter valid token");
           }

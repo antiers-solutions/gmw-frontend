@@ -12,6 +12,7 @@ import {
 import "./Sidebar.scss";
 import UseGetApi from "../../../../hooks/UseGetApi";
 import { api } from "../../../../api/api";
+import { setCsrfToken } from "../../../../helper/setToken";
 
 const sidebarLinks = [
   {
@@ -42,7 +43,7 @@ const Sidebar = (props: { ToggleSidebar?: any; isOpen?: boolean }) => {
 
   const userLogout = async () => {
     await UseGetApi(logout(), "delete");
-    localStorage.setItem("isLogged", "");
+    setCsrfToken("");
     navigate("/");
   };
 
