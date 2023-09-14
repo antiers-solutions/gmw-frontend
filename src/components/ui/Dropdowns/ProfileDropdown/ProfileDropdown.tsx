@@ -1,9 +1,10 @@
 import React from "react";
 import "./ProfileDropdown.scss";
+import { getCsrfToken } from "../../../../helper/setToken";
 
 const ProfileDropdown = () => {
   //get user's data
-  const user: any = JSON.parse(localStorage.getItem("isLogged") || "{}");
+  const user: any = JSON.parse(getCsrfToken() || "{}");
 
   return (
     <div className="profile-dropdown">

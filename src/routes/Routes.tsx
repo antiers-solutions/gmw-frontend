@@ -11,6 +11,7 @@ import {
 } from "../pages";
 import { PrimaryLayout } from "../components/ui";
 import TeamsMainPage from "../pages/private/Team/TeamMainPage";
+import { getCsrfToken } from "../helper/setToken";
 
 const Routes = () => {
   const [search, setSearch] = useState("");
@@ -77,10 +78,10 @@ const Routes = () => {
 
   useEffect(() => {
     // Get the token from the local storage
-    let token: String | null = localStorage.getItem("isLogged");
+    let token: String | null = getCsrfToken();
     // Set the value of isAuthenticated to the token if it's not null, or an empty string otherwise
     setIsAuthenticated(token || "");
-  }, [localStorage.getItem("isLogged")]);
+  }, [getCsrfToken()]);
 
   return (
     <>

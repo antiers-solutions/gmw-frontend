@@ -8,6 +8,7 @@ import Chart from "./chart";
 import { api } from "../../../api/api";
 import axios from "axios";
 import { DiagonalArrow } from "../../../assets/svg/SvgIcon";
+import { getCsrfToken } from "../../../helper/setToken";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Home = () => {
   const [levelChart, setLevelChart] = useState<any>([]);
   const chartData = async (url: string, type: string) => {
     try {
-      const chart = await axios.get(process.env.REACT_APP_URL + url);
+      const chart = await axios.get(url);
       const { data } = chart;
 
       if (type === "project") {
@@ -58,7 +59,7 @@ const Home = () => {
             <img src={logo} alt="logo" />
           </div>
           <CommonButton
-            title={localStorage.getItem("isLogged") ? "Projects" : "Login"}
+            title={getCsrfToken() ? "Projects" : "Login"}
             className="primary"
             onClick={() => navigate("/login")}
           />
