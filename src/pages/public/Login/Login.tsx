@@ -50,12 +50,9 @@ const Login = () => {
       if (gitLoginSuccess) {
         try {
           // Send a request to the server with the received code
-          const gitCode = await axios.post(
-            process.env.REACT_APP_URL + login(),
-            {
-              access_token: response?.code,
-            }
-          );
+          const gitCode = await axios.post(login(), {
+            access_token: response?.code,
+          });
           // Check if the server response contains a data
           if (gitCode?.data?.data?.gitId) {
             // Store the data in local storage

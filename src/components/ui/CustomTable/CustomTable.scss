@@ -109,6 +109,12 @@
       }
     }
   }
+
+  @media (max-width: 767px) {
+    thead {
+      display: none !important;
+    }
+  }
 }
 .setWidth {
   max-width: 300px;

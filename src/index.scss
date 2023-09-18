@@ -263,3 +263,18 @@ input[type="number"] {
     --bs-spinner-height: 5rem;
   }
 }
+
+@media (max-width: 991px) {
+  table.table thead {
+    display: none !important;
+  }
+  table.table td:before {
+    content: attr(data-th);
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block;
+    text-align: left;
+    position: absolute;
+    left: 20px;
+  }
+}
