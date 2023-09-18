@@ -112,24 +112,28 @@ const TeamsMainPage = ({ search }: { search?: string }) => {
                       navigate(`/auth/team/${item.id}`);
                     }}
                   >
-                    <td className="fw600 " data-testid="projectName">
+                    <td
+                      className="fw600 "
+                      data-testid="projectName"
+                      data-th="Team Name"
+                    >
                       <ToolTip
                         tooltipData={firstLetterCapitalize(item?.name) || "-"}
                       />{" "}
                     </td>
-                    <td data-testid="projectLength">
+                    <td data-testid="projectLength" data-th="Total Projects">
                       {addZero(String(item?.projects?.length)) || "-"}
                     </td>
-                    <td data-testid="active">
+                    <td data-testid="active" data-th="In-Progress">
                       {addZero(String(item?.projectStatus?.active)) || 0}
                     </td>
-                    <td data-testid="complete">
+                    <td data-testid="complete"  data-th="Completed">
                       {addZero(String(item?.projectStatus?.complete)) || 0}
                     </td>
-                    <td data-testid="hold">
+                    <td data-testid="hold" data-th="Hold">
                       {addZero(String(item?.projectStatus?.hold)) || 0}
                     </td>
-                    <td>00</td>
+                    <td data-th="Rejected">00</td>
                   </tr>
                 );
               })

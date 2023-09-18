@@ -77,7 +77,14 @@ const Header = (props: {
     // Call 'getSearchData' with an empty search value when the route changes
 
     // Check if the current route is '/auth/team' or '/auth/projects'
-    if (["/auth/team", "/auth/projects"].includes(location.pathname)) {
+    if (
+      [
+        "/auth/team",
+        "/auth/projects",
+        "/auth/deliveries",
+        "/auth/applications",
+      ].includes(location.pathname)
+    ) {
       // If the route is one of the specified paths, show the search bar
       setSearchBar(true);
       return;

@@ -36,7 +36,9 @@ const CustomTable = ({
           <thead>
             <tr>
               {fields?.map((item, index) => (
-                <th key={index}>{item}</th>
+                <th data-th={item} key={index}>
+                  {item}
+                </th>
               ))}
             </tr>
           </thead>

@@ -188,12 +188,13 @@ const Team = ({ ID }: { ID?: string }) => {
                       key={index}
                       onClick={() => navigate(`/auth/projects/${item.id}`)}
                     >
-                      <td className="fw600" data-testid="projectName">
+                      <td className="fw600" data-testid="projectName" data-th="Project name">
                         {item.name}
                       </td>
                       <td
                         className={getStatusClass(item.status)}
                         data-testid="projectStatus"
+                        data-th="Status"
                       >
                         {getStatusName(item?.status) || "-"}
                       </td>

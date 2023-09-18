@@ -148,6 +148,13 @@
 }
 
 .dropdown_project {
+  @media (max-width:1400px) {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
   .green {
     .select__value-container {
       .select__single-value {

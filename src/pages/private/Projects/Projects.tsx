@@ -95,7 +95,7 @@ const Projects = ({ ID }: { ID?: string }) => {
               </Col>
             ))
           : null}
-        <div className="col-md-2 offset-xxl-4 col-sm-1 dropdown_project">
+        <div className="col-xxl-2 offset-xxl-4 col-sm-12 dropdown_project">
           <CustomSelect
             className={`${getStatusClass(projectStatus)} `}
             options={StatusOptions}

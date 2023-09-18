@@ -155,24 +155,24 @@ const Dashboard = ({ search }: { search: string }) => {
                     navigate(`/auth/projects/${item.id}`);
                   }}
                 >
-                  <td className="fw600 setWidth" data-testid="projectName">
+                  <td className="fw600 setWidth" data-testid="projectName" data-th="Name">
                     <ToolTip
                       tooltipData={
                         firstLetterCapitalize(item?.project_name) || "-"
                       }
                     />
                   </td>
-                  <td>
+                  <td data-th="Started On"  > 
                     {(item?.start_date && timeFormat(item?.start_date)) || "-"}
                   </td>
-                  <td className={getStatusClass(item.status)}>
+                  <td className={getStatusClass(item.status)} data-th="Status">
                     {getStatusName(item?.status) || "-"}
                   </td>
-                  <td className="fw700">{`${item.total_cost.amount || "-"} ${
+                  <td className="fw700" data-th="Cost">{`${item.total_cost.amount || "-"} ${
                     item.total_cost.currency?.toUpperCase() || "-"
                   }`}</td>
-                  <td>{Number(item?.level) || "-"}</td>
-                  <td>{`${item.milestones?.length || 0} / ${
+                  <td data-th="Level">{Number(item?.level) || "-"}</td>
+                  <td data-th="Milestones">{`${item.milestones?.length || 0} / ${
                     item.totalMilestones || item.milestones?.length
                   }`}</td>
                 </tr>
