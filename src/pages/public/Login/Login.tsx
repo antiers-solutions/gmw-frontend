@@ -51,7 +51,7 @@ const Login = () => {
         try {
           // Send a request to the server with the received code
           const gitCode = await axios.post(
-            process.env.REACT_APP_URL + login(),
+             login(),
             {
               access_token: response?.code,
             }
