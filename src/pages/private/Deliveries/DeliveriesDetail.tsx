@@ -1,34 +1,38 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
 import InfoCards from "../../../components/Infocard/InfoCards";
-import { CommonButton, CustomTable, DetailCard } from "../../../components/ui";
+import { CommonButton, CustomTable, DetailCard ,InfoCard,CustomSelect} from "../../../components/ui";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 import { splitText } from "../../../helper/splitText";
 import Overview from "../Overview/Overview";
 const DeliveriesDetail = ({ search }: { search: string }) => {
   const [commonButtonStatus, setCommonButtonStatus] = useState("information");
   const navigate = useNavigate();
+  const [projectStatus, setProjectStatus] = useState("");
   const [deliveryData, setDeliveryData] = useState([
+
     {
       milestone: "M1",
       id: "34",
       hash: "hdgd7db48ndd8djskd8sd9s",
     },
     {
-        milestone: "M1",
-        id: "34",
-        hash: "hdgd7db48ndd8djskd8sd9s",
-      },
-      {
-        milestone: "M11",
-        id: "34",
-        hash: "hdgd7db48ndd8djskd8sd9s",
-      },
-      {
-        milestone: "M1",
-        id: "34",
-        hash: "hdgd7db48ndd8djskd8sd9s",
-      },
+      milestone: "M1",
+      id: "34",
+      hash: "hdgd7db48ndd8djskd8sd9s",
+    },
+    {
+      milestone: "M11",
+      id: "34",
+      hash: "hdgd7db48ndd8djskd8sd9s",
+    },
+    {
+      milestone: "M1",
+      id: "34",
+      hash: "hdgd7db48ndd8djskd8sd9s",
+    },
   ]);
   let fields = ["Milestone", "Delivery ID", "Hash"];
 
@@ -63,6 +67,33 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
       info: "3000 USD",
     },
   ]);
+  const [cardData, setCardData] = useState([
+    {
+      text: "-",
+      subText: "Project ID",
+      icon: <DocIcon />,
+    },
+    {
+      text: "-",
+      subText: "Project Name",
+      icon: <ProjectIcon />,
+      class: "pink",
+    },
+  ]);
+  const StatusOptions = [
+    {
+      value: "active",
+      label: "In-Progress",
+    },
+    {
+      value: "complete",
+      label: "Completed",
+    },
+    {
+      value: "hold",
+      label: "Hold",
+    },
+  ];
   return (
     <div className="applicationsSec">
       <div className="heading">
@@ -70,7 +101,35 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
           Deliveries: {0}
         </h6>{" "}
       </div>
-      <InfoCards />
+      <Row className="mb-3 mb-lg-5">
+        {cardData.length
+          ? cardData.map((item, index) => (
+              <Col xxl={3} sm={6} key={index} className="mb-4 mb-xxl-0">
+                <InfoCard
+                  className={item.class}
+                  icon={item.icon}
+                  text={item.text}
+                  subText={item.subText}
+                />
+              </Col>
+            ))
+          : null}
+        <div className="col-xxl-2 offset-xxl-4 col-sm-12 dropdown_project">
+          <CustomSelect
+            className={`${getStatusClass(projectStatus)} `}
+            options={StatusOptions}
+            defaultValue={StatusOptions[0]}
+            value={{
+              value: projectStatus,
+              label: getStatusName(projectStatus),
+            }}
+            label="Project Status"
+            onChange={(e: any) => {
+              setProjectStatus(e.value);
+            }}
+          />
+        </div>
+      </Row>
       <div className="inner-layout__btns">
         <CommonButton
           title="Information"
@@ -106,10 +165,15 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
                           item?.milestone?.indexOf(".")
                         ) || "-"}
                       </td>
-                      <td data-testid={`milestone-${index}-id`} data-th="Delivery ID">{item.id}</td>
+                      <td
+                        data-testid={`milestone-${index}-id`}
+                        data-th="Delivery ID"
+                      >
+                        {item.id}
+                      </td>
                       <td data-th="Hash">
                         <a
-                        className="tableHash"
+                          className="tableHash"
                           href={item.hash}
                           target="_blank"
                           rel="noreferrer"

@@ -3,11 +3,14 @@ import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./Applications.scss";
 import InfoCards from "../../../components/Infocard/InfoCards";
-import { CommonButton, CustomTable, DetailCard } from "../../../components/ui";
+import { CommonButton, CustomSelect, CustomTable, DetailCard, InfoCard } from "../../../components/ui";
 import Overview from "../Overview/Overview";
+import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
+import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
 const ApplicationDetail = ({ search }: { search: string }) => {
   const [commonButtonStatus, setCommonButtonStatus] = useState("information");
   const navigate = useNavigate();
+  const [projectStatus, setProjectStatus] = useState("");
   const [applicationDetails, setApplicationDetails] = useState([
     {
         name: "Application name",
@@ -60,6 +63,33 @@ const ApplicationDetail = ({ search }: { search: string }) => {
       info: "3000 USD",
     },
   ]);
+  const [cardData, setCardData] = useState([
+    {
+      text: "-",
+      subText: "Project ID",
+      icon: <DocIcon />,
+    },
+    {
+      text: "-",
+      subText: "Project Name",
+      icon: <ProjectIcon />,
+      class: "pink",
+    },
+  ]);
+  const StatusOptions = [
+    {
+      value: "active",
+      label: "In-Progress",
+    },
+    {
+      value: "complete",
+      label: "Completed",
+    },
+    {
+      value: "hold",
+      label: "Hold",
+    },
+  ];
   return (
     <div className="applicationsSec">
       <div className="heading">
@@ -67,7 +97,35 @@ const ApplicationDetail = ({ search }: { search: string }) => {
           Applications: {0}
         </h6>{" "}
       </div>
-      <InfoCards />
+      <Row className="mb-3 mb-lg-5">
+        {cardData.length
+          ? cardData.map((item, index) => (
+              <Col xxl={3} sm={6} key={index} className="mb-4 mb-xxl-0">
+                <InfoCard
+                  className={item.class}
+                  icon={item.icon}
+                  text={item.text}
+                  subText={item.subText}
+                />
+              </Col>
+            ))
+          : null}
+        <div className="col-xxl-2 offset-xxl-4 col-sm-12 dropdown_project">
+          <CustomSelect
+            className={`${getStatusClass(projectStatus)} `}
+            options={StatusOptions}
+            defaultValue={StatusOptions[0]}
+            value={{
+              value: projectStatus,
+              label: getStatusName(projectStatus),
+            }}
+            label="Project Status"
+            onChange={(e: any) => {
+              setProjectStatus(e.value);
+            }}
+          />
+        </div>
+      </Row>
       <div className="inner-layout__btns">
         <CommonButton
           title="Information"

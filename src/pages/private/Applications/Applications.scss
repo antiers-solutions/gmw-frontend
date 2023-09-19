@@ -85,12 +85,127 @@
     }
   }
 }
-.applicationCard{
+.applicationCard {
   height: auto;
 }
-.rowGap{
+.rowGap {
   gap: 2rem;
 }
-.tableHash{
+.tableHash {
   color: #324168;
+}
+
+.applicationsSec {
+  .dropdown_project {
+    @media (max-width:1400px) {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+    .green {
+      .select__value-container {
+        .select__single-value {
+          color: $green !important;
+        }
+      }
+  
+      .select__indicator {
+        background-image: url("../../../assets/images/greendownarrow.svg") !important;
+      }
+    }
+  
+    .red {
+      .select__value-container {
+        .select__single-value {
+          color: $red !important;
+        }
+      }
+  
+      .select__indicator {
+        background-image: url("../../../assets/images/downiconrd.svg") !important;
+      }
+    }
+  
+    .green {
+      div {
+        color: $green !important;
+  
+        &:nth-child(1) {
+          color: $yellow !important;
+        }
+  
+        &:nth-child(3) {
+          color: $red !important;
+        }
+      }
+    }
+  
+    .yellow {
+      div {
+        color: $yellow !important;
+  
+        &:nth-child(2) {
+          color: $green !important;
+        }
+  
+        &:nth-child(3) {
+          color: $red !important;
+        }
+      }
+    }
+  
+    .red {
+      div {
+        color: $red !important;
+  
+        &:nth-child(2) {
+          color: $green !important;
+        }
+  
+        &:nth-child(1) {
+          color: $yellow !important;
+        }
+      }
+    }
+  }
+  .dropdown_project {
+    .select__indicator {
+      padding: 0;
+      background-image: url("../../../assets/images/dropdownicon.png") !important;
+      background-repeat: no-repeat;
+      width: 1rem;
+      height: 1rem;
+      background-position: center;
+      height: 20px;
+      width: 20px;
+  
+      svg {
+        display: none;
+      }
+    }
+  }
+  .select__control {
+    height: 46px;
+    background-color: $white;
+    border-radius: 10px;
+    width: 100%;
+
+    div {
+      font-family: Inter;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 23px;
+      letter-spacing: 0.48px;
+      text-transform: uppercase;
+    }
+  }
+  .select__menu {
+    .select__menu-list .select__option--is-focused {
+      background-color: rgba(79, 135, 255, 0.199) !important;
+    }
+  }
+
 }
