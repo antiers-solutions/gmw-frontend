@@ -1,34 +1,37 @@
-
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import InfoCards from "../../../components/Infocard/InfoCards";
 import { CommonButton, CustomTable, DetailCard } from "../../../components/ui";
+import { splitText } from "../../../helper/splitText";
 import Overview from "../Overview/Overview";
 const DeliveriesDetail = ({ search }: { search: string }) => {
   const [commonButtonStatus, setCommonButtonStatus] = useState("information");
   const navigate = useNavigate();
-  const [applicationDetails, setApplicationDetails] = useState([
+  const [deliveryData, setDeliveryData] = useState([
     {
-        name: "Application name",
-        info: "Validator Screen",
+      milestone: "M1",
+      id: "34",
+      hash: "hdgd7db48ndd8djskd8sd9s",
+    },
+    {
+        milestone: "M1",
+        id: "34",
+        hash: "hdgd7db48ndd8djskd8sd9s",
       },
       {
-        name: "Application ID",
-        info: "126",
+        milestone: "M11",
+        id: "34",
+        hash: "hdgd7db48ndd8djskd8sd9s",
       },
       {
-        name: "Approved on",
-        info: "24-04-2023",
+        milestone: "M1",
+        id: "34",
+        hash: "hdgd7db48ndd8djskd8sd9s",
       },
-  
-      {
-        name: "Status",
-        info: "In Progress",
-      },
-
-
   ]);
+  let fields = ["Milestone", "Delivery ID", "Hash"];
+
   const [applicationData, setApplicationData] = useState([
     {
       name: "Team name",
@@ -64,7 +67,7 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
     <div className="applicationsSec">
       <div className="heading">
         <h6 className="title" data-testid="count">
-        Deliveries: {0}
+          Deliveries: {0}
         </h6>{" "}
       </div>
       <InfoCards />
@@ -82,14 +85,44 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
           className={commonButtonStatus === "links" ? "active" : null}
         />
       </div>
-      <Overview/>
+      <Overview />
       <Row className="mb-lg-5">
         <Col lg={8} className="mb-5 mb-lg-0">
           <DetailCard
             heading="Delivery Information"
-            contentList={applicationDetails}
             className="flex applicationCard"
-          />
+          >
+            <CustomTable fields={fields}>
+              {deliveryData?.length
+                ? deliveryData.map((item: any, index: number) => (
+                    <tr key={index}>
+                      <td
+                        className="fw600"
+                        data-testid={`milestone-${index}-name`}
+                        data-th="Milestone"
+                      >
+                        {item?.milestone?.slice(
+                          0,
+                          item?.milestone?.indexOf(".")
+                        ) || "-"}
+                      </td>
+                      <td data-testid={`milestone-${index}-id`} data-th="Delivery ID">{item.id}</td>
+                      <td data-th="Hash">
+                        <a
+                        className="tableHash"
+                          href={item.hash}
+                          target="_blank"
+                          rel="noreferrer"
+                          data-testid={`milestone-${index}-link`}
+                        >
+                          {splitText(item.hash, 9)}
+                        </a>
+                      </td>
+                    </tr>
+                  ))
+                : null}
+            </CustomTable>
+          </DetailCard>
         </Col>
         <Col lg={4}>
           <div className="team-page__right__inner teamsRowCard">
