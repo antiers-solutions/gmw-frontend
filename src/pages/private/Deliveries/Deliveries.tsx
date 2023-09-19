@@ -1,42 +1,75 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Applications/Applications.scss";
 import Check from "../../../assets/svg/check.svg";
 import msgIcon from "../../../assets/svg/msgicon.svg";
 import { useNavigate } from "react-router-dom";
-import { dummyObject } from "../../../helper/dummy";
 import { CommonButton, CustomTable } from "../../../components/ui";
 import { useState } from "react";
 import InfoCards from "../../../components/Infocard/InfoCards";
+import UseGetApi from "../../../hooks/UseGetApi";
+import { api } from "../../../api/api";
+import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
+import ToolTip from "../../../components/ui/Tooltip/ToolTip";
+import { Spinner } from "react-bootstrap";
 
-const Deliveries = () => {
-  const [commonButton, setCommonButton] = useState("open");
+const Deliveries = ({ search }: { search: string }) => {
+  const [pageNo, setPageNo] = useState<number>(1);
+  const pageLimit = 10;
+  const [pullRequest, setPullRequest] = useState<any[]>([]);
+  const [pullRequestCount, setPullRequestCount] = useState<number>(0);
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
-  const setactiveClass = (value: string) => {
-    setCommonButton(value);
-  };
 
   const fields = [
     <span className="buttonCustomOuter">
-      <CommonButton
-        title="Open"
-        type="button"
-        onClick={() => setactiveClass("open")}
-        className={commonButton === "open" ? "opnBtn" : "closeBtn"}
-      />
+      <CommonButton title="Open" type="button" className={"opnBtn"} />
       <CommonButton
         title="Close"
         type="button"
-        onClick={() => setactiveClass("close")}
-        className={commonButton === "close" ? "opnBtn" : "closeBtn"}
+        onClick={() =>
+          window.open(
+            "https://github.com/w3f/Grant-Milestone-Delivery/pulls?q=is%3Apr+is%3Aclosed",
+            "_blank"
+          )
+        }
+        className={"closeBtn"}
       />{" "}
-      {/* <button className="opnBtn">Open</button>
-      <button className="closeBtn">Close</button> */}
     </span>,
     "Reviews",
     "Assignee",
   ];
+
+  // API calling function to fetch project data based on the provided URL
+  const getPullRequest = async (url: string, type?: string) => {
+    setLoader(true); // Set the loader to true to indicate an ongoing API call
+    try {
+      const project = await UseGetApi(url);
+
+      setPullRequest(
+        type === "search"
+          ? project?.data || []
+          : project?.data?.milestoneProposals || []
+      ); // Set the project data array with the fetched data or an empty array if no data is available
+      setPullRequestCount(
+        type === "search"
+          ? pullRequestCount || 0
+          : project?.data?.totalCount || 0
+      ); // Set the project data count with the fetched count or 0 if count is not available
+    } catch (e) {}
+    setLoader(false); // Set the loader to false after the API call is completed
+  };
+
+  useEffect(() => {
+    getPullRequest(api.deliveries(pageLimit, pageNo));
+  }, [pageLimit, pageNo]);
+
   return (
     <div className="applicationsSec">
+      {loader ? (
+        <div className="loaderStyle">
+          <Spinner animation="border" variant="primary"></Spinner>
+        </div>
+      ) : null}
       <div className="heading">
         <h6 className="title" data-testid="count">
           Deliveries: {0}
@@ -50,39 +83,49 @@ const Deliveries = () => {
         <CustomTable
           className={` common_table  aplicationTable `}
           fields={fields}
-          // pagination={!search && teamDataCount > pageLimit}
-          // handleNextClick={() => pageNo >= 1 && setPageNo(pageNo + 1)}
-          // handlePrevClick={() => pageNo > 1 && setPageNo(pageNo - 1)}
-          // PageLimit={pageLimit}
-          // handlePageNumberClick={(value: number) => setPageNo(value)}
-          // totalCount={teamDataCount || 0}
-          // pageNo={pageNo}
+          pagination={!search && pullRequestCount > pageLimit}
+          handleNextClick={() => pageNo >= 1 && setPageNo(pageNo + 1)}
+          handlePrevClick={() => pageNo > 1 && setPageNo(pageNo - 1)}
+          PageLimit={pageLimit}
+          handlePageNumberClick={(value: number) => setPageNo(value)}
+          totalCount={pullRequestCount || 0}
+          pageNo={pageNo}
         >
-          {dummyObject.map((item, idx) => (
-            <tr
-              onClick={() => {
-                navigate(`/auth/projects/`);
-              }}
-            >
-              <td key={idx} data-th="Name">
-                <p>
-                  {item.name}
-                  <img src={Check} />
-                </p>
-                <p>{item.review}</p>
-              </td>
-              <td data-th="Reviews">
-                <img src={msgIcon} /> {item.count}
-              </td>
-              <td data-th="Assignee">
-                <div className="multiImgsDiv">
-                  {item.image.map((items: string, index) => (
-                    <img key={index} src={items} className="multiImg" />
-                  ))}
-                </div>
-              </td>
-            </tr>
-          ))}
+          {pullRequest.length
+            ? pullRequest.map((item, idx) => (
+                <tr
+                  onClick={() => {
+                    navigate(`/auth/projects/`);
+                  }}
+                >
+                  <td key={item?.id} data-th="Name">
+                    <p>
+                      {firstLetterCapitalize(item?.file_name)}
+                      <img src={Check} />
+                    </p>
+                    {/* <p>{item.review}</p> */}
+                  </td>
+                  <td data-th="Reviews">
+                    <img src={msgIcon} /> {item?.reviewers?.length}
+                  </td>
+                  <td data-th="Assignee">
+                    <div className="multiImgsDiv">
+                      {item?.assignee_details?.length
+                        ? item?.assignee_details?.map(
+                            (items: any, index: number) => (
+                              <ToolTip
+                                type="image"
+                                data={items}
+                                tooltipData={items?.git_user_name}
+                              />
+                            )
+                          )
+                        : null}
+                    </div>
+                  </td>
+                </tr>
+              ))
+            : null}
         </CustomTable>
       </div>
     </div>

@@ -63,11 +63,19 @@ const Routes = () => {
             },
             {
               path: "deliveries",
-              element: isAuthenticated ? <Deliveries /> : <Login />,
+              element: isAuthenticated ? (
+                <Deliveries search={search} />
+              ) : (
+                <Login />
+              ),
             },
             {
               path: "applications",
-              element: isAuthenticated ? <Applications /> : <Login />,
+              element: isAuthenticated ? (
+                <Applications search={search} />
+              ) : (
+                <Login />
+              ),
             },
           ],
         },

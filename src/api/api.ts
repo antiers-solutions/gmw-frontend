@@ -16,6 +16,7 @@ export const api = {
     projectChartByLevel: () => `/graph/get-projects-count-by-level`,
     projectStatusByYear: (currentYear: number) => `/graph/get-rejected-accepted-projects-year?year=${currentYear}`,
     projectStatusChange: () => `/project/update-status`,
-    dynamicCard: () => `/dynamic-cards`
+    dynamicCard: () => `/dynamic-cards`,
+    deliveries: (pageLimit: number, pageNo: number) => `/milestone-proposals/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`
 
 }
