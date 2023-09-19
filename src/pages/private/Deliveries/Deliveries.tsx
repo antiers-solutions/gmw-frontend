@@ -95,7 +95,7 @@ const Deliveries = ({ search }: { search: string }) => {
             ? pullRequest.map((item, idx) => (
                 <tr
                   onClick={() => {
-                    navigate(`/auth/projects/`);
+                    navigate(`/auth/deliveriesDetail`);
                   }}
                 >
                   <td key={item?.id} data-th="Name">

@@ -11,6 +11,8 @@ import {
 } from "../pages";
 import { PrimaryLayout } from "../components/ui";
 import TeamsMainPage from "../pages/private/Team/TeamMainPage";
+import ApplicationDetail from "../pages/private/Applications/ApplicationDetail";
+import DeliveriesDetail from "../pages/private/Deliveries/DeliveriesDetail";
 
 const Routes = () => {
   const [search, setSearch] = useState("");
@@ -73,6 +75,22 @@ const Routes = () => {
               path: "applications",
               element: isAuthenticated ? (
                 <Applications search={search} />
+              ) : (
+                <Login />
+              ),
+            },
+            {
+              path: "applicationDetail",
+              element: isAuthenticated ? (
+                <ApplicationDetail search={search} />
+              ) : (
+                <Login />
+              ),
+            },
+            {
+              path: "deliveriesDetail",
+              element: isAuthenticated ? (
+                <DeliveriesDetail search={search} />
               ) : (
                 <Login />
               ),
