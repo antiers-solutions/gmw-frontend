@@ -93,7 +93,7 @@ const ApplicationDetail = ({ search }: { search: string }) => {
         </Col>
         <Col lg={4}>
           <div className="team-page__right__inner teamsRowCard">
-            <Row>
+            <Row className="rowGap">
               <Col sm={12}>
                 <DetailCard
                   heading="Team Details"
