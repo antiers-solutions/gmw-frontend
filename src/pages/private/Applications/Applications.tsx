@@ -19,7 +19,7 @@ const Applications = ({ search }: { search: string }) => {
   const [pullRequestCount, setPullRequestCount] = useState<number>(0);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
-
+  const { applicationsAll } = api;
   const fields = [
     <span className="buttonCustomOuter">
       <CommonButton title="Open" type="button" className={"opnBtn"} />
@@ -46,9 +46,7 @@ const Applications = ({ search }: { search: string }) => {
       const project = await UseGetApi(url);
 
       setPullRequest(
-        type === "search"
-          ? project?.data || []
-          : project?.data?.milestoneProposals || []
+        type === "search" ? project?.data || [] : project?.data?.proposals || []
       ); // Set the project data array with the fetched data or an empty array if no data is available
       setPullRequestCount(
         type === "search"
@@ -60,7 +58,7 @@ const Applications = ({ search }: { search: string }) => {
   };
 
   useEffect(() => {
-    getPullRequest(api.deliveries(pageLimit, pageNo));
+    getPullRequest(applicationsAll(pageLimit, pageNo));
   }, [pageLimit, pageNo]);
 
   return (
@@ -72,7 +70,7 @@ const Applications = ({ search }: { search: string }) => {
       ) : null}
       <div className="heading">
         <h6 className="title" data-testid="count">
-          Applications: {0}
+          Applications: {pullRequestCount}
         </h6>{" "}
       </div>
       <InfoCards />
@@ -95,18 +93,18 @@ const Applications = ({ search }: { search: string }) => {
             ? pullRequest.map((item, idx) => (
                 <tr
                   onClick={() => {
-                    navigate(`/auth/applicationDetail`);
+                    navigate(`/auth/applications/${item.id}`);
                   }}
                 >
                   <td key={item?.id} data-th="Name">
                     <p>
                       {firstLetterCapitalize(item?.file_name)}
-                      <img src={Check} />
+                      <img src={Check} alt="image" />
                     </p>
                     {/* <p>{item.review}</p> */}
                   </td>
                   <td data-th="Reviews">
-                    <img src={msgIcon} /> {item?.reviewers?.length}
+                    <img src={msgIcon} alt="image" /> {item?.reviewers?.length}
                   </td>
                   <td data-th="Assignee">
                     <div className="multiImgsDiv">

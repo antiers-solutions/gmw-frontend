@@ -17,6 +17,8 @@ export const api = {
     projectStatusByYear: (currentYear: number) => `/graph/get-rejected-accepted-projects-year?year=${currentYear}`,
     projectStatusChange: () => `/project/update-status`,
     dynamicCard: () => `/dynamic-cards`,
-    deliveries: (pageLimit: number, pageNo: number) => `/milestone-proposals/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`
-
+    deliveriesAll: (pageLimit: number, pageNo: number) => `/milestone-proposals/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`,
+    applicationsAll: (pageLimit: number, pageNo: number) => `/proposal/get-all?pageLimit=${pageLimit}&pageNo=${pageNo}`,
+    applicationById: (id: string) => `/proposal/get-by-id/${id}`,
+    deliveryById: (id: string) => `/milestone-proposals/get-by-id/${id}`,
 }

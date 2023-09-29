@@ -23,7 +23,11 @@ function ToolTip({
         <OverlayTrigger placement="bottom" overlay={tooltip}>
           <span className="tooltipStyleInternal" data-testid="name">
             {" "}
-            <img src={data?.git_avatar} className="multiImg" />{" "}
+            <img
+              src={data?.git_avatar}
+              className="multiImg"
+              alt={String(tooltip)}
+            />{" "}
           </span>
         </OverlayTrigger>
       ) : (

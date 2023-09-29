@@ -80,20 +80,12 @@ const Routes = () => {
               ),
             },
             {
-              path: "applicationDetail",
-              element: isAuthenticated ? (
-                <ApplicationDetail search={search} />
-              ) : (
-                <Login />
-              ),
+              path: "applications/:id",
+              element: isAuthenticated ? <ApplicationDetail /> : <Login />,
             },
             {
-              path: "deliveriesDetail",
-              element: isAuthenticated ? (
-                <DeliveriesDetail search={search} />
-              ) : (
-                <Login />
-              ),
+              path: "deliveries/:id",
+              element: isAuthenticated ? <DeliveriesDetail /> : <Login />,
             },
           ],
         },

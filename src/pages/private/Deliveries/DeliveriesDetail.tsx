@@ -1,18 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
-import InfoCards from "../../../components/Infocard/InfoCards";
-import { CommonButton, CustomTable, DetailCard ,InfoCard,CustomSelect} from "../../../components/ui";
-import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
+import {
+  CommonButton,
+  CustomTable,
+  DetailCard,
+  InfoCard,
+} from "../../../components/ui";
 import { splitText } from "../../../helper/splitText";
 import Overview from "../Overview/Overview";
-const DeliveriesDetail = ({ search }: { search: string }) => {
+import { useParams } from "react-router-dom";
+import { api } from "../../../api/api";
+import UseGetApi from "../../../hooks/UseGetApi";
+import axios from "axios";
+const DeliveriesDetail = () => {
   const [commonButtonStatus, setCommonButtonStatus] = useState("information");
-  const navigate = useNavigate();
-  const [projectStatus, setProjectStatus] = useState("");
+  const { id } = useParams();
+  const { deliveryById } = api;
   const [deliveryData, setDeliveryData] = useState([
-
     {
       milestone: "M1",
       id: "34",
@@ -94,6 +99,53 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
       label: "Hold",
     },
   ];
+
+  useEffect(() => {
+    if (id) {
+      getPullRequest(deliveryById(id));
+    }
+  }, [id]);
+
+  // API calling function to fetch project data based on the provided URL
+  const getPullRequest = async (url: string) => {
+    try {
+      const project = await UseGetApi(url);
+
+      console.log(project.data[0].md_content_url, "this is an project");
+
+      // const url1 =
+      //   "https://github.com/w3f/Grant-Milestone-Delivery/raw/799248b0720f8bdb2268b68668ee003805527470/deliveries%2Ftpscore_milestone_2.md";
+      // const data1 = await axios.get(url1);
+
+      // console.log(data1.data, "this is the data");
+
+      if (project.data[0].md_content_url) {
+        // const data1 = await fetch(`${project.data[0].md_content_url}`);
+        const data = await axios.get(`${project.data[0].md_content_url}`);
+        // console.log(data1, "this is the data");
+        // const mdData = await axios({
+        //   method: "get",
+        //   url: project.data[0].md_content_url,
+        //   // data: undefined,
+        //   withCredentials: true, // Include credentials for cross-origin requests
+        // });
+        // console.log(project.data[0].md_content_url, "this is the link");
+
+        // console.log(mdData, "-------------------------------");
+      }
+      // setPullRequest(
+      //   type === "search" ? project?.data || [] : project?.data?.proposals || []
+      // ); // Set the project data array with the fetched data or an empty array if no data is available
+      // setPullRequestCount(
+      //   type === "search"
+      //     ? pullRequestCount || 0
+      //     : project?.data?.totalCount || 0
+      // ); // Set the project data count with the fetched count or 0 if count is not available
+    } catch (e) {
+      console.log(e, "-----------------------????????????");
+    }
+    // setLoader(false); // Set the loader to false after the API call is completed
+  };
   return (
     <div className="applicationsSec">
       <div className="heading">
@@ -114,21 +166,6 @@ const DeliveriesDetail = ({ search }: { search: string }) => {
               </Col>
             ))
           : null}
-        <div className="col-xxl-2 offset-xxl-4 col-sm-12 dropdown_project">
-          <CustomSelect
-            className={`${getStatusClass(projectStatus)} `}
-            options={StatusOptions}
-            defaultValue={StatusOptions[0]}
-            value={{
-              value: projectStatus,
-              label: getStatusName(projectStatus),
-            }}
-            label="Project Status"
-            onChange={(e: any) => {
-              setProjectStatus(e.value);
-            }}
-          />
-        </div>
       </Row>
       <div className="inner-layout__btns">
         <CommonButton

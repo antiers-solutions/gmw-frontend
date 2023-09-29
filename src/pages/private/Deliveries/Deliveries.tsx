@@ -19,7 +19,7 @@ const Deliveries = ({ search }: { search: string }) => {
   const [pullRequestCount, setPullRequestCount] = useState<number>(0);
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
-
+  const { deliveriesAll } = api;
   const fields = [
     <span className="buttonCustomOuter">
       <CommonButton title="Open" type="button" className={"opnBtn"} />
@@ -60,7 +60,7 @@ const Deliveries = ({ search }: { search: string }) => {
   };
 
   useEffect(() => {
-    getPullRequest(api.deliveries(pageLimit, pageNo));
+    getPullRequest(deliveriesAll(pageLimit, pageNo));
   }, [pageLimit, pageNo]);
 
   return (
@@ -72,7 +72,7 @@ const Deliveries = ({ search }: { search: string }) => {
       ) : null}
       <div className="heading">
         <h6 className="title" data-testid="count">
-          Deliveries: {0}
+          Deliveries: {pullRequestCount}
         </h6>{" "}
       </div>
       <InfoCards />
@@ -95,7 +95,7 @@ const Deliveries = ({ search }: { search: string }) => {
             ? pullRequest.map((item, idx) => (
                 <tr
                   onClick={() => {
-                    navigate(`/auth/deliveriesDetail`);
+                    navigate(`/auth/deliveries/${item.id}`);
                   }}
                 >
                   <td key={item?.id} data-th="Name">

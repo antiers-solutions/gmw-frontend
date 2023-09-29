@@ -1,36 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "./Applications.scss";
-import InfoCards from "../../../components/Infocard/InfoCards";
-import { CommonButton, CustomSelect, CustomTable, DetailCard, InfoCard } from "../../../components/ui";
+import { CommonButton, DetailCard, InfoCard } from "../../../components/ui";
 import Overview from "../Overview/Overview";
 import { DocIcon, ProjectIcon } from "../../../assets/svg/SvgIcon";
-import { getStatusClass, getStatusName } from "../../../helper/getStatusClass";
-const ApplicationDetail = ({ search }: { search: string }) => {
+import { useParams } from "react-router-dom";
+import UseGetApi from "../../../hooks/UseGetApi";
+import { api } from "../../../api/api";
+import { firstLetterCapitalize } from "../../../helper/firstLetterCapitalize";
+const ApplicationDetail = () => {
+  const { id } = useParams();
+  const { applicationById } = api;
   const [commonButtonStatus, setCommonButtonStatus] = useState("information");
-  const navigate = useNavigate();
-  const [projectStatus, setProjectStatus] = useState("");
   const [applicationDetails, setApplicationDetails] = useState([
     {
-        name: "Application name",
-        info: "Validator Screen",
-      },
-      {
-        name: "Application ID",
-        info: "126",
-      },
-      {
-        name: "Approved on",
-        info: "24-04-2023",
-      },
-  
-      {
-        name: "Status",
-        info: "In Progress",
-      },
+      name: "Application name",
+      info: "Validator Screen",
+    },
+    {
+      name: "Application ID",
+      info: "126",
+    },
+    {
+      name: "Approved on",
+      info: "24-04-2023",
+    },
 
-
+    {
+      name: "Status",
+      info: "In Progress",
+    },
   ]);
   const [applicationData, setApplicationData] = useState([
     {
@@ -76,27 +75,44 @@ const ApplicationDetail = ({ search }: { search: string }) => {
       class: "pink",
     },
   ]);
-  const StatusOptions = [
-    {
-      value: "active",
-      label: "In-Progress",
-    },
-    {
-      value: "complete",
-      label: "Completed",
-    },
-    {
-      value: "hold",
-      label: "Hold",
-    },
-  ];
+
+  useEffect(() => {
+    if (id) {
+      getPullRequest(applicationById(id));
+    }
+    console.log(id, "+++++++++++++++++++++++");
+  }, [id]);
+
+  // API calling function to fetch project data based on the provided URL
+  const getPullRequest = async (url: string, type?: string) => {
+    try {
+      const { data } = await UseGetApi(url);
+      const card = [...cardData];
+      const application = [...applicationDetails];
+      const fileName = firstLetterCapitalize(data[0].file_name)?.slice(0, -3);
+      card[0].text = id || "-";
+      card[1].text = fileName || "-";
+      application[0].info = fileName || "-";
+      application[1].info = id || "-";
+      application[2].info = data[0].status || "-";
+      setCardData(card);
+      setApplicationDetails(application);
+      console.log(data[0], "-----------");
+
+      // setPullRequest(
+      //   type === "search" ? project?.data || [] : project?.data?.proposals || []
+      // ); // Set the project data array with the fetched data or an empty array if no data is available
+      // setPullRequestCount(
+      //   type === "search"
+      //     ? pullRequestCount || 0
+      //     : project?.data?.totalCount || 0
+      // ); // Set the project data count with the fetched count or 0 if count is not available
+    } catch (e) {}
+    // setLoader(false); // Set the loader to false after the API call is completed
+  };
+
   return (
     <div className="applicationsSec">
-      <div className="heading">
-        <h6 className="title" data-testid="count">
-          Applications: {0}
-        </h6>{" "}
-      </div>
       <Row className="mb-3 mb-lg-5">
         {cardData.length
           ? cardData.map((item, index) => (
@@ -110,21 +126,6 @@ const ApplicationDetail = ({ search }: { search: string }) => {
               </Col>
             ))
           : null}
-        <div className="col-xxl-2 offset-xxl-4 col-sm-12 dropdown_project">
-          <CustomSelect
-            className={`${getStatusClass(projectStatus)} `}
-            options={StatusOptions}
-            defaultValue={StatusOptions[0]}
-            value={{
-              value: projectStatus,
-              label: getStatusName(projectStatus),
-            }}
-            label="Project Status"
-            onChange={(e: any) => {
-              setProjectStatus(e.value);
-            }}
-          />
-        </div>
       </Row>
       <div className="inner-layout__btns">
         <CommonButton
@@ -140,7 +141,7 @@ const ApplicationDetail = ({ search }: { search: string }) => {
           className={commonButtonStatus === "links" ? "active" : null}
         />
       </div>
-      <Overview/>
+      <Overview />
       <Row className="mb-lg-5">
         <Col lg={8} className="mb-5 mb-lg-0">
           <DetailCard
